@@ -1,0 +1,45 @@
+<!-- Lucas Bubner, 2022 -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Year 9 Digital Technology Game Story">
+        <meta name="author" content="Lucas Bubner - 9WI 2022">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title>Python Adventure Game</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='fader.js') }}"></script>
+        <script src="{{ url_for('static', filename='screencheck.js') }}"></script>
+    </head>
+    <body id="bg">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <div class="contentLoader">
+            <div class="loader-wrapper">
+                <script>
+                    $(window).on("load",function(){
+                      $(".loader-wrapper").fadeOut("slow");
+                    });
+                </script>
+                <span class="loader"><span class="loader-inner"></span></span>
+            </div>
+        </div>
+      <svg id="fader"></svg> <script>fadeIn();</script>
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/8.webp') }});">
+      <div id="blur">
+      <h1 class="event">{{NAME}} settles down for the night eating chips and watching TV.</h1>
+      <p class="stinfo"><br> {{NAME}} continued to munch on chip after chip and mindlessly watch the TV. <br> <br> {{NAME}} is running low on chips, should they eat the whole bag?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+          <ul>
+            <li><a href="/fatty"><button type="submit">Yes, I'm a fatso</button></a></li>
+            <li><a href="/dietician"><button type="submit">No, save some</button></a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!-- Lucas Bubner, 2022 -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Year 9 Digital Technology Game Story">
+        <meta name="author" content="Lucas Bubner - 9WI 2022">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title>Python Adventure Game</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='fader.js') }}"></script>
+        <script src="{{ url_for('static', filename='screencheck.js') }}"></script>
+    </head>
+    <body id="bg">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <div class="contentLoader">
+            <div class="loader-wrapper">
+                <script>
+                    $(window).on("load",function(){
+                      $(".loader-wrapper").fadeOut("slow");
+                    });
+                </script>
+                <span class="loader"><span class="loader-inner"></span></span>
+            </div>
+        </div>
+      <svg id="fader"></svg> <script>fadeIn();</script>
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/13.webp') }});">
+      <div id="blur">
+      <h1 class="event">{{NAME}} decides to call their mum.</h1>
+      <p class="stinfo">{{NAME}} stays on the phone for a long time, chatting away at each other's daily lives. She won't stop talking! By the time {{NAME}} hung up, it was already late.<br> <br> She had invited {{NAME}} to a get together tommorow and {{NAME}} has to go, how boring. What does {{NAME}} do?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+          <ul>
+            <li><a href="/sleep"><button type="submit">Go to sleep now</button></a></li>
+            <li><a href="/chipstv"><button type="submit">Stay up late watching TV and eating chips</button></a></li>
+            <li><a href="/gaming"><button type="submit">Stay up late playing videogames</button></a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </body>
+</html>

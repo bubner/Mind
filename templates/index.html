@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="author" content="Lucas Bubner - 9WI 2022">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <title>Python Game Pre-load</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script defer>
+      document.querySelector('#checkbox').addEventListener('click', () => {
+        alert(
+        "Sorry, we had trouble processing your request. Please try again later."
+      );
+        document.getElementById('checkbox').checked = true;
+      };
+    </script>
+    <script src="{{ url_for('static', filename='fader.js') }}"></script>
+  </head>
+  <body>
+    <svg id="fader"></svg> <script>fadeIn();</script>
+    <form action="/story" method="GET">
+      <h3>PRE-LOAD SETTINGS || PYTHON INTERACTIVE GAME II (EXPANDED) || LUCAS BUBNER, 2022</h3>
+      <p><i>What is your name?</i> <input type="text" name="playername" required></p>
+      <p>Allow additional full tracking of your personal data, full legal names of your nuclear ancestry, real-time location, meal information, car location and petrol readings, biological blood-based DNA signature, biometrics, home security codes and door key blueprints, all internet history and keystrokes, social security number and governmental record identifiers, and all neurologically saved or encrypted passwords? <input type="checkbox" id="checkbox" checked></p>
+<!-- You can't escape the tracking -->
+      <p><b>Please try to avoid using the back button in your browser, as it can mess with some essential variables. While this has been relegated as much as possible, there might be a section that it will break due to the sheer mass of this project. If the story makes no sense, and you've used the back button, please restart by navigating to the base link: <a href="https://adventuregame.lucasbubner.repl.co/">https://adventuregame.lucasbubner.repl.co/</a> <br> <br> Good luck and have fun!</b></p>
+      <button type="submit" style="all: revert; font-family: 'Lato', sans-serif; width: 400px; height: auto; font-size: 24px;">Submit and start game</button>
+    </form>
+  </body>
+</html>
