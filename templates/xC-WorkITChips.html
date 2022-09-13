@@ -29,18 +29,17 @@
             </div>
         </div>
       <svg id="fader"></svg> <script>fadeIn();</script>
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
       <div id="blur">
-      <h1 class="event">BAD ENDING: YOUR BREATH STINKS<br> <p class="subending">Ending 26/<span id="endingno"></span></p></h1>
-      <p class="stinfo">{{NAME}} approaches the IT worker. <br> "Uhh... Please leave me alone.", the IT worker said while walking away. He looked like he was about to vomit. <br> It turns out eating too many chips without brushing your teeth makes your breath smell really, really bad.</p>
-        <div class="endingScreen"> <br style="line-height: 10px;">
+      <h1 class="event">{{NAME}} enters the IT department.</h1>
+      <p class="stinfo">They greet the worker there at the time. <br> "Hello." said the IT worker. <br> "Need anything boss?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
           <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            <li><a href="/itworkhelp"><button type="submit">Offer to help them in their work</button></a></li>
+            <li><a href="/givechips"><button type="submit">Give them your chips [-chips]</button></a></li>
           </ul>
         </div>
         </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+      </div>
     </body>
 </html>

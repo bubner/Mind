@@ -1,4 +1,4 @@
-/* CSS Document */
+/* Lucas Bubner, 2022 */
 
 button, input[type="submit"] { /* remove all formatting on buttons because I hate them */
 	background: none;
@@ -136,7 +136,7 @@ html {
 
 .contentLoader {
   display: block;
-  /* Leave it like this as default, or everything will crash and burn */
+  /* Leave this like it is, or everything will crash and burn */
 }
 
 .loader-wrapper {

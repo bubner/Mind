@@ -3,9 +3,9 @@ from flask import Flask, render_template, request
 # Initialise new Flask app
 app = Flask(__name__)
 
-# Set new name to a blank string
-name = ""
-namecap = ""
+# Set new name to name_error, to inform the user if the name was lost
+name = "name_error"
+namecap = "NAME_ERROR"
 
 # Create an empty list for the xC saga to indicate conditions and items held
 items = []
@@ -14,8 +14,7 @@ items = []
 imRude = Tired = newGame = tvSleep = lateNightChips = False
 
 # xC saga boolean
-badTeeth1 = badTeeth2 = isEmail = False
-
+badTeeth1 = badTeeth2 = isEmail = noAmbo = noimmediateCare = False
 
 # Base route to home page
 @app.route('/')
@@ -52,10 +51,10 @@ def story():
 # Restart story method
 @app.route('/storyrestart')
 def storyrestart():
-    global name, items, imRude, Tired, newGame, tvSleep, lateNightChips, badTeeth1, badTeeth2, isEmail
+    global name, items, imRude, Tired, newGame, tvSleep, lateNightChips, badTeeth1, badTeeth2, isEmail, noAmbo, noimmediateCare
 
     # As the code has not been reloaded, we need to set every variable back to False
-    imRude = Tired = newGame = tvSleep = lateNightChips = badTeeth1 = badTeeth2 = isEmail = False
+    imRude = Tired = newGame = tvSleep = lateNightChips = badTeeth1 = badTeeth2 = isEmail = noAmbo = noimmediateCare = False
     items.clear()
 
     return render_template(
@@ -140,10 +139,7 @@ def sleep():
 
 @app.route('/chipstv')
 def chipstv():
-    global name
-    global Tired
-    global imRude
-    global tvSleep
+    global name, Tired, imRude, tvSleep
     tvSleep = True
 
     if imRude:
@@ -160,9 +156,7 @@ def chipstv():
 
 @app.route('/gaming')
 def gaming():
-    global name
-    global imRude
-    global Tired
+    global name, imRude, Tired
 
     if imRude:
         Tired = True
@@ -175,8 +169,7 @@ def gaming():
 
 @app.route('/takeoutchips')
 def takeoutchips():
-    global name
-    global Tired
+    global name, Tired
 
     if Tired:
         target = 'ENDING-TiredTakeOutChips.html'
@@ -200,8 +193,7 @@ def bringoutchips():
 
 @app.route('/gamedontknow')
 def gamedontknow():
-    global name
-    global imRude
+    global name, imRude
 
     if imRude:
         target = 'xTV-PlayOGameFallAsleep.html'
@@ -216,9 +208,7 @@ def gamedontknow():
 
 @app.route('/newgame')
 def newgame():
-    global name
-    global imRude
-    global newGame
+    global name, imRude, newGame
     newGame = True
 
     if imRude:
@@ -234,22 +224,12 @@ def newgame():
 
 @app.route('/lie')
 def lie():
-    global name
-    global imRude
-    global newGame
-    global tvSleep
-    global lateNightChips
+    global name, tvSleep, lateNightChips
 
-    if tvSleep is False and newGame is True:
-        target = '/'
-    elif tvSleep is False and newGame is False:
-        target = '/'
-    elif tvSleep is True and lateNightChips is False:
-        target = 'xTV-Mum-RushTV.html'
-    elif tvSleep is True and lateNightChips is True:
+    if tvSleep and lateNightChips:
         target = 'xTV-Mum-RushTVAte.html'
     else:
-        target = '/'
+        target = 'xTV-Mum-RushTV.html'
 
     return render_template(
         target,
@@ -432,15 +412,6 @@ def callfriend():
     )
 
 
-@app.route('/friendhangup')
-def friendhangup():
-    global name
-    return render_template(
-        'xC-HomeBridge02.html',
-        NAME=name,
-    )
-
-
 @app.route('/friendconvo')
 def friendconvo():
     global name
@@ -496,6 +467,7 @@ def eatmorechips():
         badTeeth2 = True
     else:
         target = 'xC-EatMoreChips.html'
+        badTeeth1 = False
         items.append("chips")
 
     return render_template(
@@ -563,7 +535,7 @@ def emails():
     global isEmail
 
     if isEmail:
-        target = '/'  # Page not yet created
+        target = '/'  # Page not yet created due to missing prerequisites
     else:
         target = 'xC-NoEmails.html'
 
@@ -620,13 +592,15 @@ def cheesesimchips():
 
 @app.route('/it')
 def it():
-    global name
+    global name, items
     global badTeeth1, badTeeth2
 
     if badTeeth1 and badTeeth2 is True:
         target = 'ENDING-BadTeethIT.html'
+    elif "chips" in items:
+        target = 'xC-WorkITChips.html'
     else:
-        target = 'xC-WorkIT.html'
+        target = 'xC-WorkITNoChips.html'
 
     return render_template(
         target,
@@ -649,6 +623,149 @@ def weld():
         NAME=name,
     )
 
+
+@app.route('/gohome')
+def gohome():
+    global name
+    return render_template(
+        'xC-HomeBridge02.html',
+        NAME=name,
+    )
+
+
+@app.route('/itworkhelp')
+def itworkhelp():
+    global name
+    return render_template(
+        'xC-WorkITHelp.html',
+        NAME=name,
+    )
+
+
+@app.route('/noambo')
+def noambo():
+    global name
+    global noAmbo
+    noAmbo = True
+    return render_template(
+        'xC-HomeBridge01.html',
+        NAME=name,
+    )
+
+
+@app.route('/ambo')
+def ambo():
+    global name
+    global noAmbo
+    noAmbo = True
+    return render_template(
+        'xC-WorkITGCAmboDe.html',
+        NAME=name,
+    )
+
+
+@app.route('/itleave')
+def itleave():
+    global name
+    global noimmediateCare
+    
+    noimmediateCare = True
+        
+    return render_template(
+        'xC-WorkITGCAmboDeLeave.html',
+        NAME=name,
+    )
+
+
+@app.route('/subinneed')
+def subinneed():
+    global name
+    global noimmediateCare
+    
+    if noimmediateCare:
+        target = 'ENDING-SubInNeedLa.html'
+    else:
+        target = 'ENDING-SubInNeedIm.html'
+        
+    return render_template(
+        target,
+        NAME=name,
+    )
+
+
+@app.route('/weirdwall')
+def weirdwall():
+    global name
+    return render_template(
+        'ENDING-Backrooms.html',
+        NAME=name,
+    )
+
+
+@app.route('/itignorerun')
+def itignorerun():
+    global name
+    return render_template(
+        'xC-WorkITGCAmboDeLeaveCall.html',
+        NAME=name,
+    )
+
+
+@app.route('/itringout')
+def itringout():
+    global name
+    return render_template(
+        'ENDING-ITRingout.html',
+        NAME=name,
+    )
+
+
+@app.route('/itaccept')
+def itaccept():
+    global name
+    return render_template(
+        'xC-WorkITGCCallAccept.html',
+        NAME=name,
+    )
+
+
+@app.route('/itdeny')
+def itdeny():
+    global name
+    return render_template(
+        'xC-WorkITGCCallDeny.html',
+        NAME=name,
+    )
+
+@app.route('/itnocare')
+def itnocare():
+    global name
+    return render_template(
+        'ENDING-21KO.html',
+        NAME=name,
+    )
+
+@app.route('/itremainsilent')
+def itremainsilent():
+    global name
+    return render_template(
+        'ENDING-ITRemainSilent.html',
+        NAME=name,
+    )
+
+@app.route('/givechips')
+def givechips():
+    global name
+    global items
+    
+    # Prevent crashing if the user decides to backtrack
+    if "chips" in items:
+        items.remove("chips")
+
+    return render_template(
+        'xC-WorkITGC.html',
+        NAME=name,
+    )
 
 if __name__ == "__main__":
     app.run("0.0.0.0", debug=True)

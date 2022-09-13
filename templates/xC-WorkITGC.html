@@ -29,18 +29,17 @@
             </div>
         </div>
       <svg id="fader"></svg> <script>fadeIn();</script>
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
       <div id="blur">
-      <h1 class="event">BAD ENDING: YOUR BREATH STINKS<br> <p class="subending">Ending 26/<span id="endingno"></span></p></h1>
-      <p class="stinfo">{{NAME}} approaches the IT worker. <br> "Uhh... Please leave me alone.", the IT worker said while walking away. He looked like he was about to vomit. <br> It turns out eating too many chips without brushing your teeth makes your breath smell really, really bad.</p>
-        <div class="endingScreen"> <br style="line-height: 10px;">
+      <h1 class="event">{{NAME}} gives them the chips they were holding.</h1>
+      <p class="stinfo">The IT worker eats some of the chips, and starts feeling unwell. <br> "Uhh, were those chips okay...?" said the IT worker, before clenching their stomach. <br> {{NAME}} might've just accidentally poisioned their employee...</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
           <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            <li><a href="/ambo"><button type="submit">Call ambulance</button></a></li>
+            <li><a href="/noambo"><button type="submit">Don't call ambulance</button></a></li>
           </ul>
         </div>
         </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+      </div>
     </body>
 </html>

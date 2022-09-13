@@ -9,14 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script defer>
-      document.querySelector('#checkbox').addEventListener('click', () => {
-        alert(
-        "Sorry, we had trouble processing your request. Please try again later."
-      );
-        document.getElementById('checkbox').checked = true;
-      };
-    </script>
     <script src="{{ url_for('static', filename='fader.js') }}"></script>
   </head>
   <body>
@@ -30,4 +22,12 @@
       <button type="submit" style="all: revert; font-family: 'Lato', sans-serif; width: 400px; height: auto; font-size: 24px;">Submit and start game</button>
     </form>
   </body>
+    <script>
+      document.getElementById('checkbox').addEventListener('click', () => {
+        alert(
+        "Sorry, we had trouble processing your request. Please try again later."
+        );
+        document.getElementById('checkbox').checked = true;
+      });
+    </script>
 </html>
