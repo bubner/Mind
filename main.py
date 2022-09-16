@@ -1,11 +1,70 @@
 from flask import Flask, render_template, request
+import time
+import pickle
 
 # Initialise new Flask app
 app = Flask(__name__)
 
-# Set new name to name_error, to inform the user if the name was lost
-name = "name_error"
-namecap = "NAME_ERROR"
+# Set new user to user_error, to inform the user if the name was lost somewhere
+user = "user_error"
+usercap = "USER_ERROR"
+
+# User management system
+class User:
+        
+    def __init__(self, name):
+        self.name = name
+        
+        # If there is a file that matches the name, load it, otherwise, make a new one
+        try:
+            self.load()
+        except:
+            self.unix = time.time()
+            self.endings = []
+            self.pagestate = ""
+            self.variables = {}
+            self.items = []
+            self.lastsave = time.time()
+            self.saved = False
+            self.save()
+        
+    def load(self):
+        with open('savestates/' + self.name + '.txt', 'rb') as file:
+            self.__dict__ = pickle.load(file)
+            
+    def save(self):
+        with open('savestates/' + self.name + '.txt', 'wb') as file:
+            file.write(pickle.dumps(self.__dict__))
+    
+    def addending(self, endingno):
+        self.endings.append(endingno)
+        self.save()
+
+    def changepagestate(self, currentstate):
+        self.pagestate = currentstate
+        self.save()
+
+    def changevariables(self, newvariables):
+        if newvariables in self.variables:
+            self.variables.remove(newvariables)
+        self.variables.append(newvariables)
+        self.save()
+
+    def changeitems(self, newitems):
+        self.items.clear()
+        self.items = newitems
+        self.save()
+
+    def updatesavetime(self):
+        self.lastsave = time.time()
+        self.save()
+
+    @staticmethod
+    def commituser(self):
+        self.saved = True
+        self.save()
+        
+savestate = None
 
 # Create an empty list for the xC saga to indicate conditions and items held
 items = []
@@ -22,36 +81,48 @@ def home():
     return render_template('index.html')
 
 
-# Endings page direct
-@app.route('/endings')
-def endings():
-    return render_template('endings.html')
-
-
 # Initialise game with HTTP GET request for username
 @app.route('/story', methods=["GET"])
 def story():
-    global name, namecap
-
+    global user, usercap, savestate
+    
     # Get player input for their username
-    name = request.args.get("playername")
+    user = request.args.get("playername")
 
-    # Capitalise the first letter of their name
-    name = name.capitalize()
+    # Capitalise the first letter of their user
+    user = user.capitalize()    
 
     # Create a fullcaps varient
-    namecap = name.upper()
+    usercap = user.upper()
+    
+    # Make a new user class for the person
+    savestate = User(user)
+    savestateinfo = str(savestate.saved)
+    if savestate.saved:
+        target = 'match.html'
+    else:
+        target = 'intro.html'
 
     return render_template(
-        'intro.html',
-        NAME=name,
+        target,
+        NAME=user,
+        SAVEFILE=savestateinfo
     )
+
+    
+# Delete user request
+@app.route('/userdel')
+def userdel():
+    global user, usercap
+        
+    # Return back to home page
+    return render_template('index.html')
 
 
 # Restart story method
 @app.route('/storyrestart')
 def storyrestart():
-    global name, items, imRude, Tired, newGame, tvSleep, lateNightChips, badTeeth1, badTeeth2, isEmail, noAmbo, noimmediateCare
+    global user, items, imRude, Tired, newGame, tvSleep, lateNightChips, badTeeth1, badTeeth2, isEmail, noAmbo, noimmediateCare
 
     # As the code has not been reloaded, we need to set every variable back to False
     imRude = Tired = newGame = tvSleep = lateNightChips = badTeeth1 = badTeeth2 = isEmail = noAmbo = noimmediateCare = False
@@ -59,41 +130,56 @@ def storyrestart():
 
     return render_template(
         'intro.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/startgame')
 def startgame():
-    global name
+    global user, savestate
+    # Base request
+    target = 'xBase.html'
+    
+    # Handle new and old users to the game, directing them to the correct page with the correct variables
+    if savestate.saved:
+        pass
+    else:
+        savestate.commituser(savestate)
+    
     return render_template(
-        'xBase.html',
-        NAME=name,
+        target,
+        NAME=user
     )
+
+    
+# Endings page direct
+@app.route('/endings')
+def endings():
+    return render_template('endings.html')
 
 
 @app.route('/tv')
 def tv():
-    global name
+    global user
     return render_template(
         'xTV.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/mum')
 def mum():
-    global name, imRude
+    global user, imRude
     imRude = False  # Resetting to False because of back key messing up variables
     return render_template(
         'xTV-Mum.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/standforever')
 def standforever():
-    global name, lateNightChips
+    global user, lateNightChips
 
     if lateNightChips:
         target = 'ENDING-ChipFinder.html'
@@ -102,44 +188,44 @@ def standforever():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/standforevermum')
 def standforevermum():
-    global name
+    global user
     return render_template(
         'ENDING-StandForeverMum.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/berude')
 def berude():
-    global name, imRude
+    global user, imRude
     imRude = True
     return render_template(
         'xTV-Ignore.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/sleep')
 def sleep():
-    global name
+    global user
     global Tired
     Tired = False
 
     return render_template(
         'xTV-Mum-Sleep.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/chipstv')
 def chipstv():
-    global name, Tired, imRude, tvSleep
+    global user, Tired, imRude, tvSleep
     tvSleep = True
 
     if imRude:
@@ -150,26 +236,26 @@ def chipstv():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/gaming')
 def gaming():
-    global name, imRude, Tired
+    global user, imRude, Tired
 
     if imRude:
         Tired = True
 
     return render_template(
         'xTV-GamingBridge.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/takeoutchips')
 def takeoutchips():
-    global name, Tired
+    global user, Tired
 
     if Tired:
         target = 'ENDING-TiredTakeOutChips.html'
@@ -178,22 +264,22 @@ def takeoutchips():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/bringoutchips')
 def bringoutchips():
-    global name
+    global user
     return render_template(
         'ENDING-EnthusiasticTakeOutChips.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/gamedontknow')
 def gamedontknow():
-    global name, imRude
+    global user, imRude
 
     if imRude:
         target = 'xTV-PlayOGameFallAsleep.html'
@@ -202,13 +288,13 @@ def gamedontknow():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/newgame')
 def newgame():
-    global name, imRude, newGame
+    global user, imRude, newGame
     newGame = True
 
     if imRude:
@@ -218,13 +304,13 @@ def newgame():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/lie')
 def lie():
-    global name, tvSleep, lateNightChips
+    global user, tvSleep, lateNightChips
 
     if tvSleep and lateNightChips:
         target = 'xTV-Mum-RushTVAte.html'
@@ -233,31 +319,31 @@ def lie():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/truth')
 def truth():
-    global name
+    global user
     return render_template(
         'ENDING-MadMum.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/givechipseveryone')
 def givechipseveryone():
-    global name
+    global user
     return render_template(
         'ENDING-ChipsGenocide.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/dietician')
 def dietician():
-    global name
+    global user
     global tvSleep
     global imRude
     tvSleep = True
@@ -269,13 +355,13 @@ def dietician():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/fatty')
 def fatty():
-    global name
+    global user
     global lateNightChips
     global imRude
     global tvSleep
@@ -289,31 +375,31 @@ def fatty():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/taketime')
 def taketime():
-    global name
+    global user
     return render_template(
         'ENDING-MadMumDeliquent.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/rush')
 def rush():
-    global name
+    global user
     return render_template(
         'xTV-DoAnythingFallAsleepBridge.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/newgametalk')
 def newgametalk():
-    global name
+    global user
     global Tired
 
     if Tired:
@@ -323,15 +409,15 @@ def newgametalk():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/oldgametalk')
 def oldgametalk():
-    global name
+    global user
     global Tired
-    global namecap
+    global usercap
 
     if Tired:
         target = 'ENDING-FSOldGame.html'
@@ -340,90 +426,90 @@ def oldgametalk():
 
     return render_template(
         target,
-        NAME=name,
-        NAMECAP=namecap,
+        NAME=user,
+        NAMECAP=usercap
     )
 
 
 @app.route('/takeoutdrone')
 def takeoutdrone():
-    global name
+    global user
     return render_template(
         'ENDING-TakeOutDrone.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/computerinvestigate')
 def computerinvestigate():
-    global name
+    global user
     return render_template(
         'ENDING-VistaMum.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/chips')
 def chips():
-    global name
+    global user
     return render_template(
         'xC.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/bed')
 def bed():
-    global name
+    global user
     global badTeeth1
     badTeeth1 = True
     return render_template(
         'xC-Bed.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/cleanteeth')
 def cleanteeth():
-    global name
+    global user
     global badTeeth1
     badTeeth1 = False
     return render_template(
         'xC-Teeth.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/gowork')
 def gowork():
-    global name
+    global user
     return render_template(
         'xC-Work.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/callfriend')
 def callfriend():
-    global name
+    global user
     return render_template(
         'xC-Friend.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/friendconvo')
 def friendconvo():
-    global name
+    global user
     return render_template(
         'ENDING-FriendConvo.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/eatchips')
 def eatchips():
-    global name
+    global user
     global items
 
     if "chips" in items:
@@ -433,31 +519,31 @@ def eatchips():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/vanish')
 def vanish():
-    global name
+    global user
     return render_template(
         'ENDING-Vanish.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/turnoncomputer')
 def turnoncomputer():
-    global name
+    global user
     return render_template(
         'xC-TurnOnPC.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/eatmorechips')
 def eatmorechips():
-    global name
+    global user
     global badTeeth1
     global badTeeth2
     global items
@@ -472,66 +558,66 @@ def eatmorechips():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/checkemails')
 def checkemails():
-    global name
+    global user
     return render_template(
         'xC-TurnOnPC.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/eatchipshome')
 def eatchipshome():
-    global name
+    global user
     global badTeeth1
     global badTeeth2
 
-    if badTeeth1 and badTeeth2 is True:
+    if badTeeth1 and badTeeth2:
         target = 'ENDING-ChipOverload.html'
     else:
         target = 'xC-EatChips.html'
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/embracecheese')
 def embracecheese():
-    global name
+    global user
     return render_template(
         'ENDING-EmbraceCheese.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/runcheese')
 def runcheese():
-    global name
+    global user
     return render_template(
         'ENDING-RunCheese.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/cheesesim')
 def cheesesim():
-    global name
+    global user
     return render_template(
         'xC-CheeseSim.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/emails')
 def emails():
-    global name
+    global user
     global isEmail
 
     if isEmail:
@@ -541,61 +627,61 @@ def emails():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/doomsupereternal')
 def doomsupereternal():
-    global name
+    global user
     return render_template(
         'ENDING-Doom.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/closeemails')
 def closeemails():
-    global name
+    global user
     return render_template(
         'xC-CloseEmails.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/minecraft')
 def minecraft():
-    global name
+    global user
     return render_template(
         'ENDING-Minecraft.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/fortnite')
 def fortnite():
-    global name
+    global user
     return render_template(
         'ENDING-Fortnite.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/cheesesimchips')
 def cheesesimchips():
-    global name
+    global user
     return render_template(
         'ENDING-CheeseSimChips.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/it')
 def it():
-    global name, items
+    global user, items
     global badTeeth1, badTeeth2
 
-    if badTeeth1 and badTeeth2 is True:
+    if badTeeth1 and badTeeth2:
         target = 'ENDING-BadTeethIT.html'
     elif "chips" in items:
         target = 'xC-WorkITChips.html'
@@ -604,13 +690,13 @@ def it():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/weld')
 def weld():
-    global name
+    global user
     global badTeeth1, badTeeth2
 
     if badTeeth1 and badTeeth2 is True:
@@ -620,66 +706,66 @@ def weld():
 
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/gohome')
 def gohome():
-    global name
+    global user
     return render_template(
         'xC-HomeBridge02.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itworkhelp')
 def itworkhelp():
-    global name
+    global user
     return render_template(
         'xC-WorkITHelp.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/noambo')
 def noambo():
-    global name
+    global user
     global noAmbo
     noAmbo = True
     return render_template(
         'xC-HomeBridge01.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/ambo')
 def ambo():
-    global name
+    global user
     global noAmbo
     noAmbo = True
     return render_template(
         'xC-WorkITGCAmboDe.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itleave')
 def itleave():
-    global name
+    global user
     global noimmediateCare
     
     noimmediateCare = True
         
     return render_template(
         'xC-WorkITGCAmboDeLeave.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/subinneed')
 def subinneed():
-    global name
+    global user
     global noimmediateCare
     
     if noimmediateCare:
@@ -689,73 +775,73 @@ def subinneed():
         
     return render_template(
         target,
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/weirdwall')
 def weirdwall():
-    global name
+    global user
     return render_template(
         'ENDING-Backrooms.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itignorerun')
 def itignorerun():
-    global name
+    global user
     return render_template(
         'xC-WorkITGCAmboDeLeaveCall.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itringout')
 def itringout():
-    global name
+    global user
     return render_template(
         'ENDING-ITRingout.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itaccept')
 def itaccept():
-    global name
+    global user
     return render_template(
         'xC-WorkITGCCallAccept.html',
-        NAME=name,
+        NAME=user
     )
 
 
 @app.route('/itdeny')
 def itdeny():
-    global name
+    global user
     return render_template(
         'xC-WorkITGCCallDeny.html',
-        NAME=name,
+        NAME=user
     )
 
 @app.route('/itnocare')
 def itnocare():
-    global name
+    global user
     return render_template(
         'ENDING-21KO.html',
-        NAME=name,
+        NAME=user
     )
 
 @app.route('/itremainsilent')
 def itremainsilent():
-    global name
+    global user
     return render_template(
         'ENDING-ITRemainSilent.html',
-        NAME=name,
+        NAME=user
     )
 
 @app.route('/givechips')
 def givechips():
-    global name
+    global user
     global items
     
     # Prevent crashing if the user decides to backtrack
@@ -764,7 +850,7 @@ def givechips():
 
     return render_template(
         'xC-WorkITGC.html',
-        NAME=name,
+        NAME=user
     )
 
 if __name__ == "__main__":
