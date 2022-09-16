@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <title>Python Game Pre-load</title>
+    <title>Prereqs | Python Adventure Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -13,14 +13,16 @@
   </head>
   <body>
     <svg id="fader"></svg> <script>fadeIn();</script>
+    <div id="indexcontainer">
     <form action="/story" method="GET">
       <h3>PRE-LOAD SETTINGS || PYTHON INTERACTIVE GAME II (EXPANDED) || LUCAS BUBNER, 2022</h3>
-      <p><i>What is your name?</i> <input type="text" name="playername" required></p>
+      <p><i>What is your name? &nbsp </i> <input type="text" name="playername" required></p>
       <p>Allow additional full tracking of your personal data, full legal names of your nuclear ancestry, real-time location, meal information, car location and petrol readings, biological blood-based DNA signature, biometrics, home security codes and door key blueprints, all internet history and keystrokes, social security number and governmental record identifiers, and all neurologically saved or encrypted passwords? <input type="checkbox" id="checkbox" checked></p>
 <!-- You can't escape the tracking -->
       <p><b>This project uses auto-save! With a given name, a savefile will be generated according to the name entered, so be sure to use a unique name if you want to save your ending/current progress. The browser back button has also been disabled, as it can mess with the game's storyline/experience. <br> <br> Good luck and have fun!</b></p>
       <button type="submit" style="all: revert; font-family: 'Lato', sans-serif; width: 400px; height: auto; font-size: 24px;">Submit and start game</button>
     </form>
+    </div>
   </body>
     <script>
       document.getElementById('checkbox').addEventListener('click', () => {

@@ -193,3 +193,11 @@ html {
   font-weight: normal;
   font-style: italic;
 }
+
+#indexcontainer {
+  width: 50%;
+  height: auto;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 10%;
+}
