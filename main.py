@@ -9,6 +9,7 @@ app = Flask(__name__)
 user = "user_error"
 usercap = "USER_ERROR"
 
+
 # User management system
 class User:
         
@@ -18,7 +19,7 @@ class User:
         # If there is a file that matches the name, load it, otherwise, make a new one
         try:
             self.load()
-        except:
+        except FileNotFoundError:
             self.unix = time.time()
             self.endings = []
             self.pagestate = ""
@@ -63,7 +64,8 @@ class User:
     def commituser(self):
         self.saved = True
         self.save()
-        
+
+
 savestate = None
 
 # Create an empty list for the xC saga to indicate conditions and items held
@@ -74,6 +76,7 @@ imRude = Tired = newGame = tvSleep = lateNightChips = False
 
 # xC saga boolean
 badTeeth1 = badTeeth2 = isEmail = noAmbo = noimmediateCare = False
+
 
 # Base route to home page
 @app.route('/')
@@ -115,7 +118,7 @@ def story():
 def userdel():
     global user, usercap
         
-    # Return back to home page
+    # Return to home page
     return render_template('index.html')
 
 
@@ -823,6 +826,7 @@ def itdeny():
         NAME=user
     )
 
+
 @app.route('/itnocare')
 def itnocare():
     global user
@@ -831,6 +835,7 @@ def itnocare():
         NAME=user
     )
 
+
 @app.route('/itremainsilent')
 def itremainsilent():
     global user
@@ -838,6 +843,7 @@ def itremainsilent():
         'ENDING-ITRemainSilent.html',
         NAME=user
     )
+
 
 @app.route('/givechips')
 def givechips():
@@ -852,6 +858,7 @@ def givechips():
         'xC-WorkITGC.html',
         NAME=user
     )
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", debug=True)
