@@ -1,3 +1,5 @@
+# Lucas Bubner, 2022
+
 from flask import Flask, render_template, request, abort
 import time
 import pickle
@@ -26,6 +28,7 @@ class User:
             self.saved = False
             self.reset()
 
+    # File management methods
     @staticmethod
     def fload(self):
         with open('savestates/' + self.name + '.txt', 'rb') as file:
@@ -37,8 +40,10 @@ class User:
         with open('savestates/' + self.name + '.txt', 'wb') as file:
             file.write(pickle.dumps(self.__dict__))
 
-    def changepagestate(self, currentstate):
-        self.pagestate = currentstate
+    # Set last page state to the last target
+    def changepagestate(self):
+        self.pagestate = target
+        print(f"> autosaved pagestate of user: '{self.name}' with target: '{target}'")
         self.fsave(self)
 
     # Set variable method
@@ -58,25 +63,34 @@ class User:
             self.items.append(item)
         self.fsave(self)
 
+    # Check item method
     def ci(self, item):
         return True if item in self.items else False
 
+    # Commit user as existing
     def commituser(self):
         self.saved = True
         self.fsave(self)
 
-    def addending(self, endingno):
-        self.endings.append(endingno)
-        self.fsave(self)
+    # Add an ending to the total ending count
+    def addending(self, endingname):
+        if endingname not in self.endings:
+            self.endings.append(endingname)
+            self.fsave(self)
+            return True
+        return False
 
+    # Set variables and list items back to default
     def reset(self):
         self.variables = {
+            # xTV pathway
             'imRude': False,
             'Tired': False,
             'newGame': False,
             'tvSleep': False,
             'lateNightChips': False,
 
+            # xC pathway
             'badTeeth1': False,
             'badTeeth2': False,
             'isEmail': False,
@@ -87,12 +101,35 @@ class User:
         self.fsave(self)
 
 
+# Global requests
 @app.errorhandler(503)
 def goback(e):
-    return render_template('index.html')
+    global target
+    target = 'index.html'
+    return render_template(target)
 
+@app.before_request
+def checkuser():
+    global user, save, target
+    # Stop any requests that don't have a name attached to them
+    if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith(
+            '/story') and user is None:
+        target = 'index.html'
+        return render_template(target)
 
-# Direct any requests that have AttributeErrors back to the index, incase a user attempts manual navigation
+@app.after_request
+def autosave(r):
+    global user, save, target
+    # Update pagestate
+    if save is not None and not request.path.startswith('/static/') and not target in ["match.html", "index.html", "endings.html", "intro.html"]:
+        save.changepagestate()
+        # Check if an ending was reached
+        if 'ending' in target.lower():
+            if save.addending(target):
+                print(f"> added new ending for user: {user}, ending '{target}'")
+    return r
+
+# Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
     TOTALENDINGS = 33
@@ -102,24 +139,17 @@ try:
     # User management system for variables and conditions
     save = None
 
-
-    # Stop any requests that don't have a name attached to them
-    @app.before_request
-    def checkuser():
-        if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith(
-                '/story') and user is None:
-            return render_template('index.html')
-
-
+    
     # Base route to home page
     @app.route('/')
     def home():
         global user, save, target
-        user = usercap = ""
-        return render_template('index.html')
+        user = ""
+        target = 'index.html'
+        return render_template(target)
 
 
-    # Initialise game with HTTP GET request for username
+    # Initialise game and grab username field arguments
     @app.route('/story', methods=["GET"])
     def story():
         global TOTALENDINGS, user, save, target
@@ -130,20 +160,20 @@ try:
         # Capitalise the first letter of their username
         user = user.capitalize()
 
-        # Make a new user class for the person
+        # Make a new user object for the person
         save = User(user)
 
-        # If the user had previously existed, take them to the management page and show them info
+        # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
-
         # Pretty formatting for the end-user
         savefileformat = "Username: " + str(save.name).upper() + " <br> Endings found: " + str(
             len(save.endings)) + "/" + str(TOTALENDINGS) + " <br> Last page state: " + (
                              str(save.pagestate) if str(
-                                 save.pagestate) != "" else "NONE") + "<br> User creation date: " + str(
-            datetime.datetime.fromtimestamp(save.unix)) + " <br> Last save time: " + str(
-            datetime.datetime.fromtimestamp(save.lastsave))
+                                 save.pagestate) != "" else "NONE") + "<br> User creation time: " + str(
+            datetime.datetime.fromtimestamp(save.unix)) + " UTC" + " <br> Last save time: " + str(
+            datetime.datetime.fromtimestamp(save.lastsave))  + " UTC"
 
+        # Checks if the savefile had been started previously
         if save.saved:
             target = 'match.html'
         else:
@@ -166,25 +196,30 @@ try:
         try:
             os.remove('savestates/' + n + '.txt')
         except OSError:
-            print(f"ERROR DELETING SAVEFILE: {n}")
+            print(f"> error deleting savefile of name: {n}")
         else:
-            print(f"SUCCESS DELETING SAVEFILE: {n}")
+            print(f"> successfully deleted savefile of name: {n}")
 
         # Return to home page
-        return render_template('index.html')
+        target = 'index.html'
+        return render_template(target)
 
 
     # Restart story method
     @app.route('/storyrestart')
     def storyrestart():
-        # Variables and conditions are based per object now
-        try:
+        global user, save, target
+        
+        # Variables and conditions are based per object
+        # Method only resets variables and lists, keeps endings
+        if save is not None:
             save.reset()
-        except AttributeError:
+        else:
             abort(503)
 
+        target = 'intro.html'
         return render_template(
-            'intro.html',
+            target,
             NAME=user
         )
 
@@ -192,15 +227,23 @@ try:
     @app.route('/startgame')
     def startgame():
         global user, save, target
-        # Base request
+        
+        # Base request if a savefile didn't previously exist
         target = 'xBase.html'
 
-        # Handle new and old users to the game, directing them to the correct page with the correct variables
         try:
+            # Handle new and old users to the game, directing them to the correct page in autosave
             if not save.saved:
+                # Commits information to savefile that this user now exists and should not be replaced
                 save.commituser()
+            else:
+                target = save.pagestate
         except AttributeError:
             abort(503)
+
+        # If the start game request came from an ending, redirect to the start
+        if 'ending' in target.lower():
+            target = 'xBase.html'
 
         return render_template(
             target,
@@ -211,14 +254,17 @@ try:
     # Endings page direct
     @app.route('/endings')
     def endings():
-        return render_template('endings.html')
+        global user, save, target
+        target = 'endings.html'
+        return render_template(target)
 
 
     @app.route('/tv')
     def tv():
         global user, save, target
+        target = 'xTV.html'
         return render_template(
-            'xTV.html',
+            target,
             NAME=user
         )
 
@@ -226,9 +272,9 @@ try:
     @app.route('/mum')
     def mum():
         global user, save, target
-        imRude = False  # Resetting to False because of back key messing up variables
+        target = 'xTV-Mum.html'
         return render_template(
-            'xTV-Mum.html',
+            target,
             NAME=user
         )
 
@@ -236,7 +282,7 @@ try:
     @app.route('/standforever')
     def standforever():
         global user, save, target
-
+        
         if save.cv("lateNightChips"):
             target = 'ENDING-ChipFinder.html'
         else:
@@ -251,8 +297,9 @@ try:
     @app.route('/standforevermum')
     def standforevermum():
         global user, save, target
+        target = 'ENDING-StandForeverMum.html'
         return render_template(
-            'ENDING-StandForeverMum.html',
+            target,
             NAME=user
         )
 
@@ -261,8 +308,9 @@ try:
     def berude():
         global user, save, target
         save.sv("imRude", True)
+        target = 'xTV-Ignore.html'
         return render_template(
-            'xTV-Ignore.html',
+            target,
             NAME=user
         )
 
@@ -271,9 +319,9 @@ try:
     def sleep():
         global user, save, target
         save.sv("Tired", True)
-
+        target = 'xTV-Mum-Sleep.html'
         return render_template(
-            'xTV-Mum-Sleep.html',
+            target,
             NAME=user
         )
 
@@ -302,8 +350,9 @@ try:
         if save.cv("imRude"):
             save.sv('Tired', True)
 
+        target = 'xTV-GamingBridge.html'
         return render_template(
-            'xTV-GamingBridge.html',
+            target,
             NAME=user
         )
 
@@ -326,8 +375,9 @@ try:
     @app.route('/bringoutchips')
     def bringoutchips():
         global user, save, target
+        target = 'ENDING-EnthusiasticTakeOutChips.html'
         return render_template(
-            'ENDING-EnthusiasticTakeOutChips.html',
+            target,
             NAME=user
         )
 
@@ -381,8 +431,9 @@ try:
     @app.route('/truth')
     def truth():
         global user, save, target
+        target = 'ENDING-MadMum.html'
         return render_template(
-            'ENDING-MadMum.html',
+            target,
             NAME=user
         )
 
@@ -390,8 +441,9 @@ try:
     @app.route('/givechipseveryone')
     def givechipseveryone():
         global user, save, target
+        target = 'ENDING-ChipsGenocide.html'
         return render_template(
-            'ENDING-ChipsGenocide.html',
+            target,
             NAME=user
         )
 
@@ -432,8 +484,9 @@ try:
     @app.route('/taketime')
     def taketime():
         global user, save, target
+        target = 'ENDING-MadMumDeliquent.html'
         return render_template(
-            'ENDING-MadMumDeliquent.html',
+            target,
             NAME=user
         )
 
@@ -441,8 +494,9 @@ try:
     @app.route('/rush')
     def rush():
         global user, save, target
+        target = 'xTV-DoAnythingFallAsleepBridge.html'
         return render_template(
-            'xTV-DoAnythingFallAsleepBridge.html',
+            target,
             NAME=user
         )
 
@@ -481,8 +535,9 @@ try:
     @app.route('/takeoutdrone')
     def takeoutdrone():
         global user, save, target
+        target = 'ENDING-TakeOutDrone.html'
         return render_template(
-            'ENDING-TakeOutDrone.html',
+            target,
             NAME=user
         )
 
@@ -490,8 +545,9 @@ try:
     @app.route('/computerinvestigate')
     def computerinvestigate():
         global user, save, target
+        target = 'ENDING-VistaMum.html'
         return render_template(
-            'ENDING-VistaMum.html',
+            target,
             NAME=user
         )
 
@@ -499,8 +555,9 @@ try:
     @app.route('/chips')
     def chips():
         global user, save, target
+        target = 'xC.html'
         return render_template(
-            'xC.html',
+            target,
             NAME=user
         )
 
@@ -509,8 +566,9 @@ try:
     def bed():
         global user, save, target
         save.sv('badTeeth1', True)
+        target = 'xC-Bed.html'
         return render_template(
-            'xC-Bed.html',
+            target,
             NAME=user
         )
 
@@ -519,8 +577,9 @@ try:
     def cleanteeth():
         global user, save, target
         save.sv('badTeeth1', False)
+        target = 'xC-Teeth.html'
         return render_template(
-            'xC-Teeth.html',
+            target,
             NAME=user
         )
 
@@ -528,8 +587,9 @@ try:
     @app.route('/gowork')
     def gowork():
         global user, save, target
+        target = 'xC-Work.html'
         return render_template(
-            'xC-Work.html',
+            target,
             NAME=user
         )
 
@@ -537,8 +597,9 @@ try:
     @app.route('/callfriend')
     def callfriend():
         global user, save, target
+        target = 'xC-Friend.html'
         return render_template(
-            'xC-Friend.html',
+            target,
             NAME=user
         )
 
@@ -546,8 +607,9 @@ try:
     @app.route('/friendconvo')
     def friendconvo():
         global user, save, target
+        target = 'ENDING-FriendConvo.html'
         return render_template(
-            'ENDING-FriendConvo.html',
+            target,
             NAME=user
         )
 
@@ -570,8 +632,9 @@ try:
     @app.route('/vanish')
     def vanish():
         global user, save, target
+        target = 'ENDING-Vanish.html'
         return render_template(
-            'ENDING-Vanish.html',
+            target,
             NAME=user
         )
 
@@ -579,8 +642,9 @@ try:
     @app.route('/turnoncomputer')
     def turnoncomputer():
         global user, save, target
+        target = 'xC-TurnOnPC.html'
         return render_template(
-            'xC-TurnOnPC.html',
+            target,
             NAME=user
         )
 
@@ -606,8 +670,9 @@ try:
     @app.route('/checkemails')
     def checkemails():
         global user, save, target
+        target = 'xC-TurnOnPC.html'
         return render_template(
-            'xC-TurnOnPC.html',
+            target,
             NAME=user
         )
 
@@ -630,8 +695,9 @@ try:
     @app.route('/embracecheese')
     def embracecheese():
         global user, save, target
+        target = 'ENDING-EmbraceCheese.html'
         return render_template(
-            'ENDING-EmbraceCheese.html',
+            target,
             NAME=user
         )
 
@@ -639,8 +705,9 @@ try:
     @app.route('/runcheese')
     def runcheese():
         global user, save, target
+        target = 'ENDING-RunCheese.html'
         return render_template(
-            'ENDING-RunCheese.html',
+            target,
             NAME=user
         )
 
@@ -648,8 +715,9 @@ try:
     @app.route('/cheesesim')
     def cheesesim():
         global user, save, target
+        target = 'xC-CheeseSim.html'
         return render_template(
-            'xC-CheeseSim.html',
+            target,
             NAME=user
         )
 
@@ -672,8 +740,9 @@ try:
     @app.route('/doomsupereternal')
     def doomsupereternal():
         global user, save, target
+        target = 'ENDING-Doom.html'
         return render_template(
-            'ENDING-Doom.html',
+            target,
             NAME=user
         )
 
@@ -681,8 +750,9 @@ try:
     @app.route('/closeemails')
     def closeemails():
         global user, save, target
+        target = 'xC-CloseEmails.html'
         return render_template(
-            'xC-CloseEmails.html',
+            target,
             NAME=user
         )
 
@@ -690,8 +760,9 @@ try:
     @app.route('/minecraft')
     def minecraft():
         global user, save, target
+        target = 'ENDING-Minecraft.html'
         return render_template(
-            'ENDING-Minecraft.html',
+            target,
             NAME=user
         )
 
@@ -699,8 +770,9 @@ try:
     @app.route('/fortnite')
     def fortnite():
         global user, save, target
+        target = 'ENDING-Fortnite.html'
         return render_template(
-            'ENDING-Fortnite.html',
+            target,
             NAME=user
         )
 
@@ -708,8 +780,9 @@ try:
     @app.route('/cheesesimchips')
     def cheesesimchips():
         global user, save, target
+        target = 'ENDING-CheeseSimChips.html'
         return render_template(
-            'ENDING-CheeseSimChips.html',
+            target,
             NAME=user
         )
 
@@ -749,8 +822,9 @@ try:
     @app.route('/gohome')
     def gohome():
         global user, save, target
+        target = 'xC-HomeBridge02.html'
         return render_template(
-            'xC-HomeBridge02.html',
+            target,
             NAME=user
         )
 
@@ -758,8 +832,9 @@ try:
     @app.route('/itworkhelp')
     def itworkhelp():
         global user, save, target
+        target = 'xC-WorkITHelp.html'
         return render_template(
-            'xC-WorkITHelp.html',
+            target,
             NAME=user
         )
 
@@ -768,8 +843,9 @@ try:
     def noambo():
         global user, save, target
         save.sv('noAmbo', True)
+        target = 'xC-HomeBridge01.html'
         return render_template(
-            'xC-HomeBridge01.html',
+            target,
             NAME=user
         )
 
@@ -778,8 +854,9 @@ try:
     def ambo():
         global user, save, target
         save.sv('noAmbo', True)
+        target = 'xC-WorkITGCAmboDe.html'
         return render_template(
-            'xC-WorkITGCAmboDe.html',
+            target,
             NAME=user
         )
 
@@ -788,8 +865,9 @@ try:
     def itleave():
         global user, save, target
         save.sv('noimmediateCare', True)
+        target = 'xC-WorkITGCAmboDeLeave.html'
         return render_template(
-            'xC-WorkITGCAmboDeLeave.html',
+            target,
             NAME=user
         )
 
@@ -812,8 +890,9 @@ try:
     @app.route('/weirdwall')
     def weirdwall():
         global user, save, target
+        target = 'ENDING-Backrooms.html'
         return render_template(
-            'ENDING-Backrooms.html',
+            target,
             NAME=user
         )
 
@@ -821,8 +900,9 @@ try:
     @app.route('/itignorerun')
     def itignorerun():
         global user, save, target
+        target = 'xC-WorkITGCAmboDeLeaveCall.html'
         return render_template(
-            'xC-WorkITGCAmboDeLeaveCall.html',
+            target,
             NAME=user
         )
 
@@ -830,8 +910,9 @@ try:
     @app.route('/itringout')
     def itringout():
         global user, save, target
+        target = 'ENDING-ITRingout.html'
         return render_template(
-            'ENDING-ITRingout.html',
+            target,
             NAME=user
         )
 
@@ -839,8 +920,9 @@ try:
     @app.route('/itaccept')
     def itaccept():
         global user, save, target
+        target = 'xC-WorkITGCCallAccept.html'
         return render_template(
-            'xC-WorkITGCCallAccept.html',
+            target,
             NAME=user
         )
 
@@ -848,8 +930,9 @@ try:
     @app.route('/itdeny')
     def itdeny():
         global user, save, target
+        target = 'xC-WorkITGCCallDeny.html'
         return render_template(
-            'xC-WorkITGCCallDeny.html',
+            target,
             NAME=user
         )
 
@@ -857,8 +940,9 @@ try:
     @app.route('/itnocare')
     def itnocare():
         global user, save, target
+        target = 'ENDING-21KO.html'
         return render_template(
-            'ENDING-21KO.html',
+            target,
             NAME=user
         )
 
@@ -866,8 +950,9 @@ try:
     @app.route('/itremainsilent')
     def itremainsilent():
         global user, save, target
+        target = 'ENDING-ITRemainSilent.html'
         return render_template(
-            'ENDING-ITRemainSilent.html',
+            target,
             NAME=user
         )
 
@@ -879,8 +964,9 @@ try:
         if save.ci("chips"):
             save.toggleitem("chips")
 
+        target = 'xC-WorkITGC.html'
         return render_template(
-            'xC-WorkITGC.html',
+            target,
             NAME=user
         )
 except AttributeError:
