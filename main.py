@@ -106,29 +106,34 @@ class User:
 @app.errorhandler(500)
 def goback(e):
     global target
+    print(f"> error caught and redirected to index.html: {e}")
     target = 'index.html'
     return render_template(target)
+
 
 @app.before_request
 def checkuser():
     global user, save, target
-    # Stop any requests that don't have a name attached to them
+    # Stop any requests that don't have a name/savefile attached to them
     if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith(
-            '/story') and user is None:
+            '/story') and save is None or user is None:
         target = 'index.html'
         return render_template(target)
+
 
 @app.after_request
 def autosave(r):
     global user, save, target
     # Update pagestate
-    if save is not None and not request.path.startswith('/static/') and not target in ["match.html", "index.html", "endings.html", "intro.html"]:
+    if save is not None and not request.path.startswith('/static/') and target not in ["match.html", "index.html",
+                                                                                       "endings.html", "intro.html"]:
         save.changepagestate()
         # Check if an ending was reached
         if 'ending' in target.lower():
             if save.addending(target):
                 print(f"> added new ending for user: {user}, ending '{target}'")
     return r
+
 
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
@@ -140,7 +145,6 @@ try:
     # User management system for variables and conditions
     save = None
 
-    
     # Base route to home page
     @app.route('/')
     def home():
@@ -170,7 +174,7 @@ try:
                              str(save.pagestate) if str(
                                  save.pagestate) != "" else "NONE") + "<br> User creation time: " + str(
             datetime.datetime.fromtimestamp(save.unix)) + " UTC" + " <br> Last save time: " + str(
-            datetime.datetime.fromtimestamp(save.lastsave))  + " UTC"
+            datetime.datetime.fromtimestamp(save.lastsave)) + " UTC"
 
         # Checks if the savefile had been started previously
         if save.saved:
@@ -208,7 +212,7 @@ try:
     @app.route('/storyrestart')
     def storyrestart():
         global user, save, target
-        
+
         # Variables and conditions are based per object
         # Method only resets variables and lists, keeps endings
         if save is not None:
@@ -226,7 +230,7 @@ try:
     @app.route('/startgame')
     def startgame():
         global user, save, target
-        
+
         # Base request if a savefile didn't previously exist
         target = 'xBase.html'
 
@@ -255,11 +259,11 @@ try:
     @app.route('/endings')
     def endings():
         global user, save, target
-        endings = save.endings
+        endingsinfo = save.endings
         target = 'endings.html'
         return render_template(
             target,
-            UNLOCKED=endings
+            UNLOCKED=endingsinfo
         )
 
 
@@ -286,7 +290,7 @@ try:
     @app.route('/standforever')
     def standforever():
         global user, save, target
-        
+
         if save.cv("lateNightChips"):
             target = 'ENDING-ChipFinder.html'
         else:
@@ -980,6 +984,7 @@ except AttributeError:
 #     app.run("0.0.0.0", debug=True)
 
 if __name__ == "__main__":
-   from waitress import serve
-   print("> APP INIT | running on http://127.0.0.1:8080/")
-   serve(app, host="0.0.0.0", port=8080)
+    from waitress import serve
+
+    print("> APP INIT | running on http://127.0.0.1:8080/")
+    serve(app, host="0.0.0.0", port=8080)
