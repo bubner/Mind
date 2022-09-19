@@ -35,12 +35,13 @@
       <p class="stinfo">We found your savefile based on the name you entered. Would you like to continue with the saved state or delete and start again? <br> <br> <b>Savefile information:</b> <br> {{SAVEFILE | safe}}<br></p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
           <ul>
-            <li><a href="/startgame"><button type="submit">Continue save</button></a></li>
+              <li><a href="/startgame"><button type="submit">Continue save</button></a></li>
+              <li><a href="/endings"><button>View endings</button></a></li>
+              <li><a><button id="dbg">View raw savefile</button></a></li>
               <form action='/userdel/{{NAME}}' method='POST'>
                 <li><a><button type="submit" id='del'>Delete savefile</button></a></li>
               </form>
-              <li><a><button id="dbg">View raw savefile</button></a></li>
-            <li><a href="/"><button type="submit">Go back</button></a></li>
+              <li><a href="/"><button type="submit">Go back</button></a></li>
           </ul>
         </div>
         </div>
@@ -51,8 +52,11 @@
                 e.preventDefault();
             }
         });
-        document.getElementById('dbg').addEventListener('click', (e) => {
-            alert('Raw savefile for {{NAME}} || {{SAVEFILERAW}}');
+        document.getElementById('dbg').addEventListener('click', () => {
+            // Use a HTML element because the SAVEFILERAW info is HTML formatted and needs unescaping
+            const raw = document.createElement('svraw');
+            raw.innerHTML = "{{SAVEFILERAW}};";
+            alert(raw.innerText);
         });
     </script>
     </body>

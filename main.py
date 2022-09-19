@@ -103,6 +103,7 @@ class User:
 
 # Global requests
 @app.errorhandler(503)
+@app.errorhandler(500)
 def goback(e):
     global target
     target = 'index.html'
@@ -155,13 +156,11 @@ try:
         global TOTALENDINGS, user, save, target
 
         # Get player input for their username
-        user = request.args.get("playername")
-
-        # Capitalise the first letter of their username
-        user = user.capitalize()
-
-        # Make a new user object for the person
-        save = User(user)
+        if not user:
+            user = request.args.get("playername")
+            user = user.capitalize()
+            # Make a new user object for the person
+            save = User(user)
 
         # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
@@ -238,6 +237,7 @@ try:
                 save.commituser()
             else:
                 target = save.pagestate
+                user = save.name
         except AttributeError:
             abort(503)
 
@@ -255,8 +255,12 @@ try:
     @app.route('/endings')
     def endings():
         global user, save, target
+        endings = save.endings
         target = 'endings.html'
-        return render_template(target)
+        return render_template(
+            target,
+            UNLOCKED=endings
+        )
 
 
     @app.route('/tv')
@@ -972,9 +976,10 @@ try:
 except AttributeError:
     abort(503)
 
-if __name__ == "__main__":
-    app.run("0.0.0.0", debug=True)
-
 # if __name__ == "__main__":
-#    from waitress import serve
-#    serve(app, host="0.0.0.0")
+#     app.run("0.0.0.0", debug=True)
+
+if __name__ == "__main__":
+   from waitress import serve
+   print("> APP INIT | running on http://127.0.0.1:8080/")
+   serve(app, host="0.0.0.0", port=8080)

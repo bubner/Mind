@@ -201,3 +201,8 @@ html {
   margin: 0 auto;
   margin-top: 10%;
 }
+
+#del {
+    color: red;
+    font-weight: bold;
+}

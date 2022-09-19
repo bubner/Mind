@@ -10,40 +10,53 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='fader.js') }}"></script>
+    <script src="{{ url_for('static', filename='endingmanager.js') }}" defer></script>
   </head>
   <body>
-    <svg id="fader"></svg> <script>fadeIn();</script>
+    <svg id="fader"></svg>
       <h3>ALL ENDINGS || PYTHON INTERACTIVE GAME || LUCAS BUBNER, 2022</h3>
-      <b>There will be no guides! You have to find each ending yourself! There are <span id="endingno"></span> endings!</b> <ul style="all: revert;">
-        <li>Ending 01 - I PROGRAM, NOT FIX PRINTERS</li>
-        <li>Ending 02 - EPIDEMIC OF CHIP REPUBLIC</li>
-        <li>Ending 03 - HOLY CHIPS, OUR ODD SAVIOUR</li>
-        <li>Ending 04 - ME_IRL</li>
-        <li>Ending 05 - THE PERSONALISED FALCON PUNCH</li>
-        <li>Ending 06 - GRAND WHOOPING</li>
-        <li>Ending 07 - THIRD EYE</li>
-        <li>Ending 08 - A FAIR DISCUSSION</li>
-        <li>Ending 09 - SPOILERS, SPOILERS EVERYWHERE</li>
-        <li>Ending 10 - CHIPS AHOY</li>
-        <li>Ending 11 - STUCK IN TIME</li>
-        <li>Ending 12 - PAUSE CHALLENGE</li>
-        <li>Ending 13 - NANOMACHINES, SON</li>
-        <li>Ending 14 - SELF INFLICTED POISON</li>
-        <li>Ending 15 - USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</li>
-        <li>Ending 16 - SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 43: NO FRIENDS DETECTED</li>
-        <li>Ending 17 - POISONED... CHIPS?</li>
-        <li>Ending 18 - COMBUSTION FROM REALITY</li>
-        <li>Ending 19 - CHIP OVERLOAD</li>
-        <li>Ending 20 - ON THE RUN</li>
-        <li>Ending 21 - CHEESE EMBRACER</li>
-        <li>Ending 22 - THE SLAYER HAS ENTERED THE BUILDING</li>
-        <li>Ending 23 - LEGENDS NEVER DIE</li>
-        <li>Ending 24 - FORTNITE</li>
-        <li>Ending 25 - YOU POPPED NOW YOU WILL NEVER STOP</li>
-        <li>Ending 26 - YOUR BREATH STINKS</li>
-        <li>Ending 27 - I'M GONNA WELD YOUR MOUTH SHUT</li>
+      <b>There will be no guides! You have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. There are <span id="endingno"></span> endings!</b> <ul id="endinglist" style="all: revert;">
+        <li html="ENDING-ChipFinder.html">Ending 01 - I PROGRAM, NOT FIX PRINTERS</li>
+        <li html="ENDING-ChipsGenocide.html">Ending 02 - EPIDEMIC OF CHIP REPUBLIC</li>
+        <li html="ENDING-EnthusiasticTakeOutChips.html">Ending 03 - HOLY CHIPS, OUR ODD SAVIOUR</li>
+        <li html="ENDING-FSNewGame.html">Ending 04 - ME_IRL</li>
+        <li html="ENDING-FSOldGame.html">Ending 05 - THE PERSONALISED FALCON PUNCH</li>
+        <li html="ENDING-MadMum.html">Ending 06 - GRAND WHOOPING</li>
+        <li html="ENDING-MadMumDeliquent.html">Ending 07 - THIRD EYE</li>
+        <li html="ENDING-MumNewGame.html">Ending 08 - A FAIR DISCUSSION</li>
+        <li html="ENDING-MumOldGame.html">Ending 09 - SPOILERS, SPOILERS EVERYWHERE</li>
+        <li html="ENDING-NotTiredTakeOutChips.html">Ending 10 - CHIPS AHOY</li>
+        <li html="ENDING-StandForever.html">Ending 11 - STUCK IN TIME</li>
+        <li html="ENDING-StandForeverMum.html">Ending 12 - PAUSE CHALLENGE</li>
+        <li html="ENDING-TakeOutDrone.html">Ending 13 - NANOMACHINES, SON</li>
+        <li html="ENDING-TiredTakeOutChips.html">Ending 14 - SELF INFLICTED POISON</li>
+        <li html="ENDING-VistaMum.html">Ending 15 - USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</li>
+        <li html="ENDING-FriendConvo.html">Ending 16 - SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 43: NO FRIENDS DETECTED</li>
+        <li html="ENDING-HomeChips.html">Ending 17 - POISONED... CHIPS?</li>
+        <li html="ENDING-Vanish.html">Ending 18 - COMBUSTION FROM REALITY</li>
+        <li html="ENDING-ChipOverload.html">Ending 19 - CHIP OVERLOAD</li>
+        <li html="ENDING-RunCheese.html">Ending 20 - ON THE RUN</li>
+        <li html="ENDING-EmbraceCheese.html">Ending 21 - CHEESE EMBRACER</li>
+        <li html="ENDING-Doom.html">Ending 22 - THE SLAYER HAS ENTERED THE BUILDING</li>
+        <li html="ENDING-Minecraft.html">Ending 23 - LEGENDS NEVER DIE</li>
+        <li html="ENDING-Fortnite.html">Ending 24 - FORTNITE</li>
+        <li html="ENDING-CheeseSimChips.html">Ending 25 - YOU POPPED NOW YOU WILL NEVER STOP</li>
+        <li html="ENDING-BadTeethIT.html">Ending 26 - YOUR BREATH STINKS</li>
+        <li html="ENDING-BadTeethWeld.html">Ending 27 - I'M GONNA WELD YOUR MOUTH SHUT</li>
+        <li html="ENDING-SubInNeedIm.html">Ending 28 - noname</li>
+        <li html="ENDING-SubInNeedLa.html">Ending 29 - noname</li>
+        <li html="ENDING-Backrooms.html">Ending 30 - noname</li>
+        <li html="ENDING-ITRingout.html">Ending 31 - noname</li>
+        <li html="ENDING-21KO.html">Ending 32 - noname</li>
+        <li html="ENDING-ITRemainSilent.html">Ending 33 - noname</li>
       </ul>
-      <a href="/">Go back to the game</a>
+      <a href="/story">Go back to the game</a>
     <script src="{{ url_for('static', filename='endings.js') }}"></script>
+    <script>
+        const unlocked = '{{UNLOCKED}}';
+        setTimeout(() => {
+                fadeIn();
+            }, 1000);
+    </script>
   </body>
 </html>
