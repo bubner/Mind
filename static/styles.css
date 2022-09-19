@@ -194,12 +194,17 @@ html {
   font-style: italic;
 }
 
-#indexcontainer {
+.indexcontainer {
   width: 50%;
   height: auto;
   text-align: center;
   margin: 0 auto;
   margin-top: 10%;
+}
+
+#endingpage {
+    margin-top: 0%;
+    text-align: left;
 }
 
 #del {

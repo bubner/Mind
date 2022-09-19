@@ -65,7 +65,7 @@ class User:
 
     # Check item method
     def ci(self, item):
-        return True if item in self.items else False
+        return item in self.items
 
     # Commit user as existing
     def commituser(self):
@@ -116,6 +116,7 @@ def checkuser():
     global user, save, target
     # Stop any requests that don't have a name/savefile attached to them
     if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith('/story') and (save is None or user is None):
+        print(f"> stopped request of: {request.path} as user info was missing")
         target = 'index.html'
         return render_template(target)
 
@@ -151,6 +152,21 @@ try:
         target = 'index.html'
         return render_template(target)
 
+    # Manual endpage navigation if unlocked
+    @app.route('/e/<string:page>')
+    def ending(page):
+        if page in save.endings:
+            target = page
+        else:
+            print(f"> stopped manual navigation to: {page}")
+            target = 'index.html'
+
+        return render_template(
+            target,
+            NAME=user,
+            NAMECAP=user.upper()
+        )
+        
 
     # Initialise game and grab username field arguments
     @app.route('/story', methods=["GET"])
@@ -161,8 +177,9 @@ try:
         if not user:
             user = request.args.get("playername")
             user = user.capitalize()
-            # Make a new user object for the person
-            save = User(user)
+            
+        # Make a new user object for the person
+        save = User(user)
 
         # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
@@ -218,7 +235,7 @@ try:
         else:
             abort(503)
 
-        target = 'intro.html'
+        target = 'xBase.html'
         return render_template(
             target,
             NAME=user
@@ -243,9 +260,10 @@ try:
         except AttributeError:
             abort(503)
 
-        # If the start game request came from an ending, redirect to the start
+        # If the start game request came from an ending, redirect to the start and clear their variables for a new game
         if 'ending' in target.lower():
             target = 'xBase.html'
+            save.reset()
 
         return render_template(
             target,
@@ -256,12 +274,15 @@ try:
     # Endings page direct
     @app.route('/endings')
     def endings():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         endingsinfo = save.endings
         target = 'endings.html'
         return render_template(
             target,
-            UNLOCKED=endingsinfo
+            UNLOCKED=endingsinfo,
+            TOTAL=TOTALENDINGS,
+            NAME=user,
+            NAMECAP=user.upper()
         )
 
 

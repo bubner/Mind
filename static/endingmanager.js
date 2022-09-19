@@ -1,5 +1,5 @@
 // Runs on the 'endings.html' page from the '/endings' approute
-// unlocked variable declared in HTML
+// unlocked and total variables declared in HTML
 
 // Extract the endings unlocked from the unlocked array
 // Removes HTML formatting that was escaped
@@ -7,6 +7,7 @@ let endings = unlocked.split(";");
 endings = endings.toString().split("&");
 endings = endings.toString().split(",");
 let unlockedendings = [];
+totalendings = parseInt(totalendings);
 
 // Extract the proper strings
 for (let i = 0; i < endings.length; i++) {
@@ -22,11 +23,18 @@ for (let i = 0; i < endinglist.length; i++) {
     endingnames.push(endinglist[i].getAttribute('html'));
 }
 
+// Save ending content and clear all of them
+let endingcontent = [];
+for (let i = 0; i < totalendings; i++) {
+    endingcontent[i] = endinglist[i].innerHTML;
+    endinglist[i].innerHTML = "???"
+}
+
 // Check if an ending has been unlocked and allow it to display if it has
-for (let i = 0; i < endinglist.length; i++) {
-    for (let j = 0; j < unlockedendings.length; j++) {
-        if (unlockedendings[j] !== endingnames[i]) {
-            endinglist[i].innerHTML = "???";
+for (let j = 0; j < unlockedendings.length; j++) {
+    for (let i = 0; i < totalendings; i++) {
+        if (endingnames[i] === unlockedendings[j]) {
+            endinglist[i].innerHTML = endingcontent[i];
         }
     }
 }

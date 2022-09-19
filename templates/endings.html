@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow: auto !important;">
   <head>
     <meta name="author" content="Lucas Bubner - 9WI 2022">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,46 +14,50 @@
   </head>
   <body>
     <svg id="fader"></svg>
-      <h3>ALL ENDINGS || PYTHON INTERACTIVE GAME || LUCAS BUBNER, 2022</h3>
-      <b>There will be no guides! You have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. There are <span id="endingno"></span> endings!</b> <ul id="endinglist" style="all: revert;">
-        <li html="ENDING-ChipFinder.html">Ending 01 - I PROGRAM, NOT FIX PRINTERS</li>
-        <li html="ENDING-ChipsGenocide.html">Ending 02 - EPIDEMIC OF CHIP REPUBLIC</li>
-        <li html="ENDING-EnthusiasticTakeOutChips.html">Ending 03 - HOLY CHIPS, OUR ODD SAVIOUR</li>
-        <li html="ENDING-FSNewGame.html">Ending 04 - ME_IRL</li>
-        <li html="ENDING-FSOldGame.html">Ending 05 - THE PERSONALISED FALCON PUNCH</li>
-        <li html="ENDING-MadMum.html">Ending 06 - GRAND WHOOPING</li>
-        <li html="ENDING-MadMumDeliquent.html">Ending 07 - THIRD EYE</li>
-        <li html="ENDING-MumNewGame.html">Ending 08 - A FAIR DISCUSSION</li>
-        <li html="ENDING-MumOldGame.html">Ending 09 - SPOILERS, SPOILERS EVERYWHERE</li>
-        <li html="ENDING-NotTiredTakeOutChips.html">Ending 10 - CHIPS AHOY</li>
-        <li html="ENDING-StandForever.html">Ending 11 - STUCK IN TIME</li>
-        <li html="ENDING-StandForeverMum.html">Ending 12 - PAUSE CHALLENGE</li>
-        <li html="ENDING-TakeOutDrone.html">Ending 13 - NANOMACHINES, SON</li>
-        <li html="ENDING-TiredTakeOutChips.html">Ending 14 - SELF INFLICTED POISON</li>
-        <li html="ENDING-VistaMum.html">Ending 15 - USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</li>
-        <li html="ENDING-FriendConvo.html">Ending 16 - SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 43: NO FRIENDS DETECTED</li>
-        <li html="ENDING-HomeChips.html">Ending 17 - POISONED... CHIPS?</li>
-        <li html="ENDING-Vanish.html">Ending 18 - COMBUSTION FROM REALITY</li>
-        <li html="ENDING-ChipOverload.html">Ending 19 - CHIP OVERLOAD</li>
-        <li html="ENDING-RunCheese.html">Ending 20 - ON THE RUN</li>
-        <li html="ENDING-EmbraceCheese.html">Ending 21 - CHEESE EMBRACER</li>
-        <li html="ENDING-Doom.html">Ending 22 - THE SLAYER HAS ENTERED THE BUILDING</li>
-        <li html="ENDING-Minecraft.html">Ending 23 - LEGENDS NEVER DIE</li>
-        <li html="ENDING-Fortnite.html">Ending 24 - FORTNITE</li>
-        <li html="ENDING-CheeseSimChips.html">Ending 25 - YOU POPPED NOW YOU WILL NEVER STOP</li>
-        <li html="ENDING-BadTeethIT.html">Ending 26 - YOUR BREATH STINKS</li>
-        <li html="ENDING-BadTeethWeld.html">Ending 27 - I'M GONNA WELD YOUR MOUTH SHUT</li>
-        <li html="ENDING-SubInNeedIm.html">Ending 28 - noname</li>
-        <li html="ENDING-SubInNeedLa.html">Ending 29 - noname</li>
-        <li html="ENDING-Backrooms.html">Ending 30 - noname</li>
-        <li html="ENDING-ITRingout.html">Ending 31 - noname</li>
-        <li html="ENDING-21KO.html">Ending 32 - noname</li>
-        <li html="ENDING-ITRemainSilent.html">Ending 33 - noname</li>
+    <div class="indexcontainer" id="endingpage">
+      <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || PYTHON ADVENTURE GAME || LUCAS BUBNER, 2022</h3>
+      <b>There will be no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i>There are <span id="endingno"></span> endings!</i></b> <br> <br>
+    <a href="/story">Go back to the game</a> <br> <br> <i>Showing endings for user: {{NAME}}</i>
+    <ul id="endinglist" style="all: revert; list-style: square;">
+        <li html="ENDING-ChipFinder.html">Ending 01 - <a href="/e/ENDING-ChipFinder.html">I PROGRAM, NOT FIX PRINTERS</a></li>
+        <li html="ENDING-ChipsGenocide.html">Ending 02 - <a href="/e/ENDING-ChipsGenocide.html">EPIDEMIC OF CHIP REPUBLIC</a></li>
+        <li html="ENDING-EnthusiasticTakeOutChips.html">Ending 03 - <a href="/e/ENDING-EnthusiasticTakeOutChips.html">HOLY CHIPS, OUR ODD SAVIOUR</a></li>
+        <li html="ENDING-FSNewGame.html">Ending 04 - <a href="/e/ENDING-FSNewGame.html">ME_IRL</a></li>
+        <li html="ENDING-FSOldGame.html">Ending 05 - <a href="/e/ENDING-FSOldGame.html">THE {{NAMECAP}} FALCON PUNCH</a></li>
+        <li html="ENDING-MadMum.html">Ending 06 - <a href="/e/ENDING-MadMum.html">GRAND WHOOPING</a></li>
+        <li html="ENDING-MadMumDeliquent.html">Ending 07 - <a href="/e/ENDING-MadMumDeliquent.html">THIRD EYE</a></li>
+        <li html="ENDING-MumNewGame.html">Ending 08 - <a href="/e/ENDING-MumNewGame.html">A FAIR DISCUSSION</a></li>
+        <li html="ENDING-MumOldGame.html">Ending 09 - <a href="/e/ENDING-MumOldGame.html">SPOILERS, SPOILERS EVERYWHERE</a></li>
+        <li html="ENDING-NotTiredTakeOutChips.html">Ending 10 - <a href="/e/ENDING-NotTiredTakeOutChips.html">CHIPS AHOY</a></li>
+        <li html="ENDING-StandForever.html">Ending 11 - <a href="/e/ENDING-StandForever.html">STUCK IN TIME</a></li>
+        <li html="ENDING-StandForeverMum.html">Ending 12 - <a href="/e/ENDING-StandForeverMum.html">PAUSE CHALLENGE</a></li>
+        <li html="ENDING-TakeOutDrone.html">Ending 13 - <a href="/e/ENDING-TakeOutDrone.html">NANOMACHINES, SON</a></li>
+        <li html="ENDING-TiredTakeOutChips.html">Ending 14 - <a href="/e/ENDING-TiredTakeOutChips.html">SELF INFLICTED POISON</a></li>
+        <li html="ENDING-VistaMum.html">Ending 15 - <a href="/e/ENDING-VistaMum.html">USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</a></li>
+        <li html="ENDING-FriendConvo.html">Ending 16 - <a href="/e/ENDING-FriendConvo.html">SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 43: NO FRIENDS DETECTED</a></li>
+        <li html="ENDING-HomeChips.html">Ending 17 - <a href="/e/ENDING-HomeChips.html">POISONED... CHIPS?</a></li>
+        <li html="ENDING-Vanish.html">Ending 18 - <a href="/e/ENDING-Vanish.html">COMBUSTION FROM REALITY</a></li>
+        <li html="ENDING-ChipOverload.html">Ending 19 - <a href="/e/ENDING-ChipOverload.html">CHIP OVERLOAD</a></li>
+        <li html="ENDING-RunCheese.html">Ending 20 - <a href="/e/ENDING-RunCheese.html">ON THE RUN</a></li>
+        <li html="ENDING-EmbraceCheese.html">Ending 21 - <a href="/e/ENDING-EmbraceCheese.html">CHEESE EMBRACER</a></li>
+        <li html="ENDING-Doom.html">Ending 22 - <a href="/e/ENDING-Doom.html">THE SLAYER HAS ENTERED THE BUILDING</a></li>
+        <li html="ENDING-Minecraft.html">Ending 23 - <a href="/e/ENDING-Minecraft.html">LEGENDS NEVER DIE</a></li>
+        <li html="ENDING-Fortnite.html">Ending 24 - <a href="/e/ENDING-Fortnite.html">FORTNITE</a></li>
+        <li html="ENDING-CheeseSimChips.html">Ending 25 - <a href="/e/ENDING-CheeseSimChips.html">YOU POPPED NOW YOU WILL NEVER STOP</a></li>
+        <li html="ENDING-BadTeethIT.html">Ending 26 - <a href="/e/ENDING-BadTeethIT.html">YOUR BREATH STINKS</a></li>
+        <li html="ENDING-BadTeethWeld.html">Ending 27 - <a href="/e/ENDING-BadTeethWeld.html">I'M GONNA WELD YOUR MOUTH SHUT</a></li>
+        <li html="ENDING-SubInNeedIm.html">Ending 28 - <a href="/e/ENDING-SubInNeedIm.html">noname</a></li>
+        <li html="ENDING-SubInNeedLa.html">Ending 29 - <a href="/e/ENDING-SubInNeedLa.html">noname</a></li>
+        <li html="ENDING-Backrooms.html">Ending 30 - <a href="/e/ENDING-Backrooms.html">noname</a></li>
+        <li html="ENDING-ITRingout.html">Ending 31 - <a href="/e/ENDING-ITRingout.html">noname</a></li>
+        <li html="ENDING-21KO.html">Ending 32 - <a href="/e/ENDING-21KO.html">noname</a></li>
+        <li html="ENDING-ITRemainSilent.html">Ending 33 - <a href="/e/ENDING-ITRemainSilent.html">noname</a></li>
       </ul>
-      <a href="/story">Go back to the game</a>
+    </div>
     <script src="{{ url_for('static', filename='endings.js') }}"></script>
     <script>
         const unlocked = '{{UNLOCKED}}';
+        let totalendings = '{{TOTAL}}';
         setTimeout(() => {
                 fadeIn();
             }, 1000);
