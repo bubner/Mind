@@ -6,32 +6,32 @@ function fadeIn() {
     fader.classList.add('fade-out');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     if (!window.AnimationEvent) { return; }
     let anchors = document.getElementsByTagName('a');
-    for (let i = 0; i < anchors.length; i += 1) {
+    for (let i = 0; i < anchors.length; i++) {
         if (anchors[i].hostname !== window.location.hostname ||
             anchors[i].pathname === window.location.pathname) {
             continue;
         }
-        anchors[i].addEventListener('click', function(event) {
+        anchors[i].addEventListener('click', (e) => {
             let fader = document.getElementById('fader'),
-                anchor = event.currentTarget;
+                anchor = e.currentTarget;
             
-            let listener = function() {
+            let listener = () => {
                 window.location = anchor.href;
                 fader.removeEventListener('animationend', listener);
             };
             fader.addEventListener('animationend', listener);
             
-            event.preventDefault();
+            e.preventDefault();
             fader.classList.add('fade-in');
         });
     }
 });
 
-window.addEventListener('pageshow', function (event) {
-    if (!event.persisted) {
+window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) {
       return;
     }
     let fader = document.getElementById('fader');

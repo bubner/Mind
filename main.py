@@ -115,8 +115,7 @@ def goback(e):
 def checkuser():
     global user, save, target
     # Stop any requests that don't have a name/savefile attached to them
-    if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith(
-            '/story') and save is None or user is None:
+    if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith('/story') and (save is None or user is None):
         target = 'index.html'
         return render_template(target)
 
@@ -125,8 +124,7 @@ def checkuser():
 def autosave(r):
     global user, save, target
     # Update pagestate
-    if save is not None and not request.path.startswith('/static/') and target not in ["match.html", "index.html",
-                                                                                       "endings.html", "intro.html"]:
+    if save is not None and not request.path.startswith('/static/') and target not in ["match.html", "index.html", "endings.html", "intro.html"]:
         save.changepagestate()
         # Check if an ending was reached
         if 'ending' in target.lower():
@@ -980,11 +978,10 @@ try:
 except AttributeError:
     abort(503)
 
-# if __name__ == "__main__":
-#     app.run("0.0.0.0", debug=True)
 
 if __name__ == "__main__":
     from waitress import serve
 
     print("> APP INIT | running on http://127.0.0.1:8080/")
+    # app.run("0.0.0.0", debug=True)
     serve(app, host="0.0.0.0", port=8080)
