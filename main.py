@@ -43,7 +43,9 @@ class User:
     # Set last page state to the last target
     def changepagestate(self):
         self.pagestate = target
-        print(f"> autosaved pagestate of user: '{self.name}' with target: '{target}'")
+        print(
+            f"> autosaved pagestate of user: '{self.name}' with target: '{target}'"
+        )
         self.fsave(self)
 
     # Set variable method
@@ -115,7 +117,10 @@ def goback(e):
 def checkuser():
     global user, save, target
     # Stop any requests that don't have a name/savefile attached to them
-    if not request.path.startswith('/static/') and not request.path == '/' and not request.path.startswith('/story') and (save is None or user is None):
+    if not request.path.startswith(
+            '/static/'
+    ) and not request.path == '/' and not request.path.startswith(
+            '/story') and (save is None or user is None):
         print(f"> stopped request of: {request.path} as user info was missing")
         target = 'index.html'
         return render_template(target)
@@ -125,12 +130,16 @@ def checkuser():
 def autosave(r):
     global user, save, target
     # Update pagestate
-    if save is not None and not request.path.startswith('/static/') and target not in ["match.html", "index.html", "endings.html", "intro.html"]:
+    if save is not None and not request.path.startswith(
+            '/static/') and target not in [
+                "match.html", "index.html", "endings.html", "intro.html"
+            ]:
         save.changepagestate()
         # Check if an ending was reached
         if 'ending' in target.lower():
             if save.addending(target):
-                print(f"> added new ending for user: {user}, ending '{target}'")
+                print(
+                    f"> added new ending for user: {user}, ending '{target}'")
     return r
 
 
@@ -155,18 +164,17 @@ try:
     # Manual endpage navigation if unlocked
     @app.route('/e/<string:page>')
     def ending(page):
+        global user, save
+        localtarget = ""
+        # Uses a local target to not trigger autosave
+
         if page in save.endings:
-            target = page
+            localtarget = page
         else:
             print(f"> stopped manual navigation to: {page}")
-            target = 'index.html'
+            localtarget = 'index.html'
 
-        return render_template(
-            target,
-            NAME=user,
-            NAMECAP=user.upper()
-        )
-        
+        return render_template(localtarget, NAME=user, NAMECAP=user.upper())
 
     # Initialise game and grab username field arguments
     @app.route('/story', methods=["GET"])
@@ -177,19 +185,23 @@ try:
         if not user:
             user = request.args.get("playername")
             user = user.capitalize()
-            
+
         # Make a new user object for the person
         save = User(user)
 
         # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
         # Pretty formatting for the end-user
-        savefileformat = "Username: " + str(save.name).upper() + " <br> Endings found: " + str(
-            len(save.endings)) + "/" + str(TOTALENDINGS) + " <br> Last page state: " + (
-                             str(save.pagestate) if str(
-                                 save.pagestate) != "" else "NONE") + "<br> User creation time: " + str(
-            datetime.datetime.fromtimestamp(save.unix)) + " UTC" + " <br> Last save time: " + str(
-            datetime.datetime.fromtimestamp(save.lastsave)) + " UTC"
+        savefileformat = "Username: " + str(
+            save.name).upper() + " <br> Endings found: " + str(
+                len(save.endings)
+            ) + "/" + str(TOTALENDINGS) + " <br> Last page state: " + (
+                str(save.pagestate) if str(save.pagestate) != "" else
+                "NONE") + "<br> User creation time: " + str(
+                    datetime.datetime.fromtimestamp(
+                        save.unix)) + " UTC" + " <br> Last save time: " + str(
+                            datetime.datetime.fromtimestamp(
+                                save.lastsave)) + " UTC"
 
         # Checks if the savefile had been started previously
         if save.saved:
@@ -197,13 +209,10 @@ try:
         else:
             target = 'intro.html'
 
-        return render_template(
-            target,
-            NAME=user,
-            SAVEFILERAW=saveinfo,
-            SAVEFILE=savefileformat
-        )
-
+        return render_template(target,
+                               NAME=user,
+                               SAVEFILERAW=saveinfo,
+                               SAVEFILE=savefileformat)
 
     # Delete user request
     @app.route('/userdel/<string:n>', methods=['POST'])
@@ -222,7 +231,6 @@ try:
         target = 'index.html'
         return render_template(target)
 
-
     # Restart story method
     @app.route('/storyrestart')
     def storyrestart():
@@ -236,11 +244,7 @@ try:
             abort(503)
 
         target = 'xBase.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/startgame')
     def startgame():
@@ -265,11 +269,7 @@ try:
             target = 'xBase.html'
             save.reset()
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     # Endings page direct
     @app.route('/endings')
@@ -277,34 +277,23 @@ try:
         global user, save, target, TOTALENDINGS
         endingsinfo = save.endings
         target = 'endings.html'
-        return render_template(
-            target,
-            UNLOCKED=endingsinfo,
-            TOTAL=TOTALENDINGS,
-            NAME=user,
-            NAMECAP=user.upper()
-        )
-
+        return render_template(target,
+                               UNLOCKED=endingsinfo,
+                               TOTAL=TOTALENDINGS,
+                               NAME=user,
+                               NAMECAP=user.upper())
 
     @app.route('/tv')
     def tv():
         global user, save, target
         target = 'xTV.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/mum')
     def mum():
         global user, save, target
         target = 'xTV-Mum.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/standforever')
     def standforever():
@@ -315,43 +304,27 @@ try:
         else:
             target = 'ENDING-StandForever.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/standforevermum')
     def standforevermum():
         global user, save, target
         target = 'ENDING-StandForeverMum.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/berude')
     def berude():
         global user, save, target
         save.sv("imRude", True)
         target = 'xTV-Ignore.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/sleep')
     def sleep():
         global user, save, target
         save.sv("Tired", True)
         target = 'xTV-Mum-Sleep.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/chipstv')
     def chipstv():
@@ -364,11 +337,7 @@ try:
         else:
             target = 'xTV-WatchTVChipsMum.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/gaming')
     def gaming():
@@ -378,11 +347,7 @@ try:
             save.sv('Tired', True)
 
         target = 'xTV-GamingBridge.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/takeoutchips')
     def takeoutchips():
@@ -393,21 +358,13 @@ try:
         else:
             target = 'ENDING-NotTiredTakeOutChips.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/bringoutchips')
     def bringoutchips():
         global user, save, target
         target = 'ENDING-EnthusiasticTakeOutChips.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/gamedontknow')
     def gamedontknow():
@@ -418,11 +375,7 @@ try:
         else:
             target = 'xTV-PlayOGameMum.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/newgame')
     def newgame():
@@ -434,11 +387,7 @@ try:
         else:
             target = 'xTV-PlayNGameMum.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/lie')
     def lie():
@@ -449,31 +398,19 @@ try:
         else:
             target = 'xTV-Mum-RushTV.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/truth')
     def truth():
         global user, save, target
         target = 'ENDING-MadMum.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/givechipseveryone')
     def givechipseveryone():
         global user, save, target
         target = 'ENDING-ChipsGenocide.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/dietician')
     def dietician():
@@ -485,11 +422,7 @@ try:
         else:
             target = 'xTV-WatchTVChipsMum.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/fatty')
     def fatty():
@@ -502,31 +435,19 @@ try:
         else:
             target = 'xTV-WatchTVChipsMum.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/taketime')
     def taketime():
         global user, save, target
         target = 'ENDING-MadMumDeliquent.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/rush')
     def rush():
         global user, save, target
         target = 'xTV-DoAnythingFallAsleepBridge.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/newgametalk')
     def newgametalk():
@@ -537,11 +458,7 @@ try:
         else:
             target = 'ENDING-MumNewGame.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/oldgametalk')
     def oldgametalk():
@@ -552,94 +469,57 @@ try:
         else:
             target = 'ENDING-MumOldGame.html'
 
-        return render_template(
-            target,
-            NAME=user,
-            NAMECAP=user.upper()
-        )
-
+        return render_template(target, NAME=user, NAMECAP=user.upper())
 
     @app.route('/takeoutdrone')
     def takeoutdrone():
         global user, save, target
         target = 'ENDING-TakeOutDrone.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/computerinvestigate')
     def computerinvestigate():
         global user, save, target
         target = 'ENDING-VistaMum.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/chips')
     def chips():
         global user, save, target
         target = 'xC.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/bed')
     def bed():
         global user, save, target
         save.sv('badTeeth1', True)
         target = 'xC-Bed.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/cleanteeth')
     def cleanteeth():
         global user, save, target
         save.sv('badTeeth1', False)
         target = 'xC-Teeth.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/gowork')
     def gowork():
         global user, save, target
         target = 'xC-Work.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/callfriend')
     def callfriend():
         global user, save, target
         target = 'xC-Friend.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/friendconvo')
     def friendconvo():
         global user, save, target
         target = 'ENDING-FriendConvo.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/eatchips')
     def eatchips():
@@ -650,31 +530,19 @@ try:
         else:
             target = 'xC-NoChips.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/vanish')
     def vanish():
         global user, save, target
         target = 'ENDING-Vanish.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/turnoncomputer')
     def turnoncomputer():
         global user, save, target
         target = 'xC-TurnOnPC.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/eatmorechips')
     def eatmorechips():
@@ -688,21 +556,13 @@ try:
             save.sv('badTeeth1', False)
             save.toggleitem("chips")
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/checkemails')
     def checkemails():
         global user, save, target
         target = 'xC-TurnOnPC.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/eatchipshome')
     def eatchipshome():
@@ -713,41 +573,25 @@ try:
         else:
             target = 'xC-EatChips.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/embracecheese')
     def embracecheese():
         global user, save, target
         target = 'ENDING-EmbraceCheese.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/runcheese')
     def runcheese():
         global user, save, target
         target = 'ENDING-RunCheese.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/cheesesim')
     def cheesesim():
         global user, save, target
         target = 'xC-CheeseSim.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/emails')
     def emails():
@@ -758,61 +602,37 @@ try:
         else:
             target = 'xC-NoEmails.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/doomsupereternal')
     def doomsupereternal():
         global user, save, target
         target = 'ENDING-Doom.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/closeemails')
     def closeemails():
         global user, save, target
         target = 'xC-CloseEmails.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/minecraft')
     def minecraft():
         global user, save, target
         target = 'ENDING-Minecraft.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/fortnite')
     def fortnite():
         global user, save, target
         target = 'ENDING-Fortnite.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/cheesesimchips')
     def cheesesimchips():
         global user, save, target
         target = 'ENDING-CheeseSimChips.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/it')
     def it():
@@ -825,11 +645,7 @@ try:
         else:
             target = 'xC-WorkITNoChips.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/weld')
     def weld():
@@ -840,64 +656,40 @@ try:
         else:
             target = 'xC-WorkWeld.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/gohome')
     def gohome():
         global user, save, target
         target = 'xC-HomeBridge02.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itworkhelp')
     def itworkhelp():
         global user, save, target
         target = 'xC-WorkITHelp.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/noambo')
     def noambo():
         global user, save, target
         save.sv('noAmbo', True)
         target = 'xC-HomeBridge01.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/ambo')
     def ambo():
         global user, save, target
         save.sv('noAmbo', True)
         target = 'xC-WorkITGCAmboDe.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itleave')
     def itleave():
         global user, save, target
         save.sv('noimmediateCare', True)
         target = 'xC-WorkITGCAmboDeLeave.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/subinneed')
     def subinneed():
@@ -908,81 +700,49 @@ try:
         else:
             target = 'ENDING-SubInNeedIm.html'
 
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/weirdwall')
     def weirdwall():
         global user, save, target
         target = 'ENDING-Backrooms.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itignorerun')
     def itignorerun():
         global user, save, target
         target = 'xC-WorkITGCAmboDeLeaveCall.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itringout')
     def itringout():
         global user, save, target
         target = 'ENDING-ITRingout.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itaccept')
     def itaccept():
         global user, save, target
         target = 'xC-WorkITGCCallAccept.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itdeny')
     def itdeny():
         global user, save, target
         target = 'xC-WorkITGCCallDeny.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itnocare')
     def itnocare():
         global user, save, target
         target = 'ENDING-21KO.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/itremainsilent')
     def itremainsilent():
         global user, save, target
         target = 'ENDING-ITRemainSilent.html'
-        return render_template(
-            target,
-            NAME=user
-        )
-
+        return render_template(target, NAME=user)
 
     @app.route('/givechips')
     def givechips():
@@ -992,17 +752,12 @@ try:
             save.toggleitem("chips")
 
         target = 'xC-WorkITGC.html'
-        return render_template(
-            target,
-            NAME=user
-        )
+        return render_template(target, NAME=user)
 except AttributeError:
     abort(503)
 
-
 if __name__ == "__main__":
     from waitress import serve
-
     print("> APP INIT | running on http://127.0.0.1:8080/")
     # app.run("0.0.0.0", debug=True)
     serve(app, host="0.0.0.0", port=8080)
