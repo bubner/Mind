@@ -97,7 +97,9 @@ class User:
             'badTeeth2': False,
             'isEmail': False,
             'noAmbo': False,
-            'noimmediateCare': False
+            'noimmediateCare': False,
+            'workerPaidDrink': False,
+            'welderChips': False
         }
         self.items.clear()
         self.fsave(self)
@@ -146,7 +148,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 33
+    TOTALENDINGS = 41
     user = None
     target = '/'
 
@@ -156,10 +158,10 @@ try:
     # Base route to home page
     @app.route('/')
     def home():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         user = ""
         target = 'index.html'
-        return render_template(target)
+        return render_template(target, ENDINGNO=TOTALENDINGS)
 
     # Manual endpage navigation if unlocked
     @app.route('/e/<string:page>')
@@ -653,8 +655,10 @@ try:
 
         if save.cv('badTeeth1') and save.cv('badTeeth2'):
             target = 'ENDING-BadTeethWeld.html'
+        elif save.ci("chips"):
+            target = 'xC-WorkWeldChips.html'
         else:
-            target = 'xC-WorkWeld.html'
+            target = 'xC-WorkWeldNoChips.html'
 
         return render_template(target, NAME=user)
 
@@ -753,6 +757,120 @@ try:
 
         target = 'xC-WorkITGC.html'
         return render_template(target, NAME=user)
+        
+    @app.route('/codejava')
+    def codejava():
+        global user, save, target
+        target = 'xC-WorkITHelpJava.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/serverrooms')
+    def serverrooms():
+        global user, save, target
+        target = 'xC-WorkITHelpServer.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/javapsv')
+    def javapsv():
+        global user, save, target
+        target = 'xC-WorkITHelpJavaDe.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/javapvs')
+    def javapvs():
+        global user, save, target
+        target = 'ENDING-JavaError.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/pirwindows')
+    def pirwindows():
+        global user, save, target
+        target = 'ENDING-PirWindows.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/insarch')
+    def insarch():
+        global user, save, target
+        target = 'ENDING-ArchBtw.html'
+        return render_template(target, NAME=user)
+        
+    @app.route('/payrise')
+    def payrise():
+        global user, save, target
+        target = 'xC-WorkITHelpServerPay.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/drink')
+    def drink():
+        global user, save, target
+        target = 'xC-WorkITHelpServerDrink.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/mepay')
+    def mepay():
+        global user, save, target
+        save.sv('workerPaidDrink', False)
+        target = 'xC-WorkITBarAttack.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/youpay')
+    def youpay():
+        global user, save, target
+        save.sv('workerPaidDrink', True)
+        target = 'xC-WorkITBarAttack.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/itfight')
+    def itfight():
+        global user, save, target
+        
+        if save.cv('workerPaidDrink'):
+            target = 'ENDING-WorkerNotFighter.html'
+        else:
+            target = 'ENDING-ImmoIT.html'
+
+    @app.route('/itretreat')
+    def itretreat():
+        global user, save, target
+        target = 'ENDING-SocietyInter.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/strangechips')
+    def strangechips():
+        global user, save, target
+        target = 'ENDING-StrangeChips.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/homebridge')
+    def homebridge():
+        global user, save, target
+        target = '/'
+        return render_template(target, NAME=user)
+
+    @app.route('/wgivechips')
+    def wgivechips():
+        global user, save, target
+        
+        if save.ci("chips"):
+            save.toggleitem("chips")
+
+        save.sv("welderChips", True)
+            
+        target = 'xC-HomeBridge01.html'
+        return render_template(target, NAME=user)
+
+    @app.route('/wcontinue')
+    def wcontinue():
+        global user, save, target
+        target = 'xC-'
+        return render_template(target, NAME=user)
+
+    @app.route('/disobeynarrator')
+    def dnarr():
+        global user, save, target
+        target = 'ENDING-DisobeyedNarrator.html'
+        return render_template(target, NAME=user)
+
 except AttributeError:
     abort(503)
 

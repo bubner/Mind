@@ -32,12 +32,12 @@
       <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
       <div id="blur">
       <h1 class="event">Welcome back {{NAME}}!</h1>
-      <p class="stinfo">We found your savefile based on the name you entered. Please select an option below. <br> <br> <b>Savefile information:</b> <br> {{SAVEFILE | safe}}<br></p>
+      <p class="stinfo">We found a savefile based on the name you entered. Please select an option below. <br> <br> <b>Savefile information:</b> <br> {{SAVEFILE | safe}}<br></p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
           <ul>
               <li><a href="/startgame"><button type="submit">Continue save</button></a></li>
               <li><a href="/storyrestart"><button type="submit">Continue save from start</button></a></li>
-              <li><a href="/endings"><button>View your endings</button></a></li>
+              <li><a href="/endings"><button>View unlocked endings</button></a></li>
               <li><a><button id="dbg">View raw savefile</button></a></li>
               <form action='/userdel/{{NAME}}' method='POST'>
                 <li><a><button type="submit" id='del'>Delete savefile</button></a></li>
@@ -49,7 +49,7 @@
       </div>
     <script>
         document.getElementById('del').addEventListener('click', (e) => {
-            if (!confirm("Are you sure you want to delete your savefile?")) {
+            if (!confirm("Are you sure you want to delete this savefile?")) {
                 e.preventDefault();
             }
         });

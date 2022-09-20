@@ -31,12 +31,12 @@
       <svg id="fader"></svg> <script>fadeIn();</script>
       <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
       <div id="blur">
-      <h1 class="event"></h1>
-      <p class="stinfo">Info <br> <br> Action question</p>
+      <h1 class="event">{{NAME}} denys the call.</h1>
+      <p class="stinfo">They call again, forcing {{NAME}} to pick up. Somehow, the phone lost the ability to deny to call for a second time. <br> "Are you there?" said the IT worker. <br> <br> What does {{NAME}} do?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
           <ul>
-            <li><a href="/itnocare"><button type="submit">Action 1</button></a></li>
-            <li><a href="/itremainsilent"><button type="submit">Action 2</button></a></li>
+            <li><a href="/itnocare"><button type="submit">Tell them to go away</button></a></li>
+            <li><a href="/itremainsilent"><button type="submit">Remain silent</button></a></li>
           </ul>
         </div>
         </div>

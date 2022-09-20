@@ -16,7 +16,7 @@
     <svg id="fader"></svg>
     <div class="indexcontainer" id="endingpage">
       <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || PYTHON ADVENTURE GAME || LUCAS BUBNER, 2022</h3>
-      <b>There will be no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i>There are <span id="endingno"></span> endings!</i></b> <br> <br>
+      <b>There will be no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i id="endingcount"></i></b> <br> <br>
     <a href="/story">Go back to the game</a> <br> <br> <i>Showing endings for user: {{NAME}}</i>
     <ul id="endinglist" style="all: revert; list-style: square;">
         <li html="ENDING-ChipFinder.html">Ending 01 - <a href="/e/ENDING-ChipFinder.html">I PROGRAM, NOT FIX PRINTERS</a></li>
@@ -52,9 +52,16 @@
         <li html="ENDING-ITRingout.html">Ending 31 - <a href="/e/ENDING-ITRingout.html">noname</a></li>
         <li html="ENDING-21KO.html">Ending 32 - <a href="/e/ENDING-21KO.html">noname</a></li>
         <li html="ENDING-ITRemainSilent.html">Ending 33 - <a href="/e/ENDING-ITRemainSilent.html">noname</a></li>
+        <li html="ENDING-JavaError.html">Ending 34 - <a href="/e/ENDING-JavaError.html">noname</a></li>
+        <li html="ENDING-ArchBtw.html">Ending 35 - <a href="/e/ENDING-ArchBtw.html">noname</a></li>
+        <li html="ENDING-PirWindows.html">Ending 36 - <a href="/e/ENDING-PirWindows.html">noname</a></li>
+        <li html="ENDING-WorkerNotFighter.html">Ending 37 - <a href="/e/ENDING-WorkerNotFighter.html">noname</a></li>
+        <li html="ENDING-ImmoIT.html">Ending 38 - <a href="/e/ENDING-ImmoIT.html">noname</a></li>
+        <li html="ENDING-SocietyInter.html">Ending 39 - <a href="/e/ENDING-SocietyInter.html">noname</a></li>
+        <li html="ENDING-StrangeChips.html">Ending 40 - <a href="/e/ENDING-StrangeChips.html">noname</a></li>
+        <li html="ENDING-DisobeyedNarrator.html">Ending 40 - <a href="/e/ENDING-DisobeyedNarrator.html">noname</a></li>
       </ul>
     </div>
-    <script src="{{ url_for('static', filename='endings.js') }}"></script>
     <script>
         const unlocked = '{{UNLOCKED}}';
         let totalendings = '{{TOTAL}}';
