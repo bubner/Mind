@@ -40,7 +40,7 @@ class User:
         self.lastsave = time.time()
         with open('savestates/' + self.name + '.txt', 'wb') as file:
             file.write(pickle.dumps(self.__dict__))
-
+            
     # Set last page state to the last target
     def changepagestate(self):
         self.pagestate = target
@@ -100,7 +100,9 @@ class User:
             'noAmbo': False,
             'noimmediateCare': False,
             'workerPaidDrink': False,
-            'welderChips': False
+            'welderChips': False,
+            'welderEarly': False,
+            'eyeDmg': False
         }
         self.items.clear()
         self.fsave(self)
@@ -149,7 +151,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 41
+    TOTALENDINGS = 42
     user = None
     target = '/'
 
@@ -293,7 +295,18 @@ try:
                                NAME=user,
                                NAMECAP=user.upper())
 
+        
+    # HomeBridge01 junction direct
+    @app.route('/homebridge')
+    def homebridge():
+        global user, save, target
+        
+        target = '/'
+        
+        return render_template(target, NAME=user)
 
+        
+    # Story subroutes and logic redirections
     @app.route('/tv')
     def tv():
         global user, save, target
@@ -746,7 +759,8 @@ try:
         target = 'xC-WorkITGCAmboDe.html'
         return render_template(target, NAME=user)
 
-
+    # Easter egg!
+        
     @app.route('/itleave')
     def itleave():
         global user, save, target
@@ -922,11 +936,14 @@ try:
         target = 'ENDING-StrangeChips.html'
         return render_template(target, NAME=user)
 
-
-    @app.route('/homebridge')
-    def homebridge():
+    
+    @app.route('/wgohome')
+    def wgohome():
         global user, save, target
-        target = '/'
+        
+        save.sv('welderEarly', True)
+        
+        target = 'xC-HomeBridge01.html'
         return render_template(target, NAME=user)
 
 
@@ -939,14 +956,7 @@ try:
 
         save.sv("welderChips", True)
 
-        target = 'xC-HomeBridge01.html'
-        return render_template(target, NAME=user)
-
-
-    @app.route('/wcontinue')
-    def wcontinue():
-        global user, save, target
-        target = 'xC-'
+        target = 'xC-WorkWeldGiveChips.html'
         return render_template(target, NAME=user)
 
 
@@ -955,6 +965,42 @@ try:
         global user, save, target
         target = 'ENDING-DisobeyedNarrator.html'
         return render_template(target, NAME=user)
+
+    
+    @app.route('/wdisregard')
+    def wdisregard():
+        global user, save, target
+        target = 'xC-WorkWeldNCDe.html'
+        return render_template(target, NAME=user)
+
+    
+    @app.route('/weldhelp')
+    def weldhelp():
+        global user, save, target
+        target = 'xC-WorkWeldMachine.html'
+        return render_template(target, NAME=user)
+
+    
+    @app.route('/wweld')
+    def wweld():
+        global user, save, target
+        save.sv("eyeDmg", True)
+        target = 'xC-WorkWeldMachineWeld.html'
+        return render_template(target, NAME=user) 
+
+    
+    @app.route('/wmach')
+    def wmach():
+        global user, save, target
+        target = 'xC-WorkWeldMachineMach.html'
+        return render_template(target, NAME=user) 
+
+    
+    @app.route('/wtakechip')
+    def wtakechip():
+        global user, save, target
+        target = 'ENDING-ChipTakeGone.html'
+        return render_template(target, NAME=user) 
 
 except AttributeError:
     abort(503)

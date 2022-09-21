@@ -31,11 +31,12 @@
       <svg id="fader"></svg> <script>fadeIn();</script>
       <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
       <div id="blur">
-      <h1 class="event">BAD ENDING: SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 43: NO FRIENDS DETECTED <br> <p class="subending">Ending 16/<span id="endingno"></span></p></h1>
+      <h1 class="event">BAD ENDING: SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 762: NO FRIENDS DETECTED <br> <p class="subending">Ending 16/<span id="endingno"></span></p></h1>
       <p class="stinfo">{{NAME}} goes to have a conversation with their friend but, <br> <br>
       Traceback (most recent call last): <br>
-      File "game", line 43 in "module": <br>
-      FileError: file 'friends' were not found...</p>
+      File "main.py", line 762, in find_friends <br>
+      your_friends = open('friends.db', 'r') <br>
+      FileNotFoundError: [Errno 2] No such file or directory: 'friends.db'</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
           <ul>
             <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

@@ -29,17 +29,18 @@
             </div>
         </div>
       <svg id="fader"></svg> <script>fadeIn();</script>
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
       <div id="blur">
-      <h1 class="event">{{NAME}} goes to the Welding Department one building over.</h1>
-      <p class="stinfo">"Yo boss, how's it going? You got something for me?" asked the welder. He sees the chips you have on hand. "Boss! I'm so hungry, I'd really like those chips right about now." <br> He stares into your soul as he looks like he's about to punch your head in if you don't say yes. <br> <br> What does {{NAME}} do?</p>
-        <div class="mainBarButtons"> <br style="line-height: 10px;">
+      <h1 class="event">ending <br> <p class="subending">Ending 42/<span id="endingno"></span></p></h1>
+      <p class="stinfo">explanation</p>
+        <div class="endingScreen"> <br style="line-height: 10px;">
           <ul>
-            <li><a href="/wdisregard"><button type="submit">Disregard it</button></a></li>
-            <li><a href="/wgivechips"><button type="submit">Give chips [-chips]</button></a></li>
+            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
           </ul>
         </div>
         </div>
-      </div>
+        </div>
+      <script src="{{ url_for('static', filename='endings.js') }}"></script>
     </body>
 </html>

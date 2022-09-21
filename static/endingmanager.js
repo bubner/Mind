@@ -2,7 +2,7 @@
 // unlocked and total variables declared in HTML
 
 // Extract the endings unlocked from the unlocked array
-// Removes HTML formatting that was escaped
+// Removes HTML formatting that did not get escaped
 let endings = unlocked.split(";");
 endings = endings.toString().split("&");
 endings = endings.toString().split(",");
