@@ -29,18 +29,18 @@
             </div>
         </div>
       <svg id="fader"></svg> <script>fadeIn();</script>
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/tv.jpg') }}); background-position: bottom;">
+      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
       <div id="blur">
-      <h1 class="event">The Prologue to {{NAME}}</h1>
-      <p class="stinfo">{{NAME}} was a standard member of society, owning large businesses of many industries (the ultra CEO of some super-company). They lived a seemingly normal life, until one day everything began to change... <br> <br> {{NAME}} is sitting on the couch, watching TV during the evening, sitting near all their technology gadgets. What do they do?</p>
-        <div class="mainBarButtons"> <br style="line-height: 10px;">
+      <h1 class="event">ending <br> <p class="subending">Ending 48/<span id="endingno"></span></p></h1>
+      <p class="stinfo">explanation</p>
+        <div class="endingScreen"> <br style="line-height: 10px;">
           <ul>
-<!--             <li><a href="/chips"><button type="submit">Eat the chips</button></a></li> -->
-              <li><a>[pathway work in progress!]</a></li>
-            <li><a href="/tv"><button type="submit">Continue watching TV</button></a></li>
+            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
           </ul>
         </div>
         </div>
-      </div>
+        </div>
+      <script src="{{ url_for('static', filename='endings.js') }}"></script>
     </body>
 </html>

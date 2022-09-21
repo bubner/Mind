@@ -151,7 +151,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 42
+    TOTALENDINGS = 48
     user = None
     target = '/'
 
@@ -301,7 +301,8 @@ try:
     def homebridge():
         global user, save, target
         
-        target = '/'
+        if save.cv("noAmbo"):
+            target = 'xC-WorkITPhoneBridge.html'
         
         return render_template(target, NAME=user)
 
@@ -1000,6 +1001,62 @@ try:
     def wtakechip():
         global user, save, target
         target = 'ENDING-ChipTakeGone.html'
+        return render_template(target, NAME=user) 
+
+    
+    @app.route('/wmed')
+    def wmed():
+        global user, save, target
+        target = 'ENDING-SmallStepWelder.html'
+        return render_template(target, NAME=user) 
+
+    
+    @app.route('/cbridge')
+    def stayhome():
+        global user, save, target
+        
+        if save.cv("welderChips"):
+            target = 'xC-WorkWeldCallBridge.html'
+        else:
+            target = 'ENDING-CEOWithoutVision.html'
+            
+        return render_template(target, NAME=user) 
+
+
+    @app.route('/wdecline')
+    def wdecline():
+        global user, save, target
+        target = 'xC-W.html'
+        return render_template(target, NAME=user) 
+
+
+    @app.route('/waccept')
+    def waccept():
+        global user, save, target
+        if not save.cv("welderChips"):
+            target = 'ENDING-MistakesWorkplaceWelder.html'
+        else:
+            target = 'xC-FinalBridgeW.html'
+        return render_template(target, NAME=user)
+
+
+    @app.route('/wapologise')
+    def wapologise():
+        global user, save, target
+        target = 'ENDING-CheeseBad.html'
+        return render_template(target, NAME=user) 
+
+
+    @app.route('/itfdeny')
+    def itfdeny():
+        global user, save, target
+        target = 'ENDING-ITOverthrow.html'
+        return render_template(target, NAME=user) 
+
+    @app.route('/itfaccept')
+    def itfaccept():
+        global user, save, target
+        target = 'ENDING-MistakesWorkplaceIT.html'
         return render_template(target, NAME=user) 
 
 except AttributeError:
