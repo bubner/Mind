@@ -1053,6 +1053,7 @@ try:
         target = 'ENDING-ITOverthrow.html'
         return render_template(target, NAME=user) 
 
+    
     @app.route('/itfaccept')
     def itfaccept():
         global user, save, target
