@@ -117,6 +117,15 @@ def goback(e):
     target = 'index.html'
     return render_template(target)
 
+    
+# 404 request if a user exists
+@app.errorhandler(404)
+def notfound(e):
+    global user
+    print(f"> 404 request intercepted while user info was present: {e}")
+    localtarget = '404.html'
+    return render_template(localtarget, NAME=user)
+
 
 @app.before_request
 def checkuser():
@@ -303,6 +312,10 @@ try:
         
         if save.cv("noAmbo"):
             target = 'xC-WorkITPhoneBridge.html'
+        elif save.cv("welderEarly"):
+            target = 'xC-HBEarly.html'
+        else:
+            target = 'xC-.html'
         
         return render_template(target, NAME=user)
 
