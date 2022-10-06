@@ -30,15 +30,13 @@ class User:
             self.reset()
 
     # File management methods
-    @staticmethod
     def fload(self):
-        with open('savestates/' + self.name + '.txt', 'rb') as file:
+        with open('savestates/' + self.name + '.pickle', 'rb') as file:
             self.__dict__ = pickle.load(file)
 
-    @staticmethod
     def fsave(self):
         self.lastsave = time.time()
-        with open('savestates/' + self.name + '.txt', 'wb') as file:
+        with open('savestates/' + self.name + '.pickle', 'wb') as file:
             file.write(pickle.dumps(self.__dict__))
 
     # Set last page state to the last target
@@ -199,6 +197,10 @@ try:
 
         # Get player input for their username
         if not user:
+            if request.args.get("playername") == "":
+                save = None
+                target = 'index.html'
+                return render_template(target)
             user = request.args.get("playername")
             user = user.capitalize()
 
