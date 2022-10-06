@@ -339,21 +339,21 @@ try:
 
     @app.route('/standforever')
     def standforever():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("lateNightChips"):
             target = 'ENDING-ChipFinder.html'
         else:
             target = 'ENDING-StandForever.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/standforevermum')
     def standforevermum():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-StandForeverMum.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/berude')
@@ -399,21 +399,21 @@ try:
 
     @app.route('/takeoutchips')
     def takeoutchips():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("Tired"):
             target = 'ENDING-TiredTakeOutChips.html'
         else:
             target = 'ENDING-NotTiredTakeOutChips.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/bringoutchips')
     def bringoutchips():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-EnthusiasticTakeOutChips.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/gamedontknow')
@@ -455,16 +455,16 @@ try:
 
     @app.route('/truth')
     def truth():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-MadMum.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/givechipseveryone')
     def givechipseveryone():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ChipsGenocide.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/dietician')
@@ -496,9 +496,9 @@ try:
 
     @app.route('/taketime')
     def taketime():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-MadMumDeliquent.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/rush')
@@ -510,40 +510,40 @@ try:
 
     @app.route('/newgametalk')
     def newgametalk():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("Tired"):
             target = 'ENDING-FSNewGame.html'
         else:
             target = 'ENDING-MumNewGame.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/oldgametalk')
     def oldgametalk():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("Tired"):
             target = 'ENDING-FSOldGame.html'
         else:
             target = 'ENDING-MumOldGame.html'
 
-        return render_template(target, NAME=user, NAMECAP=user.upper())
+        return render_template(target, NAME=user, NAMECAP=user.upper(), TOTAL=TOTALENDINGS)
 
 
     @app.route('/takeoutdrone')
     def takeoutdrone():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-TakeOutDrone.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/computerinvestigate')
     def computerinvestigate():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-VistaMum.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/chips')
@@ -585,28 +585,28 @@ try:
 
     @app.route('/friendconvo')
     def friendconvo():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-FriendConvo.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/eatchips')
     def eatchips():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.ci("chips"):
             target = 'ENDING-HomeChips.html'
         else:
             target = 'xC-NoChips.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/vanish')
     def vanish():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-Vanish.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/turnoncomputer')
@@ -640,28 +640,28 @@ try:
 
     @app.route('/eatchipshome')
     def eatchipshome():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv('badTeeth1') and save.cv('badTeeth2'):
             target = 'ENDING-ChipOverload.html'
         else:
             target = 'xC-EatChips.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/embracecheese')
     def embracecheese():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-EmbraceCheese.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/runcheese')
     def runcheese():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-RunCheese.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/cheesesim')
@@ -685,9 +685,9 @@ try:
 
     @app.route('/doomsupereternal')
     def doomsupereternal():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-Doom.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/closeemails')
@@ -699,28 +699,28 @@ try:
 
     @app.route('/minecraft')
     def minecraft():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-Minecraft.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/fortnite')
     def fortnite():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-Fortnite.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/cheesesimchips')
     def cheesesimchips():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-CheeseSimChips.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/it')
     def it():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv('badTeeth1') and save.cv('badTeeth2'):
             target = 'ENDING-BadTeethIT.html'
@@ -729,12 +729,12 @@ try:
         else:
             target = 'xC-WorkITNoChips.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/weld')
     def weld():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv('badTeeth1') and save.cv('badTeeth2'):
             target = 'ENDING-BadTeethWeld.html'
@@ -743,7 +743,7 @@ try:
         else:
             target = 'xC-WorkWeldNoChips.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/gohome')
@@ -787,21 +787,21 @@ try:
 
     @app.route('/subinneed')
     def subinneed():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("noimmediateCare"):
             target = 'ENDING-SubInNeedLa.html'
         else:
             target = 'ENDING-SubInNeedIm.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/weirdwall')
     def weirdwall():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-Backrooms.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/itignorerun')
@@ -813,9 +813,9 @@ try:
 
     @app.route('/itringout')
     def itringout():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ITRingout.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/itaccept')
@@ -841,9 +841,9 @@ try:
 
     @app.route('/itremainsilent')
     def itremainsilent():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ITRemainSilent.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/givechips')
@@ -880,23 +880,23 @@ try:
 
     @app.route('/javapvs')
     def javapvs():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-JavaError.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/pirwindows')
     def pirwindows():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-PirWindows.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/insarch')
     def insarch():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ArchBtw.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/payrise')
@@ -931,26 +931,28 @@ try:
 
     @app.route('/itfight')
     def itfight():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv('workerPaidDrink'):
             target = 'ENDING-WorkerNotFighter.html'
         else:
             target = 'ENDING-ImmoIT.html'
 
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
 
     @app.route('/itretreat')
     def itretreat():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-SocietyInter.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/strangechips')
     def strangechips():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-StrangeChips.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/wgohome')
@@ -1014,28 +1016,28 @@ try:
 
     @app.route('/wtakechip')
     def wtakechip():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ChipTakeGone.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/wmed')
     def wmed():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-SmallStepWelder.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/cbridge')
     def stayhome():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
 
         if save.cv("welderChips"):
             target = 'xC-WorkWeldCallBridge.html'
         else:
             target = 'ENDING-CEOWithoutVision.html'
 
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/wdecline')
@@ -1047,33 +1049,33 @@ try:
 
     @app.route('/waccept')
     def waccept():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         if not save.cv("welderChips"):
             target = 'ENDING-MistakesWorkplaceWelder.html'
         else:
             target = 'xC-FinalBridgeW.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/wapologise')
     def wapologise():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-CheeseBad.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/itfdeny')
     def itfdeny():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-ITOverthrow.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/itfaccept')
     def itfaccept():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'ENDING-MistakesWorkplaceIT.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 except AttributeError:
     abort(503)
