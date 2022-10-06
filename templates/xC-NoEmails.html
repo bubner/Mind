@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} checks their emails.</h1>
-      <p class="stinfo">There's no emails! However, {{NAME}} checks their spam box, and finds one email.<br> <br> It reads 'DOOM GUY', and has a file attached named 'DOOM SUPER ETERNAL.EXE', what does {{NAME}} do?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} checks their emails.</h1>
+        <p class="stinfo">There's no emails! However, {{NAME}} checks their spam box, and finds one email.<br> <br> It reads 'DOOM GUY', and has a file attached named 'DOOM SUPER ETERNAL.EXE', what does {{NAME}} do?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/doomsupereternal"><button type="submit">Open DOOM SUPER ETERNAL.EXE</button></a></li>
-            <li><a href="/closeemails"><button type="submit">Nevermind, close emails</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/doomsupereternal"><button type="submit">Open DOOM SUPER ETERNAL.EXE</button></a></li>
+                <li><a href="/closeemails"><button type="submit">Nevermind, close emails</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

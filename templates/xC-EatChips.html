@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} eats the Cheesinator Chips.</h1>
-      <p class="stinfo">{{NAME}}'s obsession with chips doesn't stop them from eating the mass amounts of chips. It's a good thing they care somewhat about their health to brush their teeth... After feasting on the Cheesinator Chips, {{NAME}} feels satisfied and turns on their computer. <br> <br> {{NAME}} stares at their desktop screen, when suddenly, a JPEG of a cheese block appears on their screen. It sends {{NAME}}'s body into fight or flight.</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} eats the Cheesinator Chips.</h1>
+        <p class="stinfo">{{NAME}}'s obsession with chips doesn't stop them from eating the mass amounts of chips. It's a good thing they care somewhat about their health to brush their teeth... After feasting on the Cheesinator Chips, {{NAME}} feels satisfied and turns on their computer. <br> <br> {{NAME}} stares at their desktop screen, when suddenly, a JPEG of a cheese block appears on their screen. It sends {{NAME}}'s body into fight or flight.</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/runcheese"><button type="submit">RUN AWAY</button></a></li>
-            <li><a href="/embracecheese"><button type="submit">EMBRACE THE CHEESE</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/runcheese"><button type="submit">RUN AWAY</button></a></li>
+                <li><a href="/embracecheese"><button type="submit">EMBRACE THE CHEESE</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

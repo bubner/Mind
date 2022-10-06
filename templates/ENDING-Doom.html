@@ -2,17 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">DOOM ENDING: THE SLAYER HAS ENTERED THE BUILDING <br> <p class="subending">Ending 22/{{ TOTAL }}</p></h1>
-      <p class="stinfo">{{NAME}} starts to hear the Doom Eternal music as they begin to ascend into another dimension. They are now the Doom Slayer. {{NAME}} now must complete the mission of mass genocide. Good luck. <br> <br> "Introducing the best story arc of all time"</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">DOOM ENDING: THE SLAYER HAS ENTERED THE BUILDING <br> <p class="subending">Ending 22/{{ TOTAL }}</p></h1>
+        <p class="stinfo">{{NAME}} starts to hear the Doom Eternal music as they begin to ascend into another dimension. They are now the Doom Slayer. {{NAME}} now must complete the mission of mass genocide. Good luck. <br> <br> "Introducing the best story arc of all time"</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+                <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            </ul>
         </div>
-        </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+    </div>
+</div>
 {% endblock %}

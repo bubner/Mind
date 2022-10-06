@@ -2,17 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/convo.webp') }});">
-      <div id="blur">
-      <h1 class="event">GOOD ENDING: A FAIR DISCUSSION <br> <p class="subending">Ending 08/{{ TOTAL }}</p></h1>
-      <p class="stinfo">{{NAME}} waddles to the conversation and is extremely enthusiastic. Both {{NAME}} and the people who also played the game got to the same progress! {{NAME}} has a luxurious conversation about the game, wondering what will be the next super plot twist. Good thing {{NAME}} played it last night!</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/convo.webp') }});">
+    <div id="blur">
+        <h1 class="event">GOOD ENDING: A FAIR DISCUSSION <br> <p class="subending">Ending 08/{{ TOTAL }}</p></h1>
+        <p class="stinfo">{{NAME}} waddles to the conversation and is extremely enthusiastic. Both {{NAME}} and the people who also played the game got to the same progress! {{NAME}} has a luxurious conversation about the game, wondering what will be the next super plot twist. Good thing {{NAME}} played it last night!</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+                <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            </ul>
         </div>
-        </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+    </div>
+</div>
 {% endblock %}

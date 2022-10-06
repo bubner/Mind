@@ -6,10 +6,10 @@
     <div id="blur">
         <h1 class="event">MAIN</h1>
         <p class="stinfo">INFO<br><br>ACTION QUESTION</p>
-            <div class="mainBarButtons"> <br style="line-height: 10px;">
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
             <ul>
-                <li><a href="/chips"><button type="submit">Eat the chips</button></a></li>
-                <li><a href="/tv"><button type="submit">Continue watching TV</button></a></li>
+                <li><a href="/"><button type="submit">AC1</button></a></li>
+                <li><a href="/"><button type="submit">AC2</button></a></li>
             </ul>
         </div>
     </div>

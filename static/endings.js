@@ -1,5 +1,7 @@
-// Runs on the 'endings.html' page from the '/endings' approute
-// unlocked and total variables declared in HTML
+/*
+ *   Runs on the 'endings.html' page from the '/endings' approute
+ *   unlocked and total variables declared in HTML
+ */
 
 // Extract the endings unlocked from the unlocked array
 // Removes HTML formatting that did not get escaped

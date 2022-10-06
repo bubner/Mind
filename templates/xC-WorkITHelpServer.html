@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} goes to the server room with the IT worker.</h1>
-      <p class="stinfo">"We need to install an operating system on these computers. We just got them. Normally we would put Windows on them, but we are running short on money." said the IT worker. <br> <br> What does {{NAME}} suggest?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} goes to the server room with the IT worker.</h1>
+        <p class="stinfo">"We need to install an operating system on these computers. We just got them. Normally we would put Windows on them, but we are running short on money." said the IT worker. <br> <br> What does {{NAME}} suggest?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/pirwindows"><button type="submit">Pirate Windows</button></a></li>
-            <li><a href="/insarch"><button type="submit">Install Arch Linux</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/pirwindows"><button type="submit">Pirate Windows</button></a></li>
+                <li><a href="/insarch"><button type="submit">Install Arch Linux</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

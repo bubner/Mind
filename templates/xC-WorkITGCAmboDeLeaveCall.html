@@ -2,17 +2,17 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} runs away from the strange wall.</h1>
-      <p class="stinfo">Good idea. I don't know where that goes. <br> <br> {{NAME}} runs back home but is suddenly called by their coworker in hospital. What does {{NAME}} do?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} runs away from the strange wall.</h1>
+        <p class="stinfo">Good idea. I don't know where that goes. <br> <br> {{NAME}} runs back home but is suddenly called by their coworker in hospital. What does {{NAME}} do?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/itaccept"><button type="submit">Accept the call</button></a></li>
-            <li><a href="/itdeny"><button type="submit">Deny the call</button></a></li>
-            <li><a href="/itringout"><button type="submit">Ringout the call</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/itaccept"><button type="submit">Accept the call</button></a></li>
+                <li><a href="/itdeny"><button type="submit">Deny the call</button></a></li>
+                <li><a href="/itringout"><button type="submit">Ringout the call</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

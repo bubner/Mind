@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/12.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} swiftly jumps to bed early, in order to go to their mother's house tomorrow.</h1>
-      <p class="stinfo">It is now tomorrow, {{NAME}} goes to their mother's house, bringing some food and their phone to help keep them occupied. But oh no! {{NAME}}'s phone died, and it would be rude to charge it! {{NAME}} also forgot to bring their drone, nothing reminded them about it! There are many people there and {{NAME}} stands there looking like a fool in the corner while everyone chats and gets along.<br> <br> How does {{NAME}} occupy themselves?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/12.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} swiftly jumps to bed early, in order to go to their mother's house tomorrow.</h1>
+        <p class="stinfo">It is now tomorrow, {{NAME}} goes to their mother's house, bringing some food and their phone to help keep them occupied. But oh no! {{NAME}}'s phone died, and it would be rude to charge it! {{NAME}} also forgot to bring their drone, nothing reminded them about it! There are many people there and {{NAME}} stands there looking like a fool in the corner while everyone chats and gets along.<br> <br> How does {{NAME}} occupy themselves?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/standforever"><button type="submit">Find something to do endlessly</button></a></li>
-            <li><a href="/takeoutchips"><button type="submit">Take out chips</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/standforever"><button type="submit">Find something to do endlessly</button></a></li>
+                <li><a href="/takeoutchips"><button type="submit">Take out chips</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

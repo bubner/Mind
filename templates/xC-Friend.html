@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} decides to call a friend.</h1>
-      <p class="stinfo">Picking up the phone, {{NAME}} opens the phone app and calls a friend. Let's see how that plays out. <br> <br> On the phone, what do they do?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} decides to call a friend.</h1>
+        <p class="stinfo">Picking up the phone, {{NAME}} opens the phone app and calls a friend. Let's see how that plays out. <br> <br> On the phone, what do they do?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/gohome"><button type="submit">Insult them and hang up</button></a></li>
-            <li><a href="/friendconvo"><button type="submit">Have a luxurious, empowering, and delightful conversation with them</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/gohome"><button type="submit">Insult them and hang up</button></a></li>
+                <li><a href="/friendconvo"><button type="submit">Have a luxurious, empowering, and delightful conversation with them</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

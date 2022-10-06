@@ -1,6 +1,7 @@
 /* Lucas Bubner, 2022 */
 
-button, input[type="submit"] { /* remove all formatting on buttons because I hate them */
+button, input[type="submit"] {
+    /* Remove all formatting on buttons because I hate them */
 	background: none;
 	color: inherit;
 	border: none;
@@ -20,7 +21,7 @@ html {
   color: #fff;
 }
 
-/* this is messy, but it works so no touching */
+/* This is messy, but it works so no touching */
 .mainBarButtons, .endingScreen {
   text-align: center;
   top: 0;

@@ -1,4 +1,6 @@
-// Runs on each action page
+/*
+ *   Runs on each action page
+ */
 
 // Alerts if the monitor size is from the 1960's
 if (window.innerWidth < 800 || window.innerHeight < 600) {

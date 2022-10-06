@@ -1,4 +1,6 @@
-// Runs on every page
+/*
+ *   Runs on every page
+ */
 
 function fadeIn() {
     if (!window.AnimationEvent) { return; }

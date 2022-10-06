@@ -200,9 +200,9 @@ try:
 
         # Get player input for their username
         if not user:
-            # if request.args.get("playername") == "":
-            #     target = 'index.html'
-            #     return render_template(target)
+            if request.args.get("playername") == "":
+                target = 'index.html'
+                return render_template(target)
             user = request.args.get("playername")
             user = user.capitalize()
 

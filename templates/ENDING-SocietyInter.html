@@ -2,17 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
-      <div id="blur">
-      <h1 class="event">ending <br> <p class="subending">Ending 39/{{ TOTAL }}</p></h1>
-      <p class="stinfo">explanation</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
+    <div id="blur">
+        <h1 class="event">ending <br> <p class="subending">Ending 39/{{ TOTAL }}</p></h1>
+        <p class="stinfo">explanation</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+                <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            </ul>
         </div>
-        </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+    </div>
+</div>
 {% endblock %}

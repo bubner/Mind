@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} is left at home, wondering what they should do.</h1>
-      <p class="stinfo">{{NAME}} is now in their house, lost in what they should be occupying themselves with. <br> <br> How should {{NAME}} spend their time?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} is left at home, wondering what they should do.</h1>
+        <p class="stinfo">{{NAME}} is now in their house, lost in what they should be occupying themselves with. <br> <br> How should {{NAME}} spend their time?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/turnoncomputer"><button type="submit">Turn on the computer</button></a></li>
-            <li><a href="/eatchipshome"><button type="submit">Eat chips</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/turnoncomputer"><button type="submit">Turn on the computer</button></a></li>
+                <li><a href="/eatchipshome"><button type="submit">Eat chips</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

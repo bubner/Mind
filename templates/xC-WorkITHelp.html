@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} decides to help the IT worker for the day.</h1>
-      <p class="stinfo">"Alright, we need to fix some issues in the server rooms, or we can just fix some bugs with our production code." stated the IT worker. <br> <br> How will {{NAME}} help the IT worker? </p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} decides to help the IT worker for the day.</h1>
+        <p class="stinfo">"Alright, we need to fix some issues in the server rooms, or we can just fix some bugs with our production code." stated the IT worker. <br> <br> How will {{NAME}} help the IT worker? </p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/codejava"><button type="submit">Program in Java</button></a></li>
-            <li><a href="/serverrooms"><button type="submit">Go to the server rooms</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/codejava"><button type="submit">Program in Java</button></a></li>
+                <li><a href="/serverrooms"><button type="submit">Go to the server rooms</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

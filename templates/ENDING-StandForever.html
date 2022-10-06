@@ -2,17 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/4.jpg') }});">
-      <div id="blur">
-      <h1 class="event">BAD ENDING: STUCK IN TIME <br> <p class="subending">Ending 11/{{ TOTAL }}</p></h1>
-      <p class="stinfo">{{NAME}} stands there perpetually, full of energy, but no one wants to talk to {{NAME}}. {{NAME}} tried to find something to do, but then they realised they're introverted. {{NAME}} finds themselves in a space of loneliness, discomfort, and they feel missing for the rest of time.</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/4.jpg') }});">
+    <div id="blur">
+        <h1 class="event">BAD ENDING: STUCK IN TIME <br> <p class="subending">Ending 11/{{ TOTAL }}</p></h1>
+        <p class="stinfo">{{NAME}} stands there perpetually, full of energy, but no one wants to talk to {{NAME}}. {{NAME}} tried to find something to do, but then they realised they're introverted. {{NAME}} finds themselves in a space of loneliness, discomfort, and they feel missing for the rest of time.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
-            <li><a href="/endings"><button type="submit">View all endings</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
+                <li><a href="/endings"><button type="submit">View all endings</button></a></li>
+            </ul>
         </div>
-        </div>
-        </div>
-      <script src="{{ url_for('static', filename='endings.js') }}"></script>
+    </div>
+</div>
 {% endblock %}

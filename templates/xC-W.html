@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} mutes and turns off the phone.</h1>
-      <p class="stinfo">However, shortly later, they hear a knock at the door. They peek through the window and it's the welder. He looks angered and outraged. <br> "LISTEN HERE, I'M GONNA GET IN THERE AND PUNCH YOUR LIGHTS OUT IN A MINUTE." yelled the welder. <br> <br> It seems like {{NAME}} might've accidentally confirmed the welder's theories of assassination... How does {{NAME}} respond?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} mutes and turns off the phone.</h1>
+        <p class="stinfo">However, shortly later, they hear a knock at the door. They peek through the window and it's the welder. He looks angered and outraged. <br> "LISTEN HERE, I'M GONNA GET IN THERE AND PUNCH YOUR LIGHTS OUT IN A MINUTE." yelled the welder. <br> <br> It seems like {{NAME}} might've accidentally confirmed the welder's theories of assassination... How does {{NAME}} respond?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/wafight"><button type="submit">FIGHT</button></a></li>
-            <li><a href="/wacops"><button type="submit">HIDE AND CALL COPS</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/wafight"><button type="submit">FIGHT</button></a></li>
+                <li><a href="/wacops"><button type="submit">HIDE AND CALL COPS</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

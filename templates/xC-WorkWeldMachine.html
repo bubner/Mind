@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} helps with the final welding project.</h1>
-      <p class="stinfo">{{NAME}} helps the welder with some critical welding they need to do for the building infrastructure. However, while welding, the welder yells something. <br> "I can't turn the welder off! Shut the power!" <br> {{NAME}} flicks the power supply on the welder off, but no response came from the welding gun as it started to melt into the air, releasing toxic fumes. The welder falls to the ground from mild burns from the gun he was holding. <br> <br> {{NAME}} is left with two options. Turn off the machine or save the welder?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} helps with the final welding project.</h1>
+        <p class="stinfo">{{NAME}} helps the welder with some critical welding they need to do for the building infrastructure. However, while welding, the welder yells something. <br> "I can't turn the welder off! Shut the power!" <br> {{NAME}} flicks the power supply on the welder off, but no response came from the welding gun as it started to melt into the air, releasing toxic fumes. The welder falls to the ground from mild burns from the gun he was holding. <br> <br> {{NAME}} is left with two options. Turn off the machine or save the welder?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/wweld"><button type="submit">SAVE WELDER</button></a></li>
-            <li><a href="/wmach"><button type="submit">TURN OFF MACHINE</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/wweld"><button type="submit">SAVE WELDER</button></a></li>
+                <li><a href="/wmach"><button type="submit">TURN OFF MACHINE</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/15.jpg') }});">
-      <div id="blur">
-      <h1 class="event">{{NAME}} settles down for the late night relaxing and slowly falling asleep.</h1>
-      <p class="stinfo">{{NAME}} puts the chips down next to their phone and thinks about life while watching TV, and ponder about what's going to be the next big thing in their life to go wrong. Through all this, {{NAME}} feels their eyes become heavy, and they drift to sleep. <br> <br> Oh no, {{NAME}} is abruptly woken at 7 in the morning by their mother on the phone! {{NAME}} grabs the bag of chips on the table next to their phone. {{NAME}} has to go to their mother's house for a get together and {{NAME}} didn't know about it last night when she called!</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/15.jpg') }});">
+    <div id="blur">
+        <h1 class="event">{{NAME}} settles down for the late night relaxing and slowly falling asleep.</h1>
+        <p class="stinfo">{{NAME}} puts the chips down next to their phone and thinks about life while watching TV, and ponder about what's going to be the next big thing in their life to go wrong. Through all this, {{NAME}} feels their eyes become heavy, and they drift to sleep. <br> <br> Oh no, {{NAME}} is abruptly woken at 7 in the morning by their mother on the phone! {{NAME}} grabs the bag of chips on the table next to their phone. {{NAME}} has to go to their mother's house for a get together and {{NAME}} didn't know about it last night when she called!</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/taketime"><button type="submit">Take it easy, not my problem</button></a></li>
-            <li><a href="/rush"><button type="submit">Rush as fast as possible</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/taketime"><button type="submit">Take it easy, not my problem</button></a></li>
+                <li><a href="/rush"><button type="submit">Rush as fast as possible</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}

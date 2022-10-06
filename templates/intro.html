@@ -2,16 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-      <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
-      <div id="blur">
-      <h1 class="event">Your name is {{NAME}}!</h1>
-      <p class="stinfo">Are you ready to start your adventure?</p>
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+    <div id="blur">
+        <h1 class="event">Your name is {{NAME}}!</h1>
+        <p class="stinfo">Are you ready to start your adventure?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
-          <ul>
-            <li><a href="/startgame"><button type="submit">Yes, continue!</button></a></li>
-            <li><a href="/"><button type="submit">No, go back</button></a></li>
-          </ul>
+            <ul>
+                <li><a href="/startgame"><button type="submit">Yes, continue!</button></a></li>
+                <li><a href="/"><button type="submit">No, go back</button></a></li>
+            </ul>
         </div>
-        </div>
-      </div>
+    </div>
+</div>
 {% endblock %}
