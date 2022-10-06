@@ -20,6 +20,7 @@ class User:
         try:
             self.fload(self)
         except FileNotFoundError:
+            print("New user was found. Info created for: " + self.name)
             self.unix = time.time()
             self.endings = []
             self.pagestate = ""
@@ -30,10 +31,12 @@ class User:
             self.reset()
 
     # File management methods
+    @staticmethod
     def fload(self):
         with open('savestates/' + self.name + '.pickle', 'rb') as file:
             self.__dict__ = pickle.load(file)
 
+    @staticmethod
     def fsave(self):
         self.lastsave = time.time()
         with open('savestates/' + self.name + '.pickle', 'wb') as file:
@@ -197,10 +200,9 @@ try:
 
         # Get player input for their username
         if not user:
-            if request.args.get("playername") == "":
-                save = None
-                target = 'index.html'
-                return render_template(target)
+            # if request.args.get("playername") == "":
+            #     target = 'index.html'
+            #     return render_template(target)
             user = request.args.get("playername")
             user = user.capitalize()
 
