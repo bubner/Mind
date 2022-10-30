@@ -4,8 +4,9 @@ import datetime
 import os
 import pickle
 import time
+import hashlib
 
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, redirect
 
 # Initialise new Flask app
 app = Flask(__name__)
@@ -28,6 +29,8 @@ class User:
             self.items = []
             self.lastsave = 0
             self.saved = False
+            self.hash = None
+            self.loggedin = False
             self.reset()
 
     # File management methods
@@ -136,7 +139,7 @@ def checkuser():
             '/static/'
     ) and not request.path == '/' and not request.path.startswith(
         '/story'
-    ) and (save is None or user is None):
+    ) and not request.path == '/pass' and (save is None or user is None):
         print(f"> stopped request of: {request.path} as user info was missing")
         target = 'index.html'
         return render_template(target)
@@ -178,6 +181,33 @@ try:
         return render_template(target, ENDINGNO=TOTALENDINGS)
 
 
+    @app.route('/pass', methods=["POST", "GET"])
+    def authenticate():
+        global user, save
+        # Get player input for their username
+        if not user:
+            if request.args.get("playername") == "":
+                return redirect("/")
+            user = request.args.get("playername")
+            user = user.capitalize()
+
+        # Make a new user object for the person
+        save = User(user)
+
+        if request.method == 'POST':
+            if not (password := request.form.get("password")):
+                abort(503)
+            if not save.saved:
+                save.hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            else:
+                if not (save.hash == hashlib.sha256(password.encode('utf-8')).hexdigest()):
+                    return render_template('auth.html', NAME=user, save=save)
+            save.loggedin = True
+            return redirect("/story")
+        else:
+            return render_template('auth.html', NAME=user, save=save)
+
+
     # Manual endpage navigation if unlocked
     @app.route('/e/<string:page>')
     def ending(page):
@@ -197,17 +227,6 @@ try:
     @app.route('/story', methods=["GET"])
     def story():
         global TOTALENDINGS, user, save, target
-
-        # Get player input for their username
-        if not user:
-            if request.args.get("playername") == "":
-                target = 'index.html'
-                return render_template(target)
-            user = request.args.get("playername")
-            user = user.capitalize()
-
-        # Make a new user object for the person
-        save = User(user)
 
         # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
@@ -1081,8 +1100,8 @@ except AttributeError:
     abort(503)
 
 if __name__ == "__main__":
-    from waitress import serve
+    # from waitress import serve
 
     print("> APP INIT | running on http://127.0.0.1:8080/")
-    # app.run("0.0.0.0", debug=True)
-    serve(app, host="0.0.0.0", port=8080)
+    app.run("0.0.0.0", debug=True)
+    # serve(app, host="0.0.0.0", port=8080)

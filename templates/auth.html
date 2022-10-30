@@ -1,0 +1,15 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="indexcontainer">
+    {% if not save.saved %}
+        <h3>Please enter a password for the user: '{{ NAME }}'</h3>
+    {% else %}
+        <h3>Welcome back, {{ NAME }}! Please enter your password.</h3>
+    {% endif %}
+    <form action="/pass" method="post">
+        <input type="password" name="password" autocomplete="off" placeholder="Enter password" required>
+    </form>
+</div>
+{% endblock %}
