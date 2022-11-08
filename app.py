@@ -5,13 +5,45 @@ import os
 import pickle
 import time
 import hashlib
+import sqlite3
 
 from flask import Flask, render_template, request, abort, redirect
 
 # Initialise new Flask app
 app = Flask(__name__)
+# Connect to SQL database for password info
+sqlc = sqlite3.connect("auth.db", check_same_thread=False)
+auth = sqlc.cursor()
 
 
+# SQL execution
+def auth_addentry(username, password):
+    hpass = password + username
+    usercombo = [
+        hashlib.sha256(username.encode('utf-8')).hexdigest(),
+        hashlib.sha256(hpass.encode('utf-8')).hexdigest()
+    ]
+    auth.execute("INSERT INTO userlist (user, pass) VALUES(?, ?)", usercombo)
+    sqlc.commit()
+    print("Added new user/pass entry into database.")
+
+
+def auth_removeentry(username, password):
+    user = hashlib.sha256(username.encode('utf-8')).hexdigest()
+    auth.execute("DELETE FROM userlist WHERE user = ?", user)
+    sqlc.commit()
+    print("Removed a user/pass entry from database.")
+
+
+def auth_check(username, password):
+    hpass = password + username
+    usercombo = [
+        hashlib.sha256(username.encode('utf-8')).hexdigest(),
+        hashlib.sha256(hpass.encode('utf-8')).hexdigest()
+    ]
+    return auth.execute("SELECT * FROM userlist WHERE user = ? AND pass = ?", usercombo).fetchone()
+
+            
 class User:
 
     def __init__(self, name):
@@ -29,7 +61,6 @@ class User:
             self.items = []
             self.lastsave = 0
             self.saved = False
-            self.hash = None
             self.loggedin = False
             self.reset()
 
@@ -198,9 +229,9 @@ try:
             if not (password := request.form.get("password")):
                 abort(503)
             if not save.saved:
-                save.hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+                auth_addentry(user, password)
             else:
-                if not (save.hash == hashlib.sha256(password.encode('utf-8')).hexdigest()):
+                if not auth_check(user, password):
                     return render_template('auth.html', NAME=user, save=save)
             save.loggedin = True
             return redirect("/story")
@@ -262,6 +293,7 @@ try:
         # POST request to delete a user in question, so people can't go around running /userdel/
         try:
             os.remove('savestates/' + n + '.txt')
+            auth_removeentry(user)
         except OSError:
             print(f"> error deleting savefile of name: {n}")
         else:

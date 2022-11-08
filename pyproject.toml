@@ -10,6 +10,7 @@ numpy = "^1.22.2"
 replit = "^3.2.4"
 Flask = "^2.2.0"
 waitress = "^2.1.2"
+SQLAlchemy = "^1.4.43"
 
 [tool.poetry.dev-dependencies]
 debugpy = "^1.6.2"
