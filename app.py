@@ -4,9 +4,9 @@ import datetime
 import os
 import pickle
 import time
-import hashlib
 import sqlite3
 
+from argon2 import PasswordHasher
 from flask import Flask, render_template, request, abort, redirect
 
 # Initialise new Flask app
@@ -19,29 +19,25 @@ auth = sqlc.cursor()
 # SQL execution
 def auth_addentry(username, password):
     hpass = password + username
-    usercombo = [
-        hashlib.sha256(username.encode('utf-8')).hexdigest(),
-        hashlib.sha256(hpass.encode('utf-8')).hexdigest()
+    usercombo = [    
+        username,
+        PasswordHasher().hash(hpass)
     ]
     auth.execute("INSERT INTO userlist (user, pass) VALUES(?, ?)", usercombo)
     sqlc.commit()
-    print("Added new user/pass entry into database.")
+    print(" > added new user/pass entry into database.")
 
 
-def auth_removeentry(username, password):
-    user = hashlib.sha256(username.encode('utf-8')).hexdigest()
-    auth.execute("DELETE FROM userlist WHERE user = ?", user)
+def auth_removeentry(username):
+    auth.execute("DELETE FROM userlist WHERE user = ?", (username,))
     sqlc.commit()
-    print("Removed a user/pass entry from database.")
+    print(" > removed a user/pass entry from database.")
 
 
 def auth_check(username, password):
     hpass = password + username
-    usercombo = [
-        hashlib.sha256(username.encode('utf-8')).hexdigest(),
-        hashlib.sha256(hpass.encode('utf-8')).hexdigest()
-    ]
-    return auth.execute("SELECT * FROM userlist WHERE user = ? AND pass = ?", usercombo).fetchone()
+    entry = auth.execute("SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
+    return PasswordHasher().verify(entry[0], hpass)
 
             
 class User:
@@ -53,7 +49,7 @@ class User:
         try:
             self.fload(self)
         except FileNotFoundError:
-            print("New user was found. Info created for: " + self.name)
+            print("> new user was found. Info created for: " + self.name)
             self.unix = time.time()
             self.endings = []
             self.pagestate = ""
@@ -67,13 +63,21 @@ class User:
     # File management methods
     @staticmethod
     def fload(self):
-        with open('savestates/' + self.name + '.pickle', 'rb') as file:
+        basepath = "/home/runner/Mind/savestates/"
+        fullpath = os.path.normpath(os.path.join(basepath, self.name))
+        if not fullpath.startswith(basepath):
+            raise OSError("Security error. Attempted to load from a path outside of the base directory.")
+        with open(fullpath, 'rb') as file:
             self.__dict__ = pickle.load(file)
 
     @staticmethod
     def fsave(self):
         self.lastsave = time.time()
-        with open('savestates/' + self.name + '.pickle', 'wb') as file:
+        basepath = "/home/runner/Mind/savestates/"
+        fullpath = os.path.normpath(os.path.join(basepath, self.name))
+        if not fullpath.startswith(basepath):
+            raise OSError("Security error. Attempted to save to a path outside of the base directory.")
+        with open(fullpath, 'wb') as file:
             file.write(pickle.dumps(self.__dict__))
 
     # Set last page state to the last target
@@ -291,8 +295,12 @@ try:
         global user, save, target
 
         # POST request to delete a user in question, so people can't go around running /userdel/
-        try:
-            os.remove('savestates/' + n + '.txt')
+        try: 
+            basepath = "/home/runner/Mind/savestates/"
+            fullpath = os.path.normpath(os.path.join(basepath, n))
+            if not fullpath.startswith(basepath):
+                raise OSError("Security error. Attempted to save to a path outside of the base directory.")
+            os.remove(fullpath)
             auth_removeentry(user)
         except OSError:
             print(f"> error deleting savefile of name: {n}")
@@ -1135,5 +1143,5 @@ if __name__ == "__main__":
     # from waitress import serve
 
     print("> APP INIT | running on http://127.0.0.1:8080/")
-    app.run("0.0.0.0", debug=True)
+    app.run("0.0.0.0", debug=True, port=8080)
     # serve(app, host="0.0.0.0", port=8080)
