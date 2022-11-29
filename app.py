@@ -200,7 +200,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 48
+    TOTALENDINGS = 50
     user = None
     target = '/'
 
@@ -375,9 +375,11 @@ try:
         if save.cv("noAmbo"):
             target = 'xC-WorkITPhoneBridge.html'
         elif save.cv("welderEarly"):
-            target = 'xC-HBEarly.html'
-        else:
-            target = 'xC-.html'
+            if save.ci("chips"):
+                target = 'xC-HBEarly.html'
+            else:
+                target = 'xC-HBEarlyNoChips.html'
+            
         return render_template(target, NAME=user)
 
 
@@ -735,7 +737,7 @@ try:
         global user, save, target
 
         if save.cv('isEmail'):
-            target = '/'  # Page not yet created due to missing prerequisites
+            target = 'xC-EmailBridge.html'
         else:
             target = 'xC-NoEmails.html'
 
@@ -1135,6 +1137,28 @@ try:
         global user, save, target, TOTALENDINGS
         target = 'ENDING-MistakesWorkplaceIT.html'
         return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+    
+    @app.route('/hbpc')
+    def hbpc():
+        global user, save, target, TOTALENDINGS
+        target = 'xC-PcOn.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+    
+    @app.route('/hbchips')
+    def hbchips():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-PoisonAgain.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+
+    @app.route('/wvideogames')
+    def wgaming():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-JobForget.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
 
 except AttributeError:
     abort(503)
