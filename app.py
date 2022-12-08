@@ -67,7 +67,8 @@ class User:
     # File management methods
     @staticmethod
     def fload(self):
-        basepath = "/home/runner/Mind/savestates/"
+        basepath = os.path.join(os.getcwd(), "savestates")
+        print(basepath)
         fullpath = os.path.normpath(os.path.join(basepath, self.name))
         if not fullpath.startswith(basepath):
             raise OSError("Security error. Attempted to load from a path outside of the base directory.")
@@ -77,7 +78,7 @@ class User:
     @staticmethod
     def fsave(self):
         self.lastsave = time.time()
-        basepath = "/home/runner/Mind/savestates/"
+        basepath = os.path.join(os.getcwd(), "savestates")
         fullpath = os.path.normpath(os.path.join(basepath, self.name))
         if not fullpath.startswith(basepath):
             raise OSError("Security error. Attempted to save to a path outside of the base directory.")
