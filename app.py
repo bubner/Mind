@@ -6,7 +6,7 @@ import pickle
 import time
 import sqlite3
 
-from argon2 import PasswordHasher
+from argon2 import PasswordHasher, exceptions
 from flask import Flask, render_template, request, abort, redirect
 
 # Initialise new Flask app
@@ -37,7 +37,11 @@ def auth_removeentry(username):
 def auth_check(username, password):
     hpass = password + username
     entry = auth.execute("SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
-    return PasswordHasher().verify(entry[0], hpass)
+    try:
+        res = PasswordHasher().verify(entry[0], hpass)
+    except exceptions.VerifyMismatchError:
+        res = False
+    return res
 
             
 class User:
@@ -200,7 +204,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 50
+    TOTALENDINGS = 53
     user = None
     target = '/'
 
@@ -1157,6 +1161,20 @@ try:
     def wgaming():
         global user, save, target, TOTALENDINGS
         target = 'ENDING-JobForget.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+        
+    @app.route('/repllie')
+    def repllie():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-Manipulator.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+        
+    @app.route('/replhon')
+    def replhon():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-CorrectiveMeasures.html'
         return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 

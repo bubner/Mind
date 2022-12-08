@@ -1,0 +1,18 @@
+
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} relaxes at home.</h1>
+        <p class="stinfo">While {{NAME}} relaxes at home, they need something to do.<br><br>How does {{NAME}} occupy themselves?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/hbpc"><button type="submit">Turn on computer</button></a></li>
+                <li><a href="/grass"><button type="submit">Touch grass</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
