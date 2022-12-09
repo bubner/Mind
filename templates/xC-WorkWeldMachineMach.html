@@ -1,0 +1,17 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} turns off the machine from the power, stopping the massive reaction from the welder.</h1>
+        <p class="stinfo">But oh no! {{NAME}} in an attempt to save the welder, they ended up really badly burning the worker. There are burn marks all over their body and are in not an ideal situation. This is your responsibility now. <br><br>Does {{NAME}} call an ambulance or leave the scene?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/wamb"><button type="submit">Call ambulance</button></a></li>
+                <li><a href="/wnamb"><button type="submit">Don't call ambulance</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

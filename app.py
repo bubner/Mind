@@ -205,7 +205,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 53
+    TOTALENDINGS = 56
     user = None
     target = '/'
 
@@ -301,10 +301,10 @@ try:
 
         # POST request to delete a user in question, so people can't go around running /userdel/
         try: 
-            basepath = "/home/runner/Mind/savestates/"
+            basepath = os.path.join(os.getcwd(), "savestates")
             fullpath = os.path.normpath(os.path.join(basepath, n))
             if not fullpath.startswith(basepath):
-                raise OSError("Security error. Attempted to save to a path outside of the base directory.")
+                raise OSError("Security error. Attempted to delete outside of the base directory.")
             os.remove(fullpath)
             auth_removeentry(user)
         except OSError:
@@ -1178,6 +1178,53 @@ try:
         target = 'ENDING-CorrectiveMeasures.html'
         return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
+
+    @app.route("/wamb")
+    def wamb():
+        global user, save, target, TOTALENDINGS
+        
+        if save.ci("chips"):
+            target = 'xC-WeldDayEndAmboChips.html'
+        else:
+            target = 'xC-WeldDayEndAmboNoChips.html'
+                
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+
+    @app.route("/wnamb")
+    def wnamb():
+        global user, save, target, TOTALENDINGS
+        target = 'xC-WeldDayEndNoAmbo.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+    
+    @app.route("/wheatchips")
+    def wheatchips():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-ChipsClutch.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+        
+    @app.route("/whsleep")
+    def whsleep():
+        global user, save, target, TOTALENDINGS
+        target = 'xC-WeldFoodFinal.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+        
+    @app.route("/foodbuy")
+    def foodbuy():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-FoodBuy.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+
+        
+    @app.route("/foodignore")
+    def foodignore():
+        global user, save, target, TOTALENDINGS
+        target = 'ENDING-FoodIgnore.html'
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
+        
 
 except AttributeError:
     abort(503)

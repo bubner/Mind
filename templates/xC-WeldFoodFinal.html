@@ -1,0 +1,17 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} decides to sleep it off.</h1>
+        <p class="stinfo">Hang on! {{NAME}} is still really hungry. As they go to bed, they hear their stomach grumble and grumble. It isn't wise to work on an empty stomach.<br><br>What does {{NAME}} do?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/foodbuy"><button type="submit">Buy food before work</button></a></li>
+                <li><a href="/foodignore"><button type="submit">Work without food</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
