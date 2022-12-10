@@ -2,10 +2,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
     <div id="blur">
-        <h1 class="event">ending <br> <p class="subending">Ending 33/{{ TOTAL }}</p></h1>
-        <p class="stinfo">explanation</p>
+        <h1 class="event">STALEMATE ENDING: I'M LAGGING<br> <p class="subending">Ending 33/{{ TOTAL }}</p></h1>
+        <p class="stinfo">{{NAME}} falls quiet on the microphone, refusing to speak. The worker does the same, waiting for a response. An awkward but soothing silence fills the atmosphere, as both of them remain on call for the end of time, waiting for an input for eternity.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

@@ -4,7 +4,7 @@ from datetime import datetime
 from os import path, remove, getcwd
 from pickle import dumps, load
 from sqlite3 import connect
-# from waitress import serve
+from waitress import serve
 from time import time
 
 from argon2 import PasswordHasher, exceptions
@@ -211,7 +211,6 @@ try:
 
     # User management system for variables and conditions
     save = None
-
 
     # Base route to home page
     @app.route('/')

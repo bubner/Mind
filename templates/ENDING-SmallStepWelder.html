@@ -2,10 +2,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
     <div id="blur">
         <h1 class="event">GOOD ENDING: ONE SMALL STEP FOR WELDERS <br> <p class="subending">Ending 43/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} ends up getting high amounts of eye damage. But due to their capitalism, new eyes can simply be purchased from {{NAME}}'s... sources...'</p>
+        <p class="stinfo">{{NAME}} ends up getting high amounts of eye damage from the welding machine. But due to their capitalism, new eyes can simply be purchased from {{NAME}}'s... sources... {{NAME}} continues as usual, and so does the welder.'</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
