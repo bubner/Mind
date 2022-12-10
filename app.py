@@ -1108,9 +1108,9 @@ try:
 
     @app.route('/wdecline')
     def wdecline():
-        global user, save, target
+        global user, save, target, TOTALENDINGS
         target = 'xC-W.html'
-        return render_template(target, NAME=user)
+        return render_template(target, NAME=user, TOTAL=TOTALENDINGS)
 
 
     @app.route('/waccept')
