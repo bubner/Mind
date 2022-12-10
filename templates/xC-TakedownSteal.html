@@ -1,0 +1,17 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} decides to steal from the welder.</h1>
+        <p class="stinfo">Nothing but profit goes through {{NAME}}'s mind, as they lean down to steal items from the welder. What do they touch?<br><br>{{NAME}} sees a mysterious pipe, and the welder's phone.</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/wpipe"><button type="submit">Take pipe</button></a></li>
+                <li><a href="/wphone"><button type="submit">Take phone</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

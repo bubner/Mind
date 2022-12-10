@@ -1,0 +1,18 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} exclaims at the top of their lungs.</h1>
+        <p class="stinfo">"What do you want from me?!" {{NAME}} yelled.<br> "I'm here to cut you a deal. You will give me CEO of your 'company' right this instant. I've seen how you treat our workers. I've seen it all. Today is when it snapped. Today is when you messed up."<br><br>How does {{NAME}} respond?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/wceo"><button type="submit">Hand over CEO</button></a></li>
+                <li><a href="/wsil"><button type="submit">Remain silent</button></a></li>
+                <li><a href="/wpry"><button type="submit">Pray</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

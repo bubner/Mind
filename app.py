@@ -205,7 +205,7 @@ def autosave(r):
 # Direct any requests that raise AttributeError back to the index, incase a user attempts manual navigation
 try:
     # Set global variables
-    TOTALENDINGS = 56
+    TOTALENDINGS = 67
     user = None
     target = '/'
 
@@ -989,9 +989,87 @@ try:
 
     @app.route("/wafight")
     def wafight():
-        return render('')
+        return render('xC-WFight.html')
 
 
+    @app.route("/wkill")
+    def wkill():
+        return render('ENDING-Murderer.html')
+
+        
+    @app.route("/wko")
+    def wko():
+        if not save.cv("eyeDmg"):
+            page = 'xC-WTakeDownSuccess.html'
+        else:
+            page = 'ENDING-Weakling.html'
+        return render(page)
+
+
+    @app.route("/wleave")
+    def wleave():
+        return render('ENDING-BusinessContinue.html')
+
+
+    @app.route("/wsteal")
+    def wsteal():
+        return render('xC-WTakedownSteal.html')
+
+
+    @app.route("/wpipe")
+    def wpipe():
+        return render('ENDING-Bomber.html')
+
+
+    @app.route("/wphone")
+    def wphone():
+        return render('ENDING-CrimeCrime.html')
+
+
+    @app.route("/wacops")
+    def wacops():
+        return render('xC-WCops.html')
+
+
+    @app.route("/wcont")
+    def wcont():
+        if save.cv("eyeDmg"):
+            page = 'ENDING-CantDial.html'
+        else:
+            page = 'ENDING-ArrestedWelder.html'
+        return render(page)
+
+
+    @app.route("/wstop")
+    def wstop():
+        return render('xC-WLifeBridge.html')
+
+
+    @app.route("/wgoogle")
+    def wgoogle():
+        return render('ENDING-GooglePowered.html')
+
+
+    @app.route("/wask")
+    def wask():
+        return render('xC-WFinalBridge.html')
+
+
+    @app.route("/wceo")
+    def wceo():
+        return render('ENDING-CEOless.html')
+
+    
+    @app.route("/wsil")
+    def wsil():
+        return render('ENDING-ManiacWelder.html')
+
+    
+    @app.route("/wpry")
+    def wpry():
+        return render('ENDING-QuestionableForces.html')
+
+        
 except AttributeError:
     abort(503)
 

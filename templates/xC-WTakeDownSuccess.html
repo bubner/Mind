@@ -1,0 +1,17 @@
+<!-- Lucas Bubner, 2022 -->
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.png') }})">
+    <div id="blur">
+        <h1 class="event">{{NAME}} takes down the welder.</h1>
+        <p class="stinfo">It turns out since the welder is still injured, {{NAME}} easily knocks them to the floor. Lucky. The welder tries to get back up but fails from damages to their body.<br><br>How does {{NAME}} proceed?</p>
+        <div class="mainBarButtons"> <br style="line-height: 10px;">
+            <ul>
+                <li><a href="/wleave"><button type="submit">Let him leave</button></a></li>
+                <li><a href="/wsteal"><button type="submit">Steal belongings</button></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
