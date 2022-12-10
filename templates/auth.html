@@ -5,7 +5,7 @@
 <div class="indexcontainer">
     <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
         <div id="blur">
-            {% if not save.saved %}
+            {% if not SAVE.saved %}
                 <h3>Please enter a password for the user: '{{ NAME }}'</h3>
             {% else %}
                 <h3>Welcome back, {{ NAME }}! Please enter your password.</h3>
@@ -13,6 +13,11 @@
             <form action="/pass" method="post">
                 <input type="password" name="password" autocomplete="off" placeholder="Enter password" required>
             </form>
+            {% if FAILED %}
+                <p style="color: red; font-weight: bold;">Login failed, incorrect password.</p>
+            {% endif %}
+            <br> <br>
+            <a href="/" style="color: white; font-style: italic;"><button>Cancel login</button></a>
         </div>
     </div>
 </div>
