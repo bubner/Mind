@@ -170,7 +170,7 @@ def goback(e):
 # 404 request if a user exists
 @app.errorhandler(404)
 def notfound(e):
-    print(f"> 404 request intercepted while user info was present")
+    print(f"> 404 request intercepted while info for {user} was present")
     return render('404.html')
 
 
@@ -224,7 +224,6 @@ try:
     @app.route('/pass', methods=["POST", "GET"])
     def authenticate():
         global user, save
-        failed = False
 
         # Get player input for their username
         if not user:
@@ -262,7 +261,7 @@ try:
             print(f"> stopped manual navigation to: {page}")
             localtarget = 'index.html'
 
-        return render_template(localtarget, NAME=user, NAMECAP=user.upper())
+        return render_template(localtarget, NAME=user, NAMECAP=user.upper(), TOTAL=TOTALENDINGS)
 
 
     # Initialise game and grab username field arguments
@@ -271,17 +270,14 @@ try:
         # If the user had previously existed, take them to the management page and show them this info
         saveinfo = vars(save)
 
-        # Pretty formatting for the end-user (the Python however is not)
-        savefileformat = "Username: " + str(
-            save.name).upper() + " <br> Endings found: " + str(
-            len(save.endings)
-        ) + "/" + str(TOTALENDINGS) + " <br> Last page state: " + (
-                             str(save.pagestate) if str(save.pagestate) != "" else
-                             "NONE") + "<br> User creation time: " + str(
-            datetime.fromtimestamp(
-                save.unix)) + " UTC" + " <br> Last save time: " + str(
-            datetime.fromtimestamp(
-                save.lastsave)) + " UTC"
+        # Pretty formatting for the end-user
+        savefileformat = f"""
+                            Username: { str(save.name).upper() } <br>
+                            Endings found: { str(len(save.endings)) }/{ str(TOTALENDINGS) } <br>
+                            Last page state: { (str(save.pagestate) if str(save.pagestate) != "" else "NONE") } <br>
+                            User creation time: { str(datetime.fromtimestamp(save.unix)) } UTC <br>
+                            Last save time: { str(datetime.fromtimestamp(save.lastsave)) } UTC
+                          """
 
         # Checks if the savefile had been started previously
         if save.saved:

@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <title>Python Game All Endings</title>
+    <title>Mind of CEO | All Endings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='fader.js') }}"></script>
-    <script src="{{ url_for('static', filename='endings.js') }}" defer></script>
   </head>
   <body>
     <svg id="fader"></svg>
     <div class="indexcontainer" id="endingpage">
-      <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || PYTHON ADVENTURE GAME || LUCAS BUBNER, 2022</h3>
+      <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || MIND OF CEO || LUCAS BUBNER, 2022</h3>
       <b>There will be no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i id="endingcount"></i></b> <br> <br>
     <a href="/story">Go back to the game</a> <br> <br> <i>Showing endings for user: {{NAME}}</i>
     <ul id="endinglist" style="all: revert; list-style: square;">
@@ -69,6 +68,7 @@
         <li html="ENDING-ITOverthrow.html">Ending 48 - <a href="/e/ENDING-ITOverthrow.html">noname</a></li>
       </ul>
     </div>
+    <script src="{{ url_for('static', filename='endings.js') }}" defer></script>
     <script>
         const unlocked = '{{UNLOCKED}}';
         let totalendings = '{{TOTAL}}';

@@ -19,9 +19,7 @@ for (let i = 0; i < endings.length; i++) {
 }
 
 // Display number of unlocked endings
-let temp = "";
-document.getElementById("endingcount").innerHTML = temp;
-document.getElementById("endingcount").innerHTML = "You have unlocked " + unlockedendings.length + "/" + totalendings + " endings. " + temp;
+document.getElementById("endingcount").innerHTML = "You have unlocked " + unlockedendings.length + "/" + totalendings + " endings.";
 
 // Get the names of each HTML page ending and link them together
 const endinglist = document.querySelectorAll("#endinglist li");
@@ -32,7 +30,7 @@ for (let i = 0; i < endinglist.length; i++) {
 
 // Save ending content and clear all of them
 let endingcontent = [];
-for (let i = 0; i < totalendings; i++) {
+for (let i = 0; i < endinglist.length; i++) {
     endingcontent[i] = endinglist[i].innerHTML;
     endinglist[i].innerHTML = "???"
 }
