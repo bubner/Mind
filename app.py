@@ -2,16 +2,17 @@
 
 from datetime import datetime
 from os import path, remove, getcwd
-from pickle import dumps, load
+from pickle import dumps, load, loads
 from sqlite3 import connect
 from waitress import serve
 from time import time
 
 from argon2 import PasswordHasher, exceptions
-from flask import Flask, render_template, request, abort, redirect
+from flask import Flask, render_template, request, abort, redirect, session
 
 # Initialise new Flask app
 app = Flask(__name__)
+app.secret_key = "test"
 
 # Connect to SQL database for password info
 sqlc = connect("auth.db", check_same_thread=False)
@@ -50,9 +51,12 @@ def auth_check(username, password):
 
 # Convenience function to render a template with all required metadata
 def render(page, **kwargs):
-    global target, save, user, TOTALENDINGS
-    target = page
-    return render_template(target, SAVE=save, NAME=user, TOTAL=TOTALENDINGS, **kwargs)
+    session["target"] = page
+    try:
+        currentsession = loads(session['save'])
+    except TypeError:
+        currentsession = session['save']
+    return render_template(session["target"], SAVE=currentsession, NAME=session['user'], TOTAL=TOTALENDINGS, **kwargs)
 
 
 # Ensures security when accessing save files on the server
@@ -92,15 +96,14 @@ class User:
     @staticmethod
     def fsave(self):
         self.lastsave = time()
+        session["save"] = dumps(self)
         with open(secure_path(self.name), 'wb') as file:
             file.write(dumps(self.__dict__))
 
     # Set last page state to the last target
     def changepagestate(self):
-        self.pagestate = target
-        print(
-            f"> autosaved pagestate of user: '{self.name}' with target: '{target}'"
-        )
+        self.pagestate = session["target"]
+        print(f"> autosaved pagestate of user: '{self.name}' with target: '{session['target']}'")
         self.fsave(self)
 
     # Set variable method
@@ -172,7 +175,7 @@ def goback(e):
 # 404 request if a user exists, otherwise checkuser will redirect them back to the index
 @app.errorhandler(404)
 def notfound(e):
-    print(f"> 404 request intercepted while info for {user} was present")
+    print(f"> 404 request intercepted while info for {session['user']} was present")
     return render('404.html')
 
 
@@ -186,7 +189,7 @@ def checkuser():
     ) and not request.path.startswith(
             '/story'
     ) and not request.path == '/' and not request.path == '/pass' and (
-            save is None or user is None):
+            session["save"] is None or session["user"] is None):
         print(f"> stopped request of: {request.path} as user info was missing")
         return render("index.html")
 
@@ -194,69 +197,70 @@ def checkuser():
 @app.after_request
 def autosave(r):
     # Update pagestate if appropriate to
-    if save is not None and not request.path.startswith(
+    if not request.path.startswith(
             '/static/'
-    ) and target not in [
+    ) and session.get("target") not in [
         "match.html", "index.html", "endings.html", "intro.html", "auth.html", "404.html"
-    ]:
+    ] and session.get("save") is not None:
+        save = loads(session["save"])
         save.changepagestate()
         # Check if an ending was reached
-        if 'ending' in target.lower():
-            if save.addending(target):
-                print(f"> added new ending for user: {user}, ending '{target}'")
+        if 'ending' in session["target"].lower():
+            if save.addending(session["target"]):
+                print(f"> added new ending for user: {session['user']}, ending '{session['target']}'")
+        session["save"] = dumps(save)
     return r
 
 
-# Set global variables
+# Set number of total endings for display on all templates
 TOTALENDINGS = 67
-user = None
-target = '/'
-
-# User management system for variables and conditions
-save = None
 
 
 # Base route to home page, resetting all local data
 @app.route('/')
 def home():
-    global user, save
-    user = save = None
+    session.clear()
+    session['save'] = None
+    session['user'] = None
+    session['target'] = None
+    session.modified = True
     return render("index.html")
 
 
 @app.route('/pass', methods=["POST", "GET"])
 def authenticate():
-    global user, save
-
     # Get player input for their username
-    if not user:
-        if request.args.get("playername") == "":
+    if not session.get("user"):
+        if not (playername := request.args.get("playername")):
             return redirect("/")
-        user = request.args.get("playername")
-        user = user.capitalize()
+        session['user'] = playername
+        session['user'] = session["user"].capitalize()
 
     # Make a new user object for the person
-    save = User(user)
-
+    save = User(session["user"])
+    
     if request.method == 'POST':
         if not (password := request.form.get("password")):
             abort(503)
 
         if not save.saved:
-            auth_addentry(user, password)
+            auth_addentry(session["user"], password)
         else:
-            if not auth_check(user, password):
+            if not auth_check(session["user"], password):
                 return render("auth.html", FAILED=True)
 
         save.loggedin = True
+        session["save"] = dumps(save)
         return redirect("/story")
     else:
+        session["save"] = dumps(save)
         return render("auth.html", FAILED=False)
 
 
 # Manual endpage navigation if unlocked
 @app.route('/e/<string:page>')
 def ending(page):
+    save = loads(session["save"])
     # Uses a local target to not trigger autosave
     if page in save.endings:
         localtarget = page
@@ -264,13 +268,14 @@ def ending(page):
         print(f"> stopped manual navigation to: {page}")
         localtarget = 'index.html'
 
-    return render_template(localtarget, NAME=user, NAMECAP=user.upper(), TOTAL=TOTALENDINGS)
+    return render_template(localtarget, NAME=session["user"], NAMECAP=session["user"].upper(), TOTAL=TOTALENDINGS)
 
 
 # Initialise game and grab username field arguments
 @app.route('/story', methods=["GET"])
 def story():
     # If the user had previously existed, take them to the management page and show them this info
+    save = loads(session["save"])
     saveinfo = vars(save)
 
     # Pretty formatting for the end-user
@@ -300,13 +305,13 @@ def userdel():
         return redirect("/")
 
     # Prevent deleting a user that isn't logged in as said user
-    if n != user:
-        print(f"> stopped delete request for user '{n}' by user '{user}'")
+    if n != session["user"]:
+        print(f"> stopped delete request for user '{n}' by user '{session['user']}'")
         return redirect("/")
 
     try:
         remove(secure_path(n))
-        auth_removeentry(user)
+        auth_removeentry(session["user"])
     except OSError:
         print(f"> error deleting savefile of name: {n}")
     else:
@@ -319,6 +324,7 @@ def userdel():
 # Restart story method
 @app.route('/storyrestart')
 def storyrestart():
+    save = loads(session["save"])
     # Variables and conditions are based per object
     # Method only resets variables and lists, keeps endings
     if save is not None:
@@ -331,6 +337,7 @@ def storyrestart():
 
 @app.route('/startgame')
 def startgame():
+    save = loads(session["save"])
     # Base request if a savefile didn't previously exist
     page = 'xBase.html'
 
@@ -356,14 +363,16 @@ def startgame():
 # Endings page direct
 @app.route('/endings')
 def endings():
+    save = loads(session["save"])
     return render('endings.html',
                   UNLOCKED=save.endings,
-                  NAMECAP=user.upper())
+                  NAMECAP=session["user"].upper())
 
 
 # HomeBridge01 junction direct
 @app.route('/homebridge')
 def homebridge():
+    save = loads(session["save"])
     if save.cv("noAmbo"):
         page = 'xC-WorkITPhoneBridge.html'
     elif save.cv("welderEarly"):
@@ -393,6 +402,7 @@ def mum():
 
 @app.route('/standforever')
 def standforever():
+    save = loads(session["save"])
     if save.cv("lateNightChips"):
         page = 'ENDING-ChipFinder.html'
     else:
@@ -407,18 +417,21 @@ def standforevermum():
 
 @app.route('/berude')
 def berude():
+    save = loads(session["save"])
     save.sv("imRude", True)
     return render('xTV-Ignore.html')
 
 
 @app.route('/sleep')
 def sleep():
+    save = loads(session["save"])
     save.sv("Tired", True)
     return render('xTV-Mum-Sleep.html')
 
 
 @app.route('/chipstv')
 def chipstv():
+    save = loads(session["save"])
     save.sv('tvSleep', True)
     if save.cv("imRude"):
         save.sv('Tired', True)
@@ -430,6 +443,7 @@ def chipstv():
 
 @app.route('/gaming')
 def gaming():
+    save = loads(session["save"])
     if save.cv("imRude"):
         save.sv('Tired', True)
     return render('xTV-GamingBridge.html')
@@ -437,6 +451,7 @@ def gaming():
 
 @app.route('/takeoutchips')
 def takeoutchips():
+    save = loads(session["save"])
     if save.cv("Tired"):
         page = 'ENDING-TiredTakeOutChips.html'
     else:
@@ -451,6 +466,7 @@ def bringoutchips():
 
 @app.route('/gamedontknow')
 def gamedontknow():
+    save = loads(session["save"])
     if save.cv("imRude"):
         page = 'xTV-PlayOGameFallAsleep.html'
     else:
@@ -460,6 +476,7 @@ def gamedontknow():
 
 @app.route('/newgame')
 def newgame():
+    save = loads(session["save"])
     save.sv("newGame", True)
     if save.cv("imRude"):
         page = 'xTV-PlayNGameFallAsleep.html'
@@ -470,6 +487,7 @@ def newgame():
 
 @app.route('/lie')
 def lie():
+    save = loads(session["save"])
     if save.cv("tvSleep") and save.cv("lateNightChips"):
         page = 'xTV-Mum-RushTVAte.html'
     else:
@@ -489,6 +507,7 @@ def givechipseveryone():
 
 @app.route('/dietician')
 def dietician():
+    save = loads(session["save"])
     save.sv("tvSleep", True)
     if save.cv("imRude"):
         page = 'xTV-WatchTVChipsFallAsleep.html'
@@ -499,6 +518,7 @@ def dietician():
 
 @app.route('/fatty')
 def fatty():
+    save = loads(session["save"])
     save.sv('lateNightChips', True)
     save.sv('tvSleep', True)
     if save.cv("imRude"):
@@ -520,6 +540,7 @@ def rush():
 
 @app.route('/newgametalk')
 def newgametalk():
+    save = loads(session["save"])
     if save.cv("Tired"):
         page = 'ENDING-FSNewGame.html'
     else:
@@ -529,11 +550,12 @@ def newgametalk():
 
 @app.route('/oldgametalk')
 def oldgametalk():
+    save = loads(session["save"])
     if save.cv("Tired"):
         page = 'ENDING-FSOldGame.html'
     else:
         page = 'ENDING-MumOldGame.html'
-    return render(page, NAMECAP=user.upper())
+    return render(page, NAMECAP=session['user'].upper())
 
 
 @app.route('/takeoutdrone')
@@ -553,12 +575,14 @@ def chips():
 
 @app.route('/bed')
 def bed():
+    save = loads(session["save"])
     save.sv('badTeeth1', True)
     return render('xC-Bed.html')
 
 
 @app.route('/cleanteeth')
 def cleanteeth():
+    save = loads(session["save"])
     save.sv('badTeeth1', False)
     return render('xC-Teeth.html')
 
@@ -580,6 +604,7 @@ def friendconvo():
 
 @app.route('/eatchips')
 def eatchips():
+    save = loads(session["save"])
     if save.ci("chips"):
         page = 'ENDING-HomeChips.html'
     else:
@@ -599,6 +624,7 @@ def turnoncomputer():
 
 @app.route('/eatmorechips')
 def eatmorechips():
+    save = loads(session["save"])
     if save.cv('badTeeth1'):
         page = 'xC-EatExtraChips.html'
         save.sv('badTeeth2', True)
@@ -616,6 +642,7 @@ def checkemails():
 
 @app.route('/eatchipshome')
 def eatchipshome():
+    save = loads(session["save"])
     if save.cv('badTeeth1') and save.cv('badTeeth2'):
         page = 'ENDING-ChipOverload.html'
     else:
@@ -640,6 +667,7 @@ def cheesesim():
 
 @app.route('/emails')
 def emails():
+    save = loads(session["save"])
     if save.cv('isEmail'):
         page = 'xC-EmailBridge.html'
     else:
@@ -674,6 +702,7 @@ def cheesesimchips():
 
 @app.route('/it')
 def it():
+    save = loads(session["save"])
     if save.cv('badTeeth1') and save.cv('badTeeth2'):
         page = 'ENDING-BadTeethIT.html'
     elif save.ci("chips"):
@@ -685,6 +714,7 @@ def it():
 
 @app.route('/weld')
 def weld():
+    save = loads(session["save"])
     if save.cv('badTeeth1') and save.cv('badTeeth2'):
         page = 'ENDING-BadTeethWeld.html'
     elif save.ci("chips"):
@@ -706,24 +736,28 @@ def itworkhelp():
 
 @app.route('/noambo')
 def noambo():
+    save = loads(session["save"])
     save.sv('noAmbo', True)
     return render('xC-HomeBridge01.html')
 
 
 @app.route('/ambo')
 def ambo():
+    save = loads(session["save"])
     save.sv('noAmbo', True)
     return render('xC-WorkITGCAmboDe.html')
 
 
 @app.route('/itleave')
 def itleave():
+    save = loads(session["save"])
     save.sv('noimmediateCare', True)
     return render('xC-WorkITGCAmboDeLeave.html')
 
 
 @app.route('/subinneed')
 def subinneed():
+    save = loads(session["save"])
     if save.cv("noimmediateCare"):
         page = 'ENDING-SubInNeedLa.html'
     else:
@@ -768,6 +802,7 @@ def itremainsilent():
 
 @app.route('/givechips')
 def givechips():
+    save = loads(session["save"])
     if save.ci("chips"):
         save.toggleitem("chips")
     return render('xC-WorkITGC.html')
@@ -815,18 +850,21 @@ def drink():
 
 @app.route('/mepay')
 def mepay():
+    save = loads(session["save"])
     save.sv('workerPaidDrink', False)
     return render('xC-WorkITBarAttack.html')
 
 
 @app.route('/youpay')
 def youpay():
+    save = loads(session["save"])
     save.sv('workerPaidDrink', True)
     return render('xC-WorkITBarAttack.html')
 
 
 @app.route('/itfight')
 def itfight():
+    save = loads(session["save"])
     if save.cv('workerPaidDrink'):
         page = 'ENDING-WorkerNotFighter.html'
     else:
@@ -846,12 +884,14 @@ def strangechips():
 
 @app.route('/wgohome')
 def wgohome():
+    save = loads(session["save"])
     save.sv('welderEarly', True)
     return render('xC-HomeBridge01.html')
 
 
 @app.route('/wgivechips')
 def wgivechips():
+    save = loads(session["save"])
     if save.ci("chips"):
         save.toggleitem("chips")
     save.sv("welderChips", True)
@@ -875,6 +915,7 @@ def weldhelp():
 
 @app.route('/wweld')
 def wweld():
+    save = loads(session["save"])
     save.sv("eyeDmg", True)
     return render('xC-WorkWeldMachineWeld.html')
 
@@ -896,6 +937,7 @@ def wmed():
 
 @app.route('/cbridge')
 def stayhome():
+    save = loads(session["save"])
     if save.cv("welderChips"):
         page = 'xC-WorkWeldCallBridge.html'
     else:
@@ -910,6 +952,7 @@ def wdecline():
 
 @app.route('/waccept')
 def waccept():
+    save = loads(session["save"])
     if not save.cv("welderChips"):
         page = 'ENDING-MistakesWorkplaceWelder.html'
     else:
@@ -959,6 +1002,7 @@ def replhon():
 
 @app.route("/wamb")
 def wamb():
+    save = loads(session["save"])
     if save.ci("chips"):
         page = 'xC-WeldDayEndAmboChips.html'
     else:
@@ -1003,6 +1047,7 @@ def wkill():
 
 @app.route("/wko")
 def wko():
+    save = loads(session["save"])
     if not save.cv("eyeDmg"):
         page = 'xC-WTakeDownSuccess.html'
     else:
@@ -1037,6 +1082,7 @@ def wacops():
 
 @app.route("/wcont")
 def wcont():
+    save = loads(session["save"])
     if save.cv("eyeDmg"):
         page = 'ENDING-CantDial.html'
     else:
