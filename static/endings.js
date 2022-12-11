@@ -19,7 +19,13 @@ for (let i = 0; i < endings.length; i++) {
 }
 
 // Display number of unlocked endings
-document.getElementById("endingcount").innerHTML = "You have unlocked " + unlockedendings.length + "/" + totalendings + " endings.";
+if (unlockedendings.length == totalendings) {
+    const status = "You've unlocked them all! Impressive!"
+} else {
+    const status = "";
+}
+
+document.getElementById("endingcount").innerHTML = "You have unlocked " + unlockedendings.length + "/" + totalendings + " endings. " + status;
 
 // Get the names of each HTML page ending and link them together
 const endinglist = document.querySelectorAll("#endinglist li");

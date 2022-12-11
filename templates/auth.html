@@ -3,13 +3,15 @@
 
 {% block body %}
 <div class="indexcontainer">
-    <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }}); transform: revert;">
+    <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }}); transform: revert; width: revert;">
         <div id="blur">
             {% if not SAVE.saved %}
-                <h2>You seem to be a new user, welcome {{NAME}}!<h2>
-                <h4>Please enter a new password for the user: '{{ NAME }}'</h3>
+                <h1>You seem to be a new user, welcome {{NAME}}!</h1>
+                <h3 style="font-style: italic;">Please enter a new password for the user: '{{ NAME }}'</h3>
+                <h4>Do not enter a password you use for other sites, this is a bad security practice! <br> Best tips are to use a simple word or phrase, as this project doesn't need particularly strong passwords.</h4>
             {% else %}
-                <h3>Welcome back, {{NAME}}! <br> Please enter your password.</h3>
+                <h1>Welcome back, {{NAME}}!</h1>
+                <h3>Please enter your password.</h3>
             {% endif %}
             <form action="/pass" method="post">
                 <input type="password" name="password" autocomplete="off" placeholder="Enter password" required>
@@ -18,7 +20,7 @@
                 <p style="color: red; font-weight: bold;">Login failed, incorrect password.</p>
             {% endif %}
             <br> <br>
-            <a href="/" style="color: white; font-style: italic;"><button>Cancel login</button></a>
+            <a href="/" style="color: white; font-style: italic;"><button>Nevermind, cancel login</button></a>
         </div>
     </div>
 </div>
