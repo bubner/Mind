@@ -1,7 +1,7 @@
 # Lucas Bubner, 2022
 
 from datetime import datetime
-from os import path, remove, getcwd
+from os import path, remove, getcwd, environ
 from pickle import dumps, load, loads
 from sqlite3 import connect
 from waitress import serve
@@ -12,7 +12,11 @@ from flask import Flask, render_template, request, abort, redirect, session
 
 # Initialise new Flask app
 app = Flask(__name__)
-app.secret_key = "test"
+
+if not environ.get("SECRET_KEY"):
+    raise RuntimeError("SECRET_KEY not set as an environment variable.")
+    
+app.secret_key = environ.get("SECRET_KEY")
 
 # Connect to SQL database for password info
 sqlc = connect("auth.db", check_same_thread=False)
@@ -28,6 +32,12 @@ def auth_addentry(username, password):
         username,
         PasswordHasher().hash(hpass)
     ]
+
+    # Security measure, make sure there are no other user/pass entries in the database which match a
+    # certain username, otherwise accounts which have not been committed will enforce an older password
+    # that doesn't match the one that they entered, effectively losing their claim on creation
+    auth.execute("DELETE FROM userlist WHERE user = ?", (username,))
+    
     auth.execute("INSERT INTO userlist (user, pass) VALUES(?, ?)", usercombo)
     sqlc.commit()
     print(f"> added new user/pass entry into database with username: {username}")
@@ -189,7 +199,7 @@ def checkuser():
     ) and not request.path.startswith(
             '/story'
     ) and not request.path == '/' and not request.path == '/pass' and (
-            session["save"] is None or session["user"] is None):
+            session.get("save") is None or session.get("user") is None):
         print(f"> stopped request of: {request.path} as user info was missing")
         return render("index.html")
 
