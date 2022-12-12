@@ -1,7 +1,7 @@
 # Lucas Bubner, 2022
 
 from datetime import datetime
-from os import path, remove, getcwd, environ
+from os import path, remove, getcwd, environ, mkdir
 from pickle import dumps, load, loads
 from sqlite3 import connect
 from waitress import serve
@@ -75,9 +75,15 @@ def render(page, **kwargs):
 # Ensures security when accessing save files on the server
 def secure_path(name):
     basepath = path.join(getcwd(), "savestates")
+    
+    # Make sure the savefiles directory exists
+    if not path.exists(basepath):
+        mkdir(basepath)
+        
     fullpath = path.normpath(path.join(basepath, name))
     if not fullpath.startswith(basepath):
         raise OSError("Security error. Attempted to access a path outside of the base directory.")
+        
     return fullpath
 
 
@@ -300,8 +306,8 @@ def story():
                         Username: { str(save.name).upper() } <br>
                         Endings found: { str(len(save.endings)) }/{ str(TOTALENDINGS) } <br>
                         Last page state: { (str(save.pagestate) if str(save.pagestate) != "" else "NONE") } <br>
-                        User creation time: { str(datetime.fromtimestamp(save.unix)) } UTC <br>
-                        Last save time: { str(datetime.fromtimestamp(save.lastsave)) } UTC
+                        User creation time: { str(datetime.fromtimestamp(round(save.unix))) } UTC <br>
+                        Last save time: { str(datetime.fromtimestamp(round(save.lastsave))) } UTC
                       """
 
     # Checks if the savefile had been started previously
