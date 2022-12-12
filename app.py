@@ -226,7 +226,7 @@ def autosave(r):
 
 
 # Set number of total endings for display on all templates
-TOTALENDINGS = 67
+TOTALENDINGS = 68
 
 
 # Base route to home page, resetting all local data
@@ -1136,6 +1136,11 @@ def wpry():
 @app.route("/grass")
 def grass():
     return render("ENDING-GrassToucher.html")
+
+
+@app.route("/hbeat")
+def hbeat():
+    return render("ENDING-ChipCrusader.html")
 
 
 if __name__ == "__main__":
