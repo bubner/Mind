@@ -1,4 +1,5 @@
-/*
+/*   
+ *   Lucas Bubner, 2022
  *   Runs on every page
  */
 

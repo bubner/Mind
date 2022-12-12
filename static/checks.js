@@ -1,4 +1,5 @@
 /*
+ *   Lucas Bubner, 2022
  *   Runs on each action page
  */
 
@@ -8,6 +9,5 @@ if (window.innerWidth < 800 || window.innerHeight < 600) {
 }
 
 // Disables back button functionality
-function disableBack() { window.history.forward(); }
-setTimeout("disableBack();", 0);
+setTimeout("window.history.forward();", 0);
 window.onunload = () => { null };

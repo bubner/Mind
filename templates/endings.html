@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html style="overflow: auto !important;">
-  <head>
-    <meta name="author" content="Lucas Bubner - 9WI 2022">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <title>Mind of CEO | All Endings</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='fader.js') }}"></script>
-  </head>
-  <body>
-    <svg id="fader"></svg>
-    <div class="indexcontainer" id="endingpage">
-      <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || MIND OF CEO</h3>
-      <b>There are no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i id="endingcount"></i></b> <br> <br>
-    <a href="/story">Go back to the game</a> <br> <br> <i>Showing endings for user: {{NAME}}</i>
-    <ul id="endinglist" style="all: revert; list-style: square;">
-        <li html="ENDING-ChipFinder.html">Ending 01 - <a href="/e/ENDING-ChipFinder.html">I PROGRAM, NOT FIX PRINTERS</a></li>
-        <li html="ENDING-ChipsGenocide.html">Ending 02 - <a href="/e/ENDING-ChipsGenocide.html">EPIDEMIC OF CHIP REPUBLIC</a></li>
-        <li html="ENDING-EnthusiasticTakeOutChips.html">Ending 03 - <a href="/e/ENDING-EnthusiasticTakeOutChips.html">HOLY CHIPS, OUR ODD SAVIOUR</a></li>
-        <li html="ENDING-FSNewGame.html">Ending 04 - <a href="/e/ENDING-FSNewGame.html">ME_IRL</a></li>
-        <li html="ENDING-FSOldGame.html">Ending 05 - <a href="/e/ENDING-FSOldGame.html">THE {{NAMECAP}} FALCON PUNCH</a></li>
-        <li html="ENDING-MadMum.html">Ending 06 - <a href="/e/ENDING-MadMum.html">GRAND WHOOPING</a></li>
-        <li html="ENDING-MadMumDeliquent.html">Ending 07 - <a href="/e/ENDING-MadMumDeliquent.html">THIRD EYE</a></li>
-        <li html="ENDING-MumNewGame.html">Ending 08 - <a href="/e/ENDING-MumNewGame.html">A FAIR DISCUSSION</a></li>
-        <li html="ENDING-MumOldGame.html">Ending 09 - <a href="/e/ENDING-MumOldGame.html">SPOILERS, SPOILERS EVERYWHERE</a></li>
-        <li html="ENDING-NotTiredTakeOutChips.html">Ending 10 - <a href="/e/ENDING-NotTiredTakeOutChips.html">CHIPS AHOY</a></li>
-        <li html="ENDING-StandForever.html">Ending 11 - <a href="/e/ENDING-StandForever.html">STUCK IN TIME</a></li>
-        <li html="ENDING-StandForeverMum.html">Ending 12 - <a href="/e/ENDING-StandForeverMum.html">PAUSE CHALLENGE</a></li>
-        <li html="ENDING-TakeOutDrone.html">Ending 13 - <a href="/e/ENDING-TakeOutDrone.html">NANOMACHINES, SON</a></li>
-        <li html="ENDING-TiredTakeOutChips.html">Ending 14 - <a href="/e/ENDING-TiredTakeOutChips.html">SELF INFLICTED POISON</a></li>
-        <li html="ENDING-VistaMum.html">Ending 15 - <a href="/e/ENDING-VistaMum.html">USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</a></li>
-        <li html="ENDING-FriendConvo.html">Ending 16 - <a href="/e/ENDING-FriendConvo.html">SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 762: NO FRIENDS DETECTED</a></li>
-        <li html="ENDING-HomeChips.html">Ending 17 - <a href="/e/ENDING-HomeChips.html">POISONED... CHIPS?</a></li>
-        <li html="ENDING-Vanish.html">Ending 18 - <a href="/e/ENDING-Vanish.html">COMBUSTION FROM REALITY</a></li>
-        <li html="ENDING-ChipOverload.html">Ending 19 - <a href="/e/ENDING-ChipOverload.html">CHIP OVERLOAD</a></li>
-        <li html="ENDING-RunCheese.html">Ending 20 - <a href="/e/ENDING-RunCheese.html">ON THE RUN</a></li>
-        <li html="ENDING-EmbraceCheese.html">Ending 21 - <a href="/e/ENDING-EmbraceCheese.html">CHEESE EMBRACER</a></li>
-        <li html="ENDING-Doom.html">Ending 22 - <a href="/e/ENDING-Doom.html">THE SLAYER HAS ENTERED THE BUILDING</a></li>
-        <li html="ENDING-Minecraft.html">Ending 23 - <a href="/e/ENDING-Minecraft.html">LEGENDS NEVER DIE</a></li>
-        <li html="ENDING-Fortnite.html">Ending 24 - <a href="/e/ENDING-Fortnite.html">FORTNITE</a></li>
-        <li html="ENDING-CheeseSimChips.html">Ending 25 - <a href="/e/ENDING-CheeseSimChips.html">YOU POPPED NOW YOU WILL NEVER STOP</a></li>
-        <li html="ENDING-BadTeethIT.html">Ending 26 - <a href="/e/ENDING-BadTeethIT.html">YOUR BREATH STINKS</a></li>
-        <li html="ENDING-BadTeethWeld.html">Ending 27 - <a href="/e/ENDING-BadTeethWeld.html">I'M GONNA WELD YOUR MOUTH SHUT</a></li>
-        <li html="ENDING-SubInNeedIm.html">Ending 28 - <a href="/e/ENDING-SubInNeedIm.html">SUBORDINATES IN NEED</a></li>
-        <li html="ENDING-SubInNeedLa.html">Ending 29 - <a href="/e/ENDING-SubInNeedLa.html">CARED SUBORDINATES</a></li>
-        <li html="ENDING-Backrooms.html">Ending 30 - <a href="/e/ENDING-Backrooms.html">BACKROOMS</a></li>
-        <li html="ENDING-ITRingout.html">Ending 31 - <a href="/e/ENDING-ITRingout.html">IS HE OKAY?</a></li>
-        <li html="ENDING-21KO.html">Ending 32 - <a href="/e/ENDING-21KO.html">21ST CENTURY K.O</a></li>
-        <li html="ENDING-ITRemainSilent.html">Ending 33 - <a href="/e/ENDING-ITRemainSilent.html">I'M LAGGING</a></li>
-        <li html="ENDING-JavaError.html">Ending 34 - <a href="/e/ENDING-JavaError.html">WHAT DOES THIS BUTTON DO?</a></li>
-        <li html="ENDING-ArchBtw.html">Ending 35 - <a href="/e/ENDING-ArchBtw.html">I USE ARCH BTW</a></li>
-        <li html="ENDING-PirWindows.html">Ending 36 - <a href="/e/ENDING-PirWindows.html">WRONG WEBSITE</a></li>
-        <li html="ENDING-WorkerNotFighter.html">Ending 37 - <a href="/e/ENDING-WorkerNotFighter.html">YOU'RE A WORKER NOT A FIGHTER</a></li>
-        <li html="ENDING-ImmoIT.html">Ending 38 - <a href="/e/ENDING-ImmoIT.html">IMMORTAL IT WORKER</a></li>
-        <li html="ENDING-SocietyInter.html">Ending 39 - <a href="/e/ENDING-SocietyInter.html">CLASSICAL SOCIETY INTERACTIONS</a></li>
-        <li html="ENDING-StrangeChips.html">Ending 40 - <a href="/e/ENDING-StrangeChips.html">STOP TRUSTING CHIPS</a></li>
-        <li html="ENDING-DisobeyedNarrator.html">Ending 41 - <a href="/e/ENDING-DisobeyedNarrator.html">DISOBEYED AND DENIED</a></li>
-        <li html="ENDING-ChipTakeGone.html">Ending 42 - <a href="/e/ENDING-ChipTakeGone.html">IT WAS POISON?</a></li>
-        <li html="ENDING-SmallStepWelder.html">Ending 43 - <a href="/e/ENDING-SmallStepWelder.html">ONE SMALL STEP FOR WELDERS</a></li>
-        <li html="ENDING-CEOWithoutVision.html">Ending 44 - <a href="/e/ENDING-CEOWithoutVision.html">A CEO WITHOUT A VISION</a></li>
-        <li html="ENDING-MistakesWorkplaceWelder.html">Ending 45 - <a href="/e/ENDING-MistakesWorkplaceWelder.html">MISTAKES OF THE WORKPLACE</a></li>
-        <li html="ENDING-CheeseBad.html">Ending 46 - <a href="/e/ENDING-CheeseBad.html">CHEESE DELUXE</a></li>
-        <li html="ENDING-MistakesWorkplaceIT.html">Ending 47 - <a href="/e/ENDING-MistakesWorkplaceIT.html">A POISONED WORKER</a></li>
-        <li html="ENDING-ITOverthrow.html">Ending 48 - <a href="/e/ENDING-ITOverthrow.html">OVERTHROWN BY THE HIGH COURT</a></li>
-        <li html="ENDING-PoisonAgain.html">Ending 49 - <a href="/e/ENDING-PoisonAgain.html">POISONED CHIPS... AGAIN</a></li>
-        <li html="ENDING-JobForget.html">Ending 50 - <a href="/e/ENDING-JobForget.html">WHAT WAS I SUPPOSED TO BE DOING</a></li>
-        <li html="ENDING-Weakling.html">Ending 51 - <a href="/e/ENDING-Weakling.html">WELL THAT DIDN'T WORK</a></li>
-        <li html="ENDING-Manipulator.html">Ending 52 - <a href="/e/ENDING-Manipulator.html">MANIPULATOR</a></li>
-        <li html="ENDING-CorrectiveMeasures.html">Ending 53 - <a href="/e/ENDING-CorrectiveMeasures.html">CORRECTIVE MEASURES</a></li>
-        <li html="ENDING-FoodBuy.html">Ending 54 - <a href="/e/ENDING-FoodBuy.html">HUMANITARIAN MISSION</a></li>
-        <li html="ENDING-FoodIgnore.html">Ending 55 - <a href="/e/ENDING-FoodIgnore.html">UNLUCKY STARVATION</a></li>
-        <li html="ENDING-ChipsClutch.html">Ending 56 - <a href="/e/ENDING-ChipsClutch.html">CHIPS COME IN CLUTCH</a></li>
-        <li html="ENDING-Murderer.html">Ending 57 - <a href="/e/ENDING-Murderer.html">MURDERER</a></li>
-        <li html="ENDING-BusinessContinue.html">Ending 58 - <a href="/e/ENDING-BusinessContinue.html">BUSINESS WILL CONTINUE</a></li>
-        <li html="ENDING-CrimeCrime.html">Ending 59 - <a href="/e/ENDING-CrimeCrime.html">CRIME IN A CRIME</a></li>
-        <li html="ENDING-Bomber.html">Ending 60 - <a href="/e/ENDING-Bomber.html">SUICIDE BOMBING</a></li>
-        <li html="ENDING-ArrestedWelder.html">Ending 61 - <a href="/e/ENDING-ArrestedWelder.html">TAKEN BY FORCE</a></li>
-        <li html="ENDING-CantDial.html">Ending 62 - <a href="/e/ENDING-CantDial.html">WAIT I CAN'T SEE</a></li>
-        <li html="ENDING-GooglePowered.html">Ending 63 - <a href="/e/ENDING-GooglePowered.html">GOOGLE POWERED TURRETS</a></li>
-        <li html="ENDING-CEOless.html">Ending 64 - <a href="/e/ENDING-CEOless.html">CEOLESS TO A WELDER</a></li>
-        <li html="ENDING-ManiacWelder.html">Ending 65 - <a href="/e/ENDING-ManiacWelder.html">MANIAC WELDER</a></li>
-        <li html="ENDING-QuestionableForces.html">Ending 66 - <a href="/e/ENDING-QuestionableForces.html">...WHAT?</a></li>
-        <li html="ENDING-GrassToucher.html">Ending 67 - <a href="/e/ENDING-GrassToucher.html">GRASS TOUCHER</a></li>
-      </ul>
-    </div>
-    <script src="{{ url_for('static', filename='endings.js') }}" defer></script>
-    <script>
-        const unlocked = '{{UNLOCKED}}';
-        let totalendings = '{{TOTAL}}';
-        setTimeout(() => {
+    <head>
+        <meta name="author" content="Lucas Bubner - 9WI 2022">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <title>Mind of CEO | All Endings</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='fader.js') }}"></script>
+    </head>
+    <body>
+        <svg id="fader"></svg>
+        <div class="indexcontainer" id="endingpage">
+            <h3>ALL UNLOCKED ENDINGS FOR '{{NAMECAP}}' || MIND OF CEO</h3>
+            <b>There are no guides, you have to find each ending yourself! This page automatically updates depending on which endings you've unlocked. <br> <i id="endingcount"></i></b> <br> <br>
+            <a href="/story">Go back to the game</a> <br> <br>
+            <i>Showing endings for user: {{NAME}}</i>
+            <ul id="endinglist" style="all: revert; list-style: square;">
+                <li html="ENDING-ChipFinder.html">Ending 01 - <a href="/e/ENDING-ChipFinder.html">I PROGRAM, NOT FIX PRINTERS</a></li>
+                <li html="ENDING-ChipsGenocide.html">Ending 02 - <a href="/e/ENDING-ChipsGenocide.html">EPIDEMIC OF CHIP REPUBLIC</a></li>
+                <li html="ENDING-EnthusiasticTakeOutChips.html">Ending 03 - <a href="/e/ENDING-EnthusiasticTakeOutChips.html">HOLY CHIPS, OUR ODD SAVIOUR</a></li>
+                <li html="ENDING-FSNewGame.html">Ending 04 - <a href="/e/ENDING-FSNewGame.html">ME_IRL</a></li>
+                <li html="ENDING-FSOldGame.html">Ending 05 - <a href="/e/ENDING-FSOldGame.html">THE {{NAMECAP}} FALCON PUNCH</a></li>
+                <li html="ENDING-MadMum.html">Ending 06 - <a href="/e/ENDING-MadMum.html">GRAND WHOOPING</a></li>
+                <li html="ENDING-MadMumDeliquent.html">Ending 07 - <a href="/e/ENDING-MadMumDeliquent.html">THIRD EYE</a></li>
+                <li html="ENDING-MumNewGame.html">Ending 08 - <a href="/e/ENDING-MumNewGame.html">A FAIR DISCUSSION</a></li>
+                <li html="ENDING-MumOldGame.html">Ending 09 - <a href="/e/ENDING-MumOldGame.html">SPOILERS, SPOILERS EVERYWHERE</a></li>
+                <li html="ENDING-NotTiredTakeOutChips.html">Ending 10 - <a href="/e/ENDING-NotTiredTakeOutChips.html">CHIPS AHOY</a></li>
+                <li html="ENDING-StandForever.html">Ending 11 - <a href="/e/ENDING-StandForever.html">STUCK IN TIME</a></li>
+                <li html="ENDING-StandForeverMum.html">Ending 12 - <a href="/e/ENDING-StandForeverMum.html">PAUSE CHALLENGE</a></li>
+                <li html="ENDING-TakeOutDrone.html">Ending 13 - <a href="/e/ENDING-TakeOutDrone.html">NANOMACHINES, SON</a></li>
+                <li html="ENDING-TiredTakeOutChips.html">Ending 14 - <a href="/e/ENDING-TiredTakeOutChips.html">SELF INFLICTED POISON</a></li>
+                <li html="ENDING-VistaMum.html">Ending 15 - <a href="/e/ENDING-VistaMum.html">USER ACCOUNT CONTROL: DO YOU WANT TO ALLOW 'ENDING' TO MAKE CHANGES TO YOUR COMPUTER?</a></li>
+                <li html="ENDING-FriendConvo.html">Ending 16 - <a href="/e/ENDING-FriendConvo.html">SYSTEM.ERROR() UNCAUGHT EXCEPTION ON LINE 762: NO FRIENDS DETECTED</a></li>
+                <li html="ENDING-HomeChips.html">Ending 17 - <a href="/e/ENDING-HomeChips.html">POISONED... CHIPS?</a></li>
+                <li html="ENDING-Vanish.html">Ending 18 - <a href="/e/ENDING-Vanish.html">COMBUSTION FROM REALITY</a></li>
+                <li html="ENDING-ChipOverload.html">Ending 19 - <a href="/e/ENDING-ChipOverload.html">CHIP OVERLOAD</a></li>
+                <li html="ENDING-RunCheese.html">Ending 20 - <a href="/e/ENDING-RunCheese.html">ON THE RUN</a></li>
+                <li html="ENDING-EmbraceCheese.html">Ending 21 - <a href="/e/ENDING-EmbraceCheese.html">CHEESE EMBRACER</a></li>
+                <li html="ENDING-Doom.html">Ending 22 - <a href="/e/ENDING-Doom.html">THE SLAYER HAS ENTERED THE BUILDING</a></li>
+                <li html="ENDING-Minecraft.html">Ending 23 - <a href="/e/ENDING-Minecraft.html">LEGENDS NEVER DIE</a></li>
+                <li html="ENDING-Fortnite.html">Ending 24 - <a href="/e/ENDING-Fortnite.html">FORTNITE</a></li>
+                <li html="ENDING-CheeseSimChips.html">Ending 25 - <a href="/e/ENDING-CheeseSimChips.html">YOU POPPED NOW YOU WILL NEVER STOP</a></li>
+                <li html="ENDING-BadTeethIT.html">Ending 26 - <a href="/e/ENDING-BadTeethIT.html">YOUR BREATH STINKS</a></li>
+                <li html="ENDING-BadTeethWeld.html">Ending 27 - <a href="/e/ENDING-BadTeethWeld.html">I'M GONNA WELD YOUR MOUTH SHUT</a></li>
+                <li html="ENDING-SubInNeedIm.html">Ending 28 - <a href="/e/ENDING-SubInNeedIm.html">SUBORDINATES IN NEED</a></li>
+                <li html="ENDING-SubInNeedLa.html">Ending 29 - <a href="/e/ENDING-SubInNeedLa.html">CARED SUBORDINATES</a></li>
+                <li html="ENDING-Backrooms.html">Ending 30 - <a href="/e/ENDING-Backrooms.html">BACKROOMS</a></li>
+                <li html="ENDING-ITRingout.html">Ending 31 - <a href="/e/ENDING-ITRingout.html">IS HE OKAY?</a></li>
+                <li html="ENDING-21KO.html">Ending 32 - <a href="/e/ENDING-21KO.html">21ST CENTURY K.O</a></li>
+                <li html="ENDING-ITRemainSilent.html">Ending 33 - <a href="/e/ENDING-ITRemainSilent.html">I'M LAGGING</a></li>
+                <li html="ENDING-JavaError.html">Ending 34 - <a href="/e/ENDING-JavaError.html">WHAT DOES THIS BUTTON DO?</a></li>
+                <li html="ENDING-ArchBtw.html">Ending 35 - <a href="/e/ENDING-ArchBtw.html">I USE ARCH BTW</a></li>
+                <li html="ENDING-PirWindows.html">Ending 36 - <a href="/e/ENDING-PirWindows.html">WRONG WEBSITE</a></li>
+                <li html="ENDING-WorkerNotFighter.html">Ending 37 - <a href="/e/ENDING-WorkerNotFighter.html">YOU'RE A WORKER NOT A FIGHTER</a></li>
+                <li html="ENDING-ImmoIT.html">Ending 38 - <a href="/e/ENDING-ImmoIT.html">IMMORTAL IT WORKER</a></li>
+                <li html="ENDING-SocietyInter.html">Ending 39 - <a href="/e/ENDING-SocietyInter.html">CLASSICAL SOCIETY INTERACTIONS</a></li>
+                <li html="ENDING-StrangeChips.html">Ending 40 - <a href="/e/ENDING-StrangeChips.html">STOP TRUSTING CHIPS</a></li>
+                <li html="ENDING-DisobeyedNarrator.html">Ending 41 - <a href="/e/ENDING-DisobeyedNarrator.html">DISOBEYED AND DENIED</a></li>
+                <li html="ENDING-ChipTakeGone.html">Ending 42 - <a href="/e/ENDING-ChipTakeGone.html">IT WAS POISON?</a></li>
+                <li html="ENDING-SmallStepWelder.html">Ending 43 - <a href="/e/ENDING-SmallStepWelder.html">ONE SMALL STEP FOR WELDERS</a></li>
+                <li html="ENDING-CEOWithoutVision.html">Ending 44 - <a href="/e/ENDING-CEOWithoutVision.html">A CEO WITHOUT A VISION</a></li>
+                <li html="ENDING-MistakesWorkplaceWelder.html">Ending 45 - <a href="/e/ENDING-MistakesWorkplaceWelder.html">MISTAKES OF THE WORKPLACE</a></li>
+                <li html="ENDING-CheeseBad.html">Ending 46 - <a href="/e/ENDING-CheeseBad.html">CHEESE DELUXE</a></li>
+                <li html="ENDING-MistakesWorkplaceIT.html">Ending 47 - <a href="/e/ENDING-MistakesWorkplaceIT.html">A POISONED WORKER</a></li>
+                <li html="ENDING-ITOverthrow.html">Ending 48 - <a href="/e/ENDING-ITOverthrow.html">OVERTHROWN BY THE HIGH COURT</a></li>
+                <li html="ENDING-PoisonAgain.html">Ending 49 - <a href="/e/ENDING-PoisonAgain.html">POISONED CHIPS... AGAIN</a></li>
+                <li html="ENDING-JobForget.html">Ending 50 - <a href="/e/ENDING-JobForget.html">WHAT WAS I SUPPOSED TO BE DOING</a></li>
+                <li html="ENDING-Weakling.html">Ending 51 - <a href="/e/ENDING-Weakling.html">WELL THAT DIDN'T WORK</a></li>
+                <li html="ENDING-Manipulator.html">Ending 52 - <a href="/e/ENDING-Manipulator.html">MANIPULATOR</a></li>
+                <li html="ENDING-CorrectiveMeasures.html">Ending 53 - <a href="/e/ENDING-CorrectiveMeasures.html">CORRECTIVE MEASURES</a></li>
+                <li html="ENDING-FoodBuy.html">Ending 54 - <a href="/e/ENDING-FoodBuy.html">HUMANITARIAN MISSION</a></li>
+                <li html="ENDING-FoodIgnore.html">Ending 55 - <a href="/e/ENDING-FoodIgnore.html">UNLUCKY STARVATION</a></li>
+                <li html="ENDING-ChipsClutch.html">Ending 56 - <a href="/e/ENDING-ChipsClutch.html">CHIPS COME IN CLUTCH</a></li>
+                <li html="ENDING-Murderer.html">Ending 57 - <a href="/e/ENDING-Murderer.html">MURDERER</a></li>
+                <li html="ENDING-BusinessContinue.html">Ending 58 - <a href="/e/ENDING-BusinessContinue.html">BUSINESS WILL CONTINUE</a></li>
+                <li html="ENDING-CrimeCrime.html">Ending 59 - <a href="/e/ENDING-CrimeCrime.html">CRIME IN A CRIME</a></li>
+                <li html="ENDING-Bomber.html">Ending 60 - <a href="/e/ENDING-Bomber.html">SUICIDE BOMBING</a></li>
+                <li html="ENDING-ArrestedWelder.html">Ending 61 - <a href="/e/ENDING-ArrestedWelder.html">TAKEN BY FORCE</a></li>
+                <li html="ENDING-CantDial.html">Ending 62 - <a href="/e/ENDING-CantDial.html">WAIT I CAN'T SEE</a></li>
+                <li html="ENDING-GooglePowered.html">Ending 63 - <a href="/e/ENDING-GooglePowered.html">GOOGLE POWERED TURRETS</a></li>
+                <li html="ENDING-CEOless.html">Ending 64 - <a href="/e/ENDING-CEOless.html">CEOLESS TO A WELDER</a></li>
+                <li html="ENDING-ManiacWelder.html">Ending 65 - <a href="/e/ENDING-ManiacWelder.html">MANIAC WELDER</a></li>
+                <li html="ENDING-QuestionableForces.html">Ending 66 - <a href="/e/ENDING-QuestionableForces.html">...WHAT?</a></li>
+                <li html="ENDING-GrassToucher.html">Ending 67 - <a href="/e/ENDING-GrassToucher.html">GRASS TOUCHER</a></li>
+            </ul>
+        </div>
+        <script src="{{ url_for('static', filename='endings.js') }}" defer></script>
+        <script>
+            const unlocked = '{{UNLOCKED}}';
+            let totalendings = '{{TOTAL}}';
+            setTimeout(() => {
                 fadeIn();
             }, 1000);
-    </script>
-  </body>
+        </script>
+    </body>
 </html>

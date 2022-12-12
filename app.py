@@ -63,10 +63,13 @@ def auth_check(username, password):
 def render(page, **kwargs):
     session["target"] = page
     try:
-        currentsession = loads(session['save'])
+        currentsession = loads(session.get('save'))
     except TypeError:
-        currentsession = session['save']
-    return render_template(session["target"], SAVE=currentsession, NAME=session['user'], TOTAL=TOTALENDINGS, **kwargs)
+        # In some cases, there will not be a save session and we can safely ignore this exception.
+        # An actual savefile being missing will be caught by the check_user function per request
+        # However, we still pass a NoneType to the passed keyword arguments so it doesn't complain
+        currentsession = None
+    return render_template(session.get("target"), SAVE=currentsession, NAME=session.get('user'), TOTAL=TOTALENDINGS, **kwargs)
 
 
 # Ensures security when accessing save files on the server

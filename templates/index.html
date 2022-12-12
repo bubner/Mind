@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="description" content="Python and Flask text based adventure game with autosave and user system">
-    <meta name="author" content="Lucas Bubner - @holo-lb">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <title>Mind of CEO | Index</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='fader.js') }}"></script>
-  </head>
-  <body>
-    <svg id="fader"></svg> <script>fadeIn();</script>
-    <div class="indexcontainer">
-    <form action="/pass" method="GET">
-      <h2>MIND OF CEO <br> <i>{{TOTAL}} ENDINGS TEXT ADVENTURE GAME</i></h2>
-      <p><i>Please enter a username that you'll be referred to in the story, and to login: &nbsp </i> <input type="text" name="playername" required></p>
-      <p>This project uses auto-save! With a given name (and password), a savefile will be generated according to the name entered, so be sure to use a unique name (and memorable/unique password, there are no reset password options available) if you want to save your endings/current progress. The browser back button has also been disabled, as it can mess with the game's storyline/experience. <br> <br> <b>Good luck and have fun!</b></p>
-      <button type="submit" style="all: revert; font-family: 'Lato', sans-serif; width: 50%; height: auto; font-size: 24px;">Submit and start game</button>
-      <p><a href="https://github.com/holo-lb">@holo-lb</a>, 2022</p>
-    </form>
-    </div>
-    <script>
-      document.getElementById('checkbox').addEventListener('click', () => {
-        alert(
-            "Sorry, we had trouble processing your request. Please try again later."
-        );
-        document.getElementById('checkbox').checked = true;
-      });
-    </script>
-  </body>
+    <head>
+        <meta name="description" content="Python and Flask text based adventure game with autosave and user system">
+        <meta name="author" content="Lucas Bubner - @holo-lb">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <title>Mind of CEO | Index</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='fader.js') }}"></script>
+    </head>
+    <body>
+        <svg id="fader"></svg> <script>fadeIn();</script>
+        <div class="indexcontainer">
+            <form action="/pass" method="GET">
+                <h2>MIND OF CEO <br> <i>{{TOTAL}} ENDINGS TEXT ADVENTURE GAME</i></h2>
+                <p><i>Please enter a username that you'll be referred to in the story, and to login: &nbsp </i> <input type="text" name="playername" required></p>
+                <p>This project uses auto-save! With a given name (and password), a savefile will be generated according to the name entered, so be sure to use a unique name (and memorable/unique password, there are no reset password options available) if you want to save your endings/current progress. The browser back button has also been disabled, as it can mess with the game's storyline/experience. <br> <br> <b>Good luck and have fun!</b></p>
+                <button type="submit" style="all: revert; font-family: 'Lato', sans-serif; width: 50%; height: auto; font-size: 24px;">Submit and start game</button>
+                <p><a href="https://github.com/holo-lb">@holo-lb</a>, 2022</p>
+            </form>
+        </div>
+        <script>
+            document.getElementById('checkbox').addEventListener('click', () => {
+                alert("Sorry, we had trouble processing your request. Please try again later.");
+                document.getElementById('checkbox').checked = true;
+            });
+        </script>
+    </body>
 </html>

@@ -1,4 +1,5 @@
 /*
+ *   Lucas Bubner, 2022
  *   Runs on the 'endings.html' page from the '/endings' approute
  *   unlocked and total variables declared in HTML
  */
@@ -19,10 +20,9 @@ for (let i = 0; i < endings.length; i++) {
 }
 
 // Display number of unlocked endings
+let status = "";
 if (unlockedendings.length == totalendings) {
-    const status = "You've unlocked them all! Impressive!"
-} else {
-    const status = "";
+    status = "You've unlocked them all! Impressive!";
 }
 
 document.getElementById("endingcount").innerHTML = "You have unlocked " + unlockedendings.length + "/" + totalendings + " endings. " + status;
@@ -38,7 +38,7 @@ for (let i = 0; i < endinglist.length; i++) {
 let endingcontent = [];
 for (let i = 0; i < endinglist.length; i++) {
     endingcontent[i] = endinglist[i].innerHTML;
-    endinglist[i].innerHTML = "???"
+    endinglist[i].innerHTML = "???";
 }
 
 // Check if an ending has been unlocked and allow it to display if it has
