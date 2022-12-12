@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/p.webp') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: CHIPS COME IN CLUTCH<br> <p class="subending">Ending 56/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}}, ignoring their need for food, decides to eat the chips they still have. Fortunately, they are enough, and {{NAME}} goes to work the next day informing their staff of the absence of the welder in hospital. Everyone sends their regards and condolences, and {{NAME}} continues on with their chip-powered life...</p>
+        <h1 class="event">NEUTRAL ENDING: CHIPS COME IN CLUTCH<br>
+            <p class="subending">Ending 56/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}}, ignoring their need for food, decides to eat the chips they still have. Fortunately,
+            they are enough, and {{NAME}} goes to work the next day informing their staff of the absence of the welder
+            in hospital. Everyone sends their regards and condolences, and {{NAME}} continues on with their chip-powered
+            life...</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

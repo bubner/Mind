@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 if not environ.get("SECRET_KEY"):
     raise RuntimeError("SECRET_KEY not set as an environment variable.")
-    
+
 app.secret_key = environ.get("SECRET_KEY")
 
 # Connect to SQL database for password info
@@ -37,21 +37,24 @@ def auth_addentry(username, password):
     # certain username, otherwise accounts which have not been committed will enforce an older password
     # that doesn't match the one that they entered, effectively losing their claim on creation
     auth.execute("DELETE FROM userlist WHERE user = ?", (username,))
-    
+
     auth.execute("INSERT INTO userlist (user, pass) VALUES(?, ?)", usercombo)
     sqlc.commit()
-    print(f"> added new user/pass entry into database with username: {username}")
+    print(
+        f"> added new user/pass entry into database with username: {username}")
 
 
 def auth_removeentry(username):
     auth.execute("DELETE FROM userlist WHERE user = ?", (username,))
     sqlc.commit()
-    print(f"> removed a user/pass entry from database with username: {username}")
+    print(
+        f"> removed a user/pass entry from database with username: {username}")
 
 
 def auth_check(username, password):
     hpass = password + username
-    entry = auth.execute("SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
+    entry = auth.execute(
+        "SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
     try:
         res = PasswordHasher().verify(entry[0], hpass)
     except exceptions.VerifyMismatchError:
@@ -75,15 +78,16 @@ def render(page, **kwargs):
 # Ensures security when accessing save files on the server
 def secure_path(name):
     basepath = path.join(getcwd(), "savestates")
-    
+
     # Make sure the savefiles directory exists
     if not path.exists(basepath):
         mkdir(basepath)
-        
+
     fullpath = path.normpath(path.join(basepath, name))
     if not fullpath.startswith(basepath):
-        raise OSError("Security error. Attempted to access a path outside of the base directory.")
-        
+        raise OSError(
+            "Security error. Attempted to access a path outside of the base directory.")
+
     return fullpath
 
 
@@ -122,7 +126,8 @@ class User:
     # Set last page state to the last target
     def changepagestate(self):
         self.pagestate = session["target"]
-        print(f"> autosaved pagestate of user: '{self.name}' with target: '{session['target']}'")
+        print(
+            f"> autosaved pagestate of user: '{self.name}' with target: '{session['target']}'")
         self.fsave(self)
 
     # Set variable method
@@ -194,7 +199,8 @@ def goback(e):
 # 404 request if a user exists, otherwise checkuser will redirect them back to the index
 @app.errorhandler(404)
 def notfound(e):
-    print(f"> 404 request intercepted while info for {session['user']} was present")
+    print(
+        f"> 404 request intercepted while info for {session['user']} was present")
     return render('404.html')
 
 
@@ -226,7 +232,8 @@ def autosave(r):
         # Check if an ending was reached
         if 'ending' in session["target"].lower():
             if save.addending(session["target"]):
-                print(f"> added new ending for user: {session['user']}, ending '{session['target']}'")
+                print(
+                    f"> added new ending for user: {session['user']}, ending '{session['target']}'")
         session["save"] = dumps(save)
     return r
 
@@ -252,16 +259,16 @@ def authenticate():
     if not session.get("user"):
         if not (playername := request.args.get("playername")):
             return render("index.html", MSG="Username is missing.")
-            
+
         if len(playername) > 16:
             return render("index.html", MSG="Username too long. 16 characters limit.")
-            
+
         session['user'] = playername
         session['user'] = session["user"].capitalize()
 
     # Make a new user object for the person
     save = User(session["user"])
-    
+
     if request.method == 'POST':
         if not (password := request.form.get("password")):
             abort(503)
@@ -329,7 +336,8 @@ def userdel():
 
     # Prevent deleting a user that isn't logged in as said user
     if n != session["user"]:
-        print(f"> stopped delete request for user '{n}' by user '{session['user']}'")
+        print(
+            f"> stopped delete request for user '{n}' by user '{session['user']}'")
         return redirect("/")
 
     try:

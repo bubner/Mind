@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/af.jpg') }});">
     <div id="blur">
-        <h1 class="event">STRANGE ENDING: IS HE OKAY?<br> <p class="subending">Ending 31/{{ TOTAL }}</p></h1>
-        <p class="stinfo">After letting the phone ringout, {{NAME}} carries on with their day. Everything is normal, until they see the IT worker back in office a few days later. They don't respond to your calls, messages, or even talking to {{NAME}}... How strange. It seems as the worker is planning something ill-willed towards {{NAME}}, and they are left victim to find out themselves.</p>
+        <h1 class="event">STRANGE ENDING: IS HE OKAY?<br>
+            <p class="subending">Ending 31/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">After letting the phone ringout, {{NAME}} carries on with their day. Everything is normal,
+            until they see the IT worker back in office a few days later. They don't respond to your calls, messages, or
+            even talking to {{NAME}}... How strange. It seems as the worker is planning something ill-willed towards
+            {{NAME}}, and they are left victim to find out themselves.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

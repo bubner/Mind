@@ -2,10 +2,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/ag.webp') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: WHAT DOES THIS BUTTON DO?<br> <p class="subending">Ending 34/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} compiles their faulty code into the live system, and manages to crash all the infrastructure. {{NAME}}'s lack of simple Java programming result in them losing billions in stock due to a bug they introduced which sold all stocks at minimum price. Nice one.</p>
+        <h1 class="event">BAD ENDING: WHAT DOES THIS BUTTON DO?<br>
+            <p class="subending">Ending 34/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} compiles their faulty code into the live system, and manages to crash all the
+            infrastructure. {{NAME}}'s lack of simple Java programming result in them losing billions in stock due to a
+            bug they introduced which sold all stocks at minimum price. Nice one.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/ad.webp) }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: OVERTHROWN BY THE HIGH COURT<br> <p class="subending">Ending 48/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} decides to ignore the IT worker, and ends up getting the police sent to their house for reason of assault and attempted murder. The police end up sentencing you to a summons in court, where {{NAME}} lost the case and is now jailed forever, losing their Super CEO title. Don't ignore health and safety at your own workplace!</p>
+        <h1 class="event">BAD ENDING: OVERTHROWN BY THE HIGH COURT<br>
+            <p class="subending">Ending 48/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} decides to ignore the IT worker, and ends up getting the police sent to their house
+            for reason of assault and attempted murder. The police end up sentencing you to a summons in court, where
+            {{NAME}} lost the case and is now jailed forever, losing their Super CEO title. Don't ignore health and
+            safety at your own workplace!</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

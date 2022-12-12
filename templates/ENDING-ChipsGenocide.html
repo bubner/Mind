@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/chipsgeno.jpg') }});">
+<div class="theContaininator6000"
+    style="background-image: url({{ url_for('static', filename='images/chipsgeno.jpg') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: EPIDEMIC OF CHIP REPUBLIC <br> <p class="subending">Ending 02/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}}'s carelessness failed to protect them from checking if the bag of chips they brought was actually safe. Passing the bag around, at least everyone including {{NAME}} had eaten one. Everyone passes out from poisoning and no one is there to save them. Why did {{NAME}} even have that...?</p>
+        <h1 class="event">BAD ENDING: EPIDEMIC OF CHIP REPUBLIC <br>
+            <p class="subending">Ending 02/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}}'s carelessness failed to protect them from checking if the bag of chips they brought
+            was actually safe. Passing the bag around, at least everyone including {{NAME}} had eaten one. Everyone
+            passes out from poisoning and no one is there to save them. Why did {{NAME}} even have that...?</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

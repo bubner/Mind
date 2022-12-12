@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/manpassedout.webp') }});">
+<div class="theContaininator6000"
+    style="background-image: url({{ url_for('static', filename='images/manpassedout.webp') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: ME_IRL <br> <p class="subending">Ending 04/{{ TOTAL }}</p></h1>
-        <p class="stinfo">Overhearing a conversation about the new game {{NAME}} just played, {{NAME}} jumps in and joins the conversation! Unfortunately, {{NAME}} is too tired and passes out! {{NAME}} gets sent to the hospital for severe deprivation of energy and blood sugar, a bill over thousands of dollars...</p>
+        <h1 class="event">BAD ENDING: ME_IRL <br>
+            <p class="subending">Ending 04/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">Overhearing a conversation about the new game {{NAME}} just played, {{NAME}} jumps in and
+            joins the conversation! Unfortunately, {{NAME}} is too tired and passes out! {{NAME}} gets sent to the
+            hospital for severe deprivation of energy and blood sugar, a bill over thousands of dollars...</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

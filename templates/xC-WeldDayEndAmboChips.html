@@ -2,10 +2,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }})">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/aas.png') }})">
     <div id="blur">
         <h1 class="event">{{NAME}} calls an ambulance.</h1>
-        <p class="stinfo">Fortunately due to {{NAME}}'s quick response, the ambulances arrived within reasonable time. {{NAME}} decides to stay with them until it is safe to leave, as they've already committed to helping them recover. {{NAME}} ends up getting home <br><br>{{NAME}} is hungry. What do they do?</p>
+        <p class="stinfo">Fortunately due to {{NAME}}'s quick response, the ambulances arrived within reasonable time.
+            {{NAME}} decides to stay with them until it is safe to leave, as they've already committed to helping them
+            recover. {{NAME}} ends up getting home <br><br>{{NAME}} is hungry. What do they do?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/wheatchips"><button type="submit">Eat the chips {{NAME}} still has</button></a></li>

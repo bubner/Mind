@@ -2,10 +2,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/h.webp') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: BUSINESS WILL CONTINUE<br> <p class="subending">Ending 58/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} lets the welder go, leading them out of the house at once. {{NAME}} then exercises their ultimate powers and banishes them from working at their company again, due to trespassing and illicit conduct. No one dares to get in {{NAME}}'s way again.</p>
+        <h1 class="event">NEUTRAL ENDING: BUSINESS WILL CONTINUE<br>
+            <p class="subending">Ending 58/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} lets the welder go, leading them out of the house at once. {{NAME}} then exercises
+            their ultimate powers and banishes them from working at their company again, due to trespassing and illicit
+            conduct. No one dares to get in {{NAME}}'s way again.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

@@ -2,14 +2,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/aaaw.jpg') }});">
     <div id="blur">
         <h1 class="event">{{NAME}} disregards their hunger.</h1>
-        <p class="stinfo">"Work must still continue, you can eat in a break or go home if you're too sick." replied {{NAME}}. <br> "Ahh, I might head home now then. But we have one more thing to do." replied the welder. <br> <br> What does {{NAME}} say?</p>
+        <p class="stinfo">"Work must still continue, you can eat in a break or go home if you're too sick." replied
+            {{NAME}}. <br> "Ahh, I might head home now then. But we have one more thing to do." replied the welder. <br>
+            <br> What does {{NAME}} say?</p>
         <div class="mainBarButtons"> <br style="line-height: 10px;">
             <ul>
-                <li><a href="/weldhelp"><button type="submit">"Let's do the last thing together then we can both go home."</button></a></li>
-                <li><a href="/wgohome"><button type="submit">"Good idea, we can both go home now for a while."</button></a></li>
+                <li><a href="/weldhelp"><button type="submit">"Let's do the last thing together then we can both go
+                            home."</button></a></li>
+                <li><a href="/wgohome"><button type="submit">"Good idea, we can both go home now for a
+                            while."</button></a></li>
             </ul>
         </div>
     </div>

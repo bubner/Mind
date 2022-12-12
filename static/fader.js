@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         anchors[i].addEventListener('click', (e) => {
             let fader = document.getElementById('fader'),
                 anchor = e.currentTarget;
-            
+
             let listener = () => {
                 window.location = anchor.href;
                 fader.removeEventListener('animationend', listener);
             };
             fader.addEventListener('animationend', listener);
-            
+
             e.preventDefault();
             fader.classList.add('fade-in');
         });
@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('pageshow', (e) => {
     if (!e.persisted) {
-      return;
+        return;
     }
     let fader = document.getElementById('fader');
     fader.classList.remove('fade-in');
-  });
+});

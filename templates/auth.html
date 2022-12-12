@@ -3,21 +3,23 @@
 
 {% block body %}
 <div class="indexcontainer">
-    <div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }}); transform: revert; width: revert;">
+    <div class="theContaininator6000"
+        style="background-image: url({{ url_for('static', filename='images/image.jpg') }}); transform: revert; width: revert;">
         <div id="blur">
             {% if not SAVE.saved %}
-                <h1>You seem to be a new user, welcome {{NAME}}!</h1>
-                <h3 style="font-style: italic;">Please enter a new password for the user: '{{ NAME }}'</h3>
-                <h4>Do not enter a password you use for other sites, this is a bad security practice! <br> Best tips are to use a simple word or phrase, as this project doesn't need particularly strong passwords.</h4>
+            <h1>You seem to be a new user, welcome {{NAME}}!</h1>
+            <h3 style="font-style: italic;">Please enter a new password for the user: '{{ NAME }}'</h3>
+            <h4>Do not enter a password you use for other sites, this is a bad security practice! <br> Best tips are to
+                use a simple word or phrase, as this project doesn't need particularly strong passwords.</h4>
             {% else %}
-                <h1>Welcome back, {{NAME}}!</h1>
-                <h3>Please enter your password.</h3>
+            <h1>Welcome back, {{NAME}}!</h1>
+            <h3>Please enter your password.</h3>
             {% endif %}
             <form action="/pass" method="post">
                 <input type="password" name="password" autocomplete="off" placeholder="Enter password" required>
             </form>
             {% if FAILED %}
-                <p style="color: red; font-weight: bold;">Login failed, incorrect password.</p>
+            <p style="color: red; font-weight: bold;">Login failed, incorrect password.</p>
             {% endif %}
             <br> <br>
             <a href="/" style="color: white; font-style: italic;"><button>Nevermind, cancel login</button></a>

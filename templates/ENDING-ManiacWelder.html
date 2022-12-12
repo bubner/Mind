@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/ai.jpg') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: MANIAC WELDER<br> <p class="subending">Ending 65/{{ TOTAL }}</p></h1>
-        <p class="stinfo">As {{NAME}} remains silent, it turns out that someone nearby had heard all the commotion and called the cops. They show up quickly and arrest the welder, who luckily didn't know where {{NAME}} was hiding. They come out of the closet and are greeted by the police, then taken in for questioning. {{NAME}} ends up continuing their life as normal, while the welder was given a life sentence. Karma.</p>
+        <h1 class="event">NEUTRAL ENDING: MANIAC WELDER<br>
+            <p class="subending">Ending 65/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">As {{NAME}} remains silent, it turns out that someone nearby had heard all the commotion and
+            called the cops. They show up quickly and arrest the welder, who luckily didn't know where {{NAME}} was
+            hiding. They come out of the closet and are greeted by the police, then taken in for questioning. {{NAME}}
+            ends up continuing their life as normal, while the welder was given a life sentence. Karma.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

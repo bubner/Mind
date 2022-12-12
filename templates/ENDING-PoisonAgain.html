@@ -1,12 +1,15 @@
-
 <!-- Lucas Bubner, 2022 -->
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/ap.jpg') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: POISONED CHIPS... AGAIN <br> <p class="subending">Ending 49/{{ TOTAL }}</p></h1>
-        <p class="stinfo">Perhaps {{NAME}} hasn't learnt that chips are canonically bad for you? {{NAME}} takes a bite of the dangerous looking chips, acting like a fool. Turns out {{NAME}} accidentally ate the Los Pellos Hermanos special edition chips, then proceeded to perish from a 'breaking bad' reference.</p>
+        <h1 class="event">BAD ENDING: POISONED CHIPS... AGAIN <br>
+            <p class="subending">Ending 49/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">Perhaps {{NAME}} hasn't learnt that chips are canonically bad for you? {{NAME}} takes a bite
+            of the dangerous looking chips, acting like a fool. Turns out {{NAME}} accidentally ate the Los Pellos
+            Hermanos special edition chips, then proceeded to perish from a 'breaking bad' reference.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/al.jpg') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: A POISONED WORKER<br> <p class="subending">Ending 47/{{ TOTAL }}</p></h1>
-        <p class="stinfo">Due to {{NAME}} not following protocol, the IT worker ended up filing a complaint against you for ignoring the poisoned chips. {{NAME}} gets filed into the health and safety violations' registry, and loses some money and time in legal fees, but overall keeps their titles. Nice one, but at least {{NAME}} had corrected their mistakes...</p>
+        <h1 class="event">NEUTRAL ENDING: A POISONED WORKER<br>
+            <p class="subending">Ending 47/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">Due to {{NAME}} not following protocol, the IT worker ended up filing a complaint against you
+            for ignoring the poisoned chips. {{NAME}} gets filed into the health and safety violations' registry, and
+            loses some money and time in legal fees, but overall keeps their titles. Nice one, but at least {{NAME}} had
+            corrected their mistakes...</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

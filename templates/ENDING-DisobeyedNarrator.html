@@ -2,10 +2,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/t.jpg') }});">
     <div id="blur">
-        <h1 class="event">NARRATOR ENDING: DISOBEYED AND DENIED<br> <p class="subending">Ending 41/{{ TOTAL }}</p></h1>
-        <p class="stinfo">You think you're smart picking the options that are against what you're supposed to do? Very funny, but I'm not taking it. {{NAME}} dies brutally from the narrator's administrator privileges in the simulation. I refuse to elaborate.</p>
+        <h1 class="event">NARRATOR ENDING: DISOBEYED AND DENIED<br>
+            <p class="subending">Ending 41/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">You think you're smart picking the options that are against what you're supposed to do? Very
+            funny, but I'm not taking it. {{NAME}} dies brutally from the narrator's administrator privileges in the
+            simulation. I refuse to elaborate.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

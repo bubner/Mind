@@ -2,10 +2,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/ar.webp') }});">
     <div id="blur">
-        <h1 class="event">HORRIBLE ENDING: ON THE RUN<br> <p class="subending">Ending 20/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} sprints from their computer, trying to escape the cheese, but there is no escape. The Cheese Aristocrat will be here shortly to capture {{NAME}}'s soul and enslave them into cheese labour...</p>
+        <h1 class="event">HORRIBLE ENDING: ON THE RUN<br>
+            <p class="subending">Ending 20/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} sprints from their computer, trying to escape the cheese, but there is no escape. The
+            Cheese Aristocrat will be here shortly to capture {{NAME}}'s soul and enslave them into cheese labour...</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

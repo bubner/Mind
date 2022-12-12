@@ -2,10 +2,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/b.png') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: I USE ARCH BTW<br> <p class="subending">Ending 35/{{ TOTAL }}</p></h1>
-        <p class="stinfo">As {{NAME}} installs Arch Linux onto the servers, they feel something behind them. Oh no, it's a Linux admin! <br> {{NAME}} tries to run, but they are glued to the ground, they will now be sentenced to lecturing on why Arch Linux is bad due to its use of systemd not following the UNIX principle...</p>
+        <h1 class="event">BAD ENDING: I USE ARCH BTW<br>
+            <p class="subending">Ending 35/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">As {{NAME}} installs Arch Linux onto the servers, they feel something behind them. Oh no, it's
+            a Linux admin! <br> {{NAME}} tries to run, but they are glued to the ground, they will now be sentenced to
+            lecturing on why Arch Linux is bad due to its use of systemd not following the UNIX principle...</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

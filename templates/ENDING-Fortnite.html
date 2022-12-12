@@ -2,13 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/y.jpg') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: FORTNITE <br> <p class="subending">Ending 24/{{ TOTAL }}</p></h1>
+        <h1 class="event">BAD ENDING: FORTNITE <br>
+            <p class="subending">Ending 24/{{ TOTAL }}</p>
+        </h1>
         <p class="stinfo">...Really?</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
-                <li><a href="/storyrestart"><button type="submit">Return to beginning and pick a better game</button></a></li>
+                <li><a href="/storyrestart"><button type="submit">Return to beginning and pick a better
+                            game</button></a></li>
                 <li><a href="/endings"><button type="submit">View all endings</button></a></li>
             </ul>
         </div>

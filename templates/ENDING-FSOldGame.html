@@ -2,10 +2,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/wikihow.jpg') }});">
+<div class="theContaininator6000"
+    style="background-image: url({{ url_for('static', filename='images/wikihow.jpg') }});">
     <div id="blur">
-        <h1 class="event">BAD ENDING: THE {{NAMECAP}} FALCON PUNCH <br> <p class="subending">Ending 05/{{ TOTAL }}</p></h1>
-        <p class="stinfo">Overhearing conversations around the room, {{NAME}} hears spoilers for the new game that just came out! Oh no! {{NAME}} outrages in tiredness, and swings a punch at the person who spoiled the plot, even if {{NAME}} was too stubborn to play it to begin with. {{NAME}} then gets tackled to the ground and falls asleep. Goodnight, world!</p>
+        <h1 class="event">BAD ENDING: THE {{NAMECAP}} FALCON PUNCH <br>
+            <p class="subending">Ending 05/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">Overhearing conversations around the room, {{NAME}} hears spoilers for the new game that just
+            came out! Oh no! {{NAME}} outrages in tiredness, and swings a punch at the person who spoiled the plot, even
+            if {{NAME}} was too stubborn to play it to begin with. {{NAME}} then gets tackled to the ground and falls
+            asleep. Goodnight, world!</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

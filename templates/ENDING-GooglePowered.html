@@ -2,10 +2,17 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/aa.jpg') }});">
     <div id="blur">
-        <h1 class="event">EPIC ENDING: GOOGLE POWERED TURRETS<br> <p class="subending">Ending 63/{{ TOTAL }}</p></h1>
-        <p class="stinfo">"Hey Google, activate internal house turrets." <br> A loud buzz and bang surge from the walls, as a massive armed turret surfaces into the room. The welder tries to run, but the turret opens fire, completely obliterating the welder's body and life. Wow. <br> One small problem, {{NAME}} tries to exit the closet, but realises the turret is aiming at them ready to fire. They open their phone and find to their surprise the SmartTurret app is not responding to their commands! {{NAME}} is stuck in the closet with a turret facing them for eternity, or until the power goes out... Darned technology.</p>
+        <h1 class="event">EPIC ENDING: GOOGLE POWERED TURRETS<br>
+            <p class="subending">Ending 63/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">"Hey Google, activate internal house turrets." <br> A loud buzz and bang surge from the walls,
+            as a massive armed turret surfaces into the room. The welder tries to run, but the turret opens fire,
+            completely obliterating the welder's body and life. Wow. <br> One small problem, {{NAME}} tries to exit the
+            closet, but realises the turret is aiming at them ready to fire. They open their phone and find to their
+            surprise the SmartTurret app is not responding to their commands! {{NAME}} is stuck in the closet with a
+            turret facing them for eternity, or until the power goes out... Darned technology.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

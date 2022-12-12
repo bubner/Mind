@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/aw.webp') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: CARED SUBORDINATES<br> <p class="subending">Ending 29/{{ TOTAL }}</p></h1>
-        <p class="stinfo">Picking up the phone, {{NAME}} hears a very sick and annoyed worker.<br>"Hey, you kind of left me hanging here. I'm in critical condition and I need to ask you some questions." <br> {{NAME}} goes back to the hospital with good intentions, but it seems as the worker thought {{NAME}} was trying to poison them... Both {{NAME}} and the IT worker remain friends of sorts, but are still distant from what they could be.</p>
+        <h1 class="event">NEUTRAL ENDING: CARED SUBORDINATES<br>
+            <p class="subending">Ending 29/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">Picking up the phone, {{NAME}} hears a very sick and annoyed worker.<br>"Hey, you kind of left
+            me hanging here. I'm in critical condition and I need to ask you some questions." <br> {{NAME}} goes back to
+            the hospital with good intentions, but it seems as the worker thought {{NAME}} was trying to poison them...
+            Both {{NAME}} and the IT worker remain friends of sorts, but are still distant from what they could be.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

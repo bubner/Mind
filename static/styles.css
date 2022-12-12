@@ -1,14 +1,15 @@
 /* Lucas Bubner, 2022 */
 
-button, input[type="submit"] {
-    /* Remove all formatting on buttons because I hate them */
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+button,
+input[type="submit"] {
+  /* Remove all formatting on buttons because I hate them */
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 html {
@@ -17,12 +18,13 @@ html {
 }
 
 #bg {
-  background-image: linear-gradient(to right,#614385, #516395);
+  background-image: linear-gradient(to right, #614385, #516395);
   color: #fff;
 }
 
 /* This is messy, but it works so no touching */
-.mainBarButtons, .endingScreen {
+.mainBarButtons,
+.endingScreen {
   text-align: center;
   top: 0;
   width: auto;
@@ -30,7 +32,8 @@ html {
   float: center;
 }
 
-.mainBarButtons ul, .endingScreen ul {
+.mainBarButtons ul,
+.endingScreen ul {
   list-style-type: none;
   margin: 3px;
   padding: 0;
@@ -40,7 +43,8 @@ html {
   float: center;
 }
 
-.mainBarButtons li, .endingScreen li {
+.mainBarButtons li,
+.endingScreen li {
   float: left;
   color: white;
   text-align: center;
@@ -49,7 +53,8 @@ html {
   z-index: 1;
 }
 
-.mainBarButtons a, .endingScreen a {
+.mainBarButtons a,
+.endingScreen a {
   background-color: #333;
   font-family: "Lato", sans-serif;
   border: none;
@@ -91,14 +96,14 @@ html {
 }
 
 #blur {
-  background: rgba(0, 0, 0, 0.4); 
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(6px);
   padding: 6em;
   border-radius: 65px;
 }
 
 #blur:hover {
-  background: rgba(0, 0, 0, 0.55); 
+  background: rgba(0, 0, 0, 0.55);
   transition: .30s ease;
 }
 
@@ -116,23 +121,33 @@ html {
 }
 
 @keyframes fade-out {
-    from { opacity: 1 }
-      to { opacity: 0 }
+  from {
+    opacity: 1
+  }
+
+  to {
+    opacity: 0
+  }
 }
 
 @keyframes fade-in {
-    from { opacity: 0 }
-      to { opacity: 1 }
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
 }
 
 #fader.fade-out {
-    opacity: 0;
-    animation-name: fade-out;
+  opacity: 0;
+  animation-name: fade-out;
 }
 
 #fader.fade-in {
-    opacity: 1;
-    animation-name: fade-in;
+  opacity: 1;
+  animation-name: fade-in;
 }
 
 .contentLoader {
@@ -173,19 +188,47 @@ html {
 }
 
 @keyframes loader {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(180deg); }
-  50% { transform: rotate(180deg); }
-  75% { transform: rotate(360deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loader-inner {
-  0% { height: 0%; }
-  25% { height: 0%; }
-  50% { height: 100%; }
-  75% { height: 100%; }
-  100% { height: 0%; }
+  0% {
+    height: 0%;
+  }
+
+  25% {
+    height: 0%;
+  }
+
+  50% {
+    height: 100%;
+  }
+
+  75% {
+    height: 100%;
+  }
+
+  100% {
+    height: 0%;
+  }
 }
 
 .subending {
@@ -204,11 +247,11 @@ html {
 }
 
 #endingpage {
-    margin-top: 0%;
-    text-align: left;
+  margin-top: 0%;
+  text-align: left;
 }
 
 #del {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }

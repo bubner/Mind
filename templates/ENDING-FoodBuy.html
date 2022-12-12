@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/w.jpg') }});">
     <div id="blur">
-        <h1 class="event">GOOD ENDING: HUMANITARIAN MISSION<br> <p class="subending">Ending 54/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} decides to get food to go, and in the meantime while they waited decided to email all of their employees issuing a day off, as {{NAME}} is in a good mood and can clearly see their departments have worked hard all year. The food ended up tasting perfect and {{NAME}} feels happy again after such a long time of being down. Food does wonders!</p>
+        <h1 class="event">GOOD ENDING: HUMANITARIAN MISSION<br>
+            <p class="subending">Ending 54/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} decides to get food to go, and in the meantime while they waited decided to email all
+            of their employees issuing a day off, as {{NAME}} is in a good mood and can clearly see their departments
+            have worked hard all year. The food ended up tasting perfect and {{NAME}} feels happy again after such a
+            long time of being down. Food does wonders!</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

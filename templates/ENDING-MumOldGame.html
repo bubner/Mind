@@ -2,10 +2,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/manmad.webp') }});">
+<div class="theContaininator6000"
+    style="background-image: url({{ url_for('static', filename='images/manmad.webp') }});">
     <div id="blur">
-        <h1 class="event">NEUTRAL ENDING: SPOILERS, SPOILERS EVERYWHERE <br> <p class="subending">Ending 09/{{ TOTAL }}</p></h1>
-        <p class="stinfo">{{NAME}} wanders the room and panics when they hear a conversation about the new game {{NAME}} didn't play. They don't want to be spoiled! {{NAME}} ends up spacing themselves far, far away from them and {{NAME}} just hangs out with their mum wanting to go back home.</p>
+        <h1 class="event">NEUTRAL ENDING: SPOILERS, SPOILERS EVERYWHERE <br>
+            <p class="subending">Ending 09/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">{{NAME}} wanders the room and panics when they hear a conversation about the new game {{NAME}}
+            didn't play. They don't want to be spoiled! {{NAME}} ends up spacing themselves far, far away from them and
+            {{NAME}} just hangs out with their mum wanting to go back home.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>

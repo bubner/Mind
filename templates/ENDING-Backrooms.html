@@ -2,10 +2,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/image.jpg') }});">
+<div class="theContaininator6000" style="background-image: url({{ url_for('static', filename='images/d.jpg') }});">
     <div id="blur">
-        <h1 class="event">STRANGE ENDING: BACKROOMS<br> <p class="subending">Ending 30/{{ TOTAL }}</p></h1>
-        <p class="stinfo">As {{NAME}} walks closer to the wall, they realise where they have gone. A dimensional shift louder than the formation of the universe bangs into their vision as they spawn inside the Backrooms.<br>{{ NAME }} finds themselves in a liminal space. There is nothing more or less in the distance, as the harmonic lights continue to buzz... Deep down, {{NAME}} knows they are not alone. Here lies nothing but the stink of old moist carpet, the madness of mono-yellow, the endless background noise of fluorescent lights at maximum hum-buzz, and approximately six hundred million square miles of randomly segmented empty rooms to be trapped in. God save you if you hear something wandering around nearby, because it sure as hell has heard you.</p>
+        <h1 class="event">STRANGE ENDING: BACKROOMS<br>
+            <p class="subending">Ending 30/{{ TOTAL }}</p>
+        </h1>
+        <p class="stinfo">As {{NAME}} walks closer to the wall, they realise where they have gone. A dimensional shift
+            louder than the formation of the universe bangs into their vision as they spawn inside the Backrooms.<br>{{
+            NAME }} finds themselves in a liminal space. There is nothing more or less in the distance, as the harmonic
+            lights continue to buzz... Deep down, {{NAME}} knows they are not alone. Here lies nothing but the stink of
+            old moist carpet, the madness of mono-yellow, the endless background noise of fluorescent lights at maximum
+            hum-buzz, and approximately six hundred million square miles of randomly segmented empty rooms to be trapped
+            in. God save you if you hear something wandering around nearby, because it sure as hell has heard you.</p>
         <div class="endingScreen"> <br style="line-height: 10px;">
             <ul>
                 <li><a href="/storyrestart"><button type="submit">Return to beginning</button></a></li>
