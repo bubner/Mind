@@ -182,7 +182,7 @@ class User:
 @app.errorhandler(500)
 def goback(e):
     print(f"> error caught and redirected to base index: {e}")
-    return redirect("/")
+    return render("index.html", MSG="Something went wrong on our end processing your request. Sorry!")
 
 
 # 404 request if a user exists, otherwise checkuser will redirect them back to the index
@@ -204,7 +204,7 @@ def checkuser():
     ) and not request.path == '/' and not request.path == '/pass' and (
             session.get("save") is None or session.get("user") is None):
         print(f"> stopped request of: {request.path} as user info was missing")
-        return render("index.html")
+        return render("index.html", MSG="We had a problem with your savefile. Please try again.")
 
 
 @app.after_request
@@ -245,7 +245,11 @@ def authenticate():
     # Get player input for their username
     if not session.get("user"):
         if not (playername := request.args.get("playername")):
-            return redirect("/")
+            return render("index.html", MSG="Username is missing.")
+            
+        if len(playername) > 16:
+            return render("index.html", MSG="Username too long. 16 characters limit.")
+            
         session['user'] = playername
         session['user'] = session["user"].capitalize()
 
