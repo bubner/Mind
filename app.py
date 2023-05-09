@@ -233,7 +233,7 @@ def autosave(r):
         if 'ending' in session["target"].lower():
             if save.addending(session["target"]):
                 print(
-                    f"> added new ending for user: {session['user']}, ending '{session['target']}'")
+                    f"> reached ending for user: {session['user']}, ending '{session['target']}'")
         session["save"] = dumps(save)
     return r
 
@@ -1089,11 +1089,6 @@ def wko():
 @app.route("/wleave")
 def wleave():
     return render('ENDING-BusinessContinue.html')
-
-
-@app.route("/wsteal")
-def wsteal():
-    return render('xC-WTakedownSteal.html')
 
 
 @app.route("/wpipe")
