@@ -1,4 +1,7 @@
-# Lucas Bubner, 2022
+"""
+Mind of CEO
+@author: Lucas Bubner, 2022
+"""
 
 from datetime import datetime
 from os import path, remove, getcwd, environ, mkdir
@@ -10,8 +13,15 @@ from time import time
 from argon2 import PasswordHasher, exceptions
 from flask import Flask, render_template, request, abort, redirect, session
 
+# Override the Flask app to manually escape .jinja files, as they are not protected from XSS
+class App(Flask):
+    def select_jinja_autoescape(self, filename: str) -> bool:
+        if filename is None:
+            return True
+        return filename.endswith((".html", ".htm", ".xml", ".xhtml", ".svg", ".jinja"))
+
 # Initialise new Flask app
-app = Flask(__name__)
+app = App(__name__)
 
 if not environ.get("SECRET_KEY"):
     raise RuntimeError("SECRET_KEY not set as an environment variable.")
@@ -25,8 +35,8 @@ auth = sqlc.cursor()
 
 # SQL execution for password authentication
 def auth_addentry(username, password):
-    # While salting with the username is not a great idea, it doesn't matter when the code is open source, and
-    # any methods of furthering protection can be seen in the code itself; if you're here, hi :)
+    # While salting with the username is not a great idea, it doesn't matter for the scope of this project
+    # I am being held hostage in Dwyer's basement
     hpass = password + username
     usercombo = [
         username,
@@ -40,21 +50,18 @@ def auth_addentry(username, password):
 
     auth.execute("INSERT INTO userlist (user, pass) VALUES(?, ?)", usercombo)
     sqlc.commit()
-    print(
-        f"> added new user/pass entry into database with username: {username}")
+    print(f"> added new user/pass entry into database with username: {username}")
 
 
 def auth_removeentry(username):
     auth.execute("DELETE FROM userlist WHERE user = ?", (username,))
     sqlc.commit()
-    print(
-        f"> removed a user/pass entry from database with username: {username}")
+    print(f"> removed a user/pass entry from database with username: {username}")
 
 
 def auth_check(username, password):
     hpass = password + username
-    entry = auth.execute(
-        "SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
+    entry = auth.execute("SELECT pass FROM userlist WHERE user = ?", (username,)).fetchone()
     try:
         res = PasswordHasher().verify(entry[0], hpass)
     except exceptions.VerifyMismatchError:
@@ -85,8 +92,7 @@ def secure_path(name):
 
     fullpath = path.normpath(path.join(basepath, name))
     if not fullpath.startswith(basepath):
-        raise OSError(
-            "Security error. Attempted to access a path outside of the base directory.")
+        raise OSError("Security error. Attempted to access a path outside of the base directory.")
 
     return fullpath
 
@@ -126,8 +132,7 @@ class User:
     # Set last page state to the last target
     def changepagestate(self):
         self.pagestate = session["target"]
-        print(
-            f"> autosaved pagestate of user: '{self.name}' with target: '{session['target']}'")
+        print(f"> autosaved pagestate of user: '{self.name}' with target: '{session['target']}'")
         self.fsave(self)
 
     # Set variable method
@@ -199,8 +204,7 @@ def goback(e):
 # 404 request if a user exists, otherwise checkuser will redirect them back to the index
 @app.errorhandler(404)
 def notfound(e):
-    print(
-        f"> 404 request intercepted while info for {session['user']} was present")
+    print(f"> 404 request intercepted while info for {session['user']} was present")
     return render('404.html')
 
 
@@ -209,12 +213,7 @@ def checkuser():
     # Stop any requests that don't have a name/savefile attached to them
     # This is to prevent blank names entering the story, and also can prevent against some manual navigation exploits
     # Not all manual navigation exploits can be stopped, but those that crash the game can be
-    if not request.path.startswith(
-            '/static/'
-    ) and not request.path.startswith(
-            '/story'
-    ) and not request.path == '/' and not request.path == '/pass' and (
-            session.get("save") is None or session.get("user") is None):
+    if not request.path.startswith(('/static/', '/story', '/', '/pass')) or not all(k in session for k in ('save', 'user')):
         print(f"> stopped request of: {request.path} as user info was missing")
         return render("index.html", MSG="We had a problem with your savefile. Please try again.")
 
