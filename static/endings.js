@@ -1,6 +1,6 @@
 /*
  *   Lucas Bubner, 2022
- *   Runs on the 'endings.html' page from the '/endings' approute
+ *   Runs on the 'endings.html.jinja' page from the '/endings' approute
  *   unlocked and total variables declared in HTML
  */
 
