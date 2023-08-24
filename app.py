@@ -213,7 +213,12 @@ def checkuser():
     # Stop any requests that don't have a name/savefile attached to them
     # This is to prevent blank names entering the story, and also can prevent against some manual navigation exploits
     # Not all manual navigation exploits can be stopped, but those that crash the game can be
-    if not request.path.startswith(('/static/', '/story', '/', '/pass')) or not all(k in session for k in ('save', 'user')):
+     if not request.path.startswith(
+            '/static/'
+    ) and not request.path.startswith(
+            '/story'
+    ) and not request.path == '/' and not request.path == '/pass' and (
+            session.get("save") is None or session.get("user") is None):
         print(f"> stopped request of: {request.path} as user info was missing")
         return render("index.html.jinja", MSG="We had a problem with your savefile. Please try again.")
 
