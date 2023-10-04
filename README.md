@@ -1,6 +1,5 @@
 # MIND OF CEO, LUCAS BUBNER 2022
-### **END USER LINK**: https://mind.lucasbubner.repl.co/
-
+###### Mind is no longer being hosted due to Replit hosting changes.
 # DESCRIPTION
 'Mind of CEO' is a Flask application which is a text-based adventure game. This game is based on player input with selection boxes which will influence the next event that is displayed.
 There are over 65 endings to the game, with all different and unique narrations and events caused by reaching these endings. The purpose of this project is to provide entertainment as a game.
