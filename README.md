@@ -1,5 +1,7 @@
 # *Mind* of CEO
 
+###### To run, start `app.py`.
+
 ## Overview
 - Flask-based text adventure game
 - Player choices dynamically affect story progression
@@ -43,4 +45,4 @@
   - Maximum length of 16 characters
   - Filesystem manipulation prevention
 
-###### Lucas Bubner, 2022
+###### Mind of CEO. Lucas Bubner, 2022.
